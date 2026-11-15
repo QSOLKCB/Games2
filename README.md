@@ -11,6 +11,9 @@ Modern - Minecraft Remake, Survival Game Remake.
 Retro - Pinball
 Arcade - Mortal Kombat , Steet Fighter 2 ,
 Ninja Combat, Cabal.
+RTS GAMES - Starcraft, Command & Conquer.
+Space Games - Star Wars - The Arcade Game.
+- Star Trek - Bridge Commander.
 
 Donor Repos - https://github.com/QSOLKCB/E8 , https://github.com/QSOLKCB/SPECTRAL ,  
 https://github.com/QSOLKCB/SONIFICATION , https://github.com/QSOLKCB/PSYCLE-LINUX ,
