@@ -27,5 +27,4 @@ https://github.com/QSOLKCB/OPT , https://github.com/QSOLKCB/ARCADE ,
 https://github.com/QSOLKCB/OFFLINE-GAMES , https://github.com/QSOLKCB/Spooky ,
 https://github.com/QSOLKCB/Outruin , https://github.com/QSOLKCB/Soccerweb ,
 https://github.com/QSOLKCB/SubHunt , https://github.com/QSOLKCB/STREET-RACER ,
-https://github.com/QSOLKCB/4XGAMES , https://github.com/QSOLKCB/DRONE-RACER ,
-https://github.com/QSOLKCB/DRONE-RACER .
+https://github.com/QSOLKCB/4XGAMES , https://github.com/QSOLKCB/DRONE-RACER .
