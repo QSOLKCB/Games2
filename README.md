@@ -5,3 +5,5 @@ Narc, Ninja Warriors, Shadow Warriors, The Punisher, Lethal Enforcers, zsnow Bro
 Shadow Dancer, Golden Axe,.
 Modern - Minecraft Remake, Survival Game Remake.
 Retro - Pinball
+Arcade - Mortal Kombat , Steet Fighter 2
+Ninja Combat, Cabal/
