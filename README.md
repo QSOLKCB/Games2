@@ -2,9 +2,9 @@
 
 **Original QSOL-IMC browser games. Built with VANILLAJS. Owned by their creators.**
 
-Games2 is a planned **offline-first games monorepo**. Actual games live in separate root directories such as `/strikepixel/`. VANILLAJS is the independent engine, physics, Game Labs, editor, mods, creator tools and education project. This repository is where game-specific worlds, content, progression, modes and releases belong.
+Games2 is an **offline-first games monorepo**. Actual games live in separate root directories such as `/strikepixel/`. VANILLAJS is the independent engine, physics, Game Labs, editor, mods, creator tools and education project. This repository is where game-specific worlds, content, progression, modes and releases belong.
 
-**Status:** documentation and planning only. **No playable Games2 games have been implemented or released yet.** The first intended game is **Strike Pixel**, an original blocky 3D arcade FPS.
+**Status:** **Strike Pixel SP-001** is implemented as a playable vertical slice, pending owner review. No Games2 game has an owner-approved release or completion milestone yet. Other concepts remain proposals.
 
 > This is not a product. This is INDEPENDENCE.
 >
@@ -14,7 +14,7 @@ Games2 is a planned **offline-first games monorepo**. Actual games live in separ
 
 | Audience | Read |
 | --- | --- |
-| Player / curious creator | [Planned games](docs/GAME_IDEAS.md) and [Strike Pixel concept](strikepixel/README.md) |
+| Player / curious creator | [Play Strike Pixel locally](strikepixel/README.md#play-locally) and [planned games](docs/GAME_IDEAS.md) |
 | Contributor / Codex | [Root agent policy](AGENTS.md), then the game's own `AGENTS.md` |
 | Implementing the first game | [Strike Pixel roadmap](strikepixel/ROADMAP.md) and [Codex handoff](strikepixel/CODEX_HANDOFF.md) |
 | Maintaining the monorepo | [Games2 roadmap](ROADMAP.md), [donor catalogue](docs/DONOR_CATALOGUE.md) |
@@ -29,7 +29,7 @@ Games2 is a planned **offline-first games monorepo**. Actual games live in separ
 | Separately reviewed engine PRs and releases | One game per new-game PR, followed by focused polish PRs |
 | May adopt proven reusable mechanisms after independent review | Uses a **pinned** engine revision; never a moving `main` dependency |
 
-**Starting engine reference:** [VANILLAJS v2.5.0 — The Creator Gateway](https://github.com/QSOLKCB/VANILLAJS/releases/tag/v2.5.0), release commit `32b4fb1ca80e854297998aa00f87a8f012398b89`. Its APIs remain experimental. A future game implementation must check the modules and dependency closure it actually consumes.
+**Starting engine reference:** [VANILLAJS v2.5.0 — The Creator Gateway](https://github.com/QSOLKCB/VANILLAJS/releases/tag/v2.5.0), release commit `32b4fb1ca80e854297998aa00f87a8f012398b89`. Its APIs remain experimental. Strike Pixel records its exact selected modules, file digests and unchanged engine sources in [its provenance manifest](strikepixel/vendor/vanillajs/provenance.json).
 
 ## Monorepo rules
 
@@ -41,13 +41,13 @@ Games2 is a planned **offline-first games monorepo**. Actual games live in separ
 - **Correctness before speed.** Test actual gameplay and failure paths, describe executed versus inferred results, and retain provenance.
 - **No silent publishing.** Merges, releases, deployments and irreversible operations require owner approval.
 
-## First planned game
+## First playable game
 
 ### [Strike Pixel](strikepixel/README.md) — `/strikepixel/`
 
 An original colourful block-built first-person shooter against offline bots, with snappy movement, responsive weapons and replayable arcade matches. No pay-to-win systems or premium currencies.
 
-The **first documentation PR** reserves the directory and specifies the scope; it does **not** ship gameplay. The [next Codex task](strikepixel/CODEX_HANDOFF.md) will implement one self-contained playable vertical slice.
+SP-001 provides **Sunrelay Yard**, three weapons, three offline bots, score/time-limited matches and an independently served static package. Start with the [local play instructions](strikepixel/README.md), [verification record](strikepixel/docs/VERIFICATION.md) and [next milestones](strikepixel/ROADMAP.md). The [original implementation handoff](strikepixel/CODEX_HANDOFF.md) remains available for scope review. This implementation is awaiting owner review; it is not a published release.
 
 ## Future games
 

@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "audit": "SP-001 immutable source and historical document preservation",
+  "executedAtUTC": "2026-11-16T07:22:44.654498+00:00",
+  "comparison": "SHA-256 and byte equality against local immutable Git objects; no network source substituted",
+  "games2Baseline": {
+    "repository": "https://github.com/QSOLKCB/Games2",
+    "commit": "821e407fe3686f44909dd431e51abd3f1381eb09"
+  },
+  "protectedFiles": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 4593,
+      "sha256": "c859df1390890451aa42325009d4bee3ac74de75858b304c8d51009d0b6fe3e8",
+      "equalsBaselineGitObject": true
+    },
+    {
+      "path": "docs/GAME_IDEAS.md",
+      "bytes": 3753,
+      "sha256": "38e3de9f2fdec9eefed44a5f4808372796179c2baaff413c472f24040fb58a12",
+      "equalsBaselineGitObject": true
+    },
+    {
+      "path": "docs/DONOR_CATALOGUE.md",
+      "bytes": 2511,
+      "sha256": "14767a6a9c0df2e1b1ccda671707ab0b38f3af0cd464c9f377dfb2494b275760",
+      "equalsBaselineGitObject": true
+    },
+    {
+      "path": "docs/ORIGINAL_README_2026-11-16.md",
+      "bytes": 2325,
+      "sha256": "7320e3b671f2f2ac8a66b82a126e24472470f85ced24f3d884eedcc1c643c80d",
+      "equalsBaselineGitObject": true
+    },
+    {
+      "path": "docs/ENGINE_INTEGRATION.md",
+      "bytes": 5438,
+      "sha256": "c9a74c2dd0a0cfc5fb127b8a569148b0e6b8a7acb5defdc9798c3c90325ea119",
+      "equalsBaselineGitObject": true
+    },
+    {
+      "path": "strikepixel/AGENTS.md",
+      "bytes": 2624,
+      "sha256": "4f435b071dcb21d43f09b14979c7ada8aa12101c1bc0aefa438e86bc8c7ab11f",
+      "equalsBaselineGitObject": true
+    },
+    {
+      "path": "strikepixel/CODEX_HANDOFF.md",
+      "bytes": 3909,
+      "sha256": "f6b4caaefba27a0c0b13c992b3eb9a15f4c65cb06b9c6cca6eeeab8c367e7ade",
+      "equalsBaselineGitObject": true
+    }
+  ],
+  "engine": {
+    "repository": "https://github.com/QSOLKCB/VANILLAJS",
+    "release": "v2.5.0",
+    "commit": "32b4fb1ca80e854297998aa00f87a8f012398b89",
+    "moduleCount": 13,
+    "unchangedSourceFiles": [
+      {
+        "path": "strikepixel/vendor/vanillajs/LICENSE",
+        "sourcePath": "LICENSE",
+        "bytes": 11357,
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/MODULES.json",
+        "sourcePath": "MODULES.json",
+        "bytes": 33484,
+        "sha256": "88cc76aefebffd3519cdbd5c6e3481016f0e4facbfa27fa37b7ec8dfca5a5478",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/NOTICE",
+        "sourcePath": "NOTICE",
+        "bytes": 15487,
+        "sha256": "3e00b198d9b7e8cf9aba1b6095caf815dd276bd7cff6c3e517927bf690c2c302",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/api/audio/effects.js",
+        "sourcePath": "api/audio/effects.js",
+        "bytes": 3108,
+        "sha256": "fc026d3cb208e3a915ad06c6bffae73f267c1ce7d5748ef5a6205b4df594fc5b",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/api/audio/index.js",
+        "sourcePath": "api/audio/index.js",
+        "bytes": 2865,
+        "sha256": "66c37457ca606c41451cfcf1ae744d7fbc636e1c7523812c94ebedbcc920a2a8",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/audio2d/index.js",
+        "sourcePath": "modules/audio2d/index.js",
+        "bytes": 4440,
+        "sha256": "838c90cc71d2ffb89a205eb47d280721bd36e3bfd8b3f7467f31668359d50034",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/character/index.js",
+        "sourcePath": "modules/character/index.js",
+        "bytes": 11390,
+        "sha256": "19cd1846a626d306f291aa3aaffa6ec6fbc2159e3cb4386f68ad2dc814aa1fc8",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/collision/index.js",
+        "sourcePath": "modules/collision/index.js",
+        "bytes": 12454,
+        "sha256": "99c0f4bc106d4162fc5bea057a7108d7cf52526279b2a8ad4e4f27c1f0e6f5c1",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/combat3d/index.js",
+        "sourcePath": "modules/combat3d/index.js",
+        "bytes": 13717,
+        "sha256": "635ab98c2d654330c0d329c2f2cdbbab57ffde0b027d38cf554ccc10d1dc1c50",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/geometry/index.js",
+        "sourcePath": "modules/geometry/index.js",
+        "bytes": 10753,
+        "sha256": "186c7e4a930deece17a7b6f739f796ab75b0e0381631364ce6f7928a0544c8e2",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/input/index.js",
+        "sourcePath": "modules/input/index.js",
+        "bytes": 8154,
+        "sha256": "e157c0eaee89ea240fa0abe43ca24d02620c917f3188f75dcc4d765392eca025",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/math/index.js",
+        "sourcePath": "modules/math/index.js",
+        "bytes": 3042,
+        "sha256": "4f4ebf0786b97342c11004b8830a535890b16693458a0436edb1fc581a411da7",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/navigation/index.js",
+        "sourcePath": "modules/navigation/index.js",
+        "bytes": 10165,
+        "sha256": "d565333fcc9ffa024ba261697f520fd34ef95ecb7e31d9d614b4dd9ec3f4a5ed",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/projectiles/index.js",
+        "sourcePath": "modules/projectiles/index.js",
+        "bytes": 3308,
+        "sha256": "9d1c045345593b9babebeb89999d99205a148361166c744d9f17c46ef2f0a0c1",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/render-webgl/index.js",
+        "sourcePath": "modules/render-webgl/index.js",
+        "bytes": 7559,
+        "sha256": "b23b2c427d3bf8b29c991e3cf676bcda13bdffa9dae88bbb9f0f4594088aba2d",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/soundtrack/index.js",
+        "sourcePath": "modules/soundtrack/index.js",
+        "bytes": 3285,
+        "sha256": "dd0760175923e4c55d85c19fb441b31890bc1bf6c138965f301cfbbb1eddaaee",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/time/index.js",
+        "sourcePath": "modules/time/index.js",
+        "bytes": 2752,
+        "sha256": "de94c0bc04e6a269504c5742455ce114f824c2c0d9d59a2fd94555df5d9bb4a2",
+        "equalsSourceGitObject": true
+      },
+      {
+        "path": "strikepixel/vendor/vanillajs/modules/weapons/index.js",
+        "sourcePath": "modules/weapons/index.js",
+        "bytes": 2881,
+        "sha256": "13dc690282c0f14518d1c0bcc1130d1aabe383bad1354de228c7cea36f206839",
+        "equalsSourceGitObject": true
+      }
+    ],
+    "adaptedWorkerOriginal": {
+      "sourcePath": "scripts/service-worker.template.js",
+      "sha256": "a38bf38d637825d8cb4a50d87529569b74a2ad04bb2f333cc58a23455f516fc7",
+      "localAdaptation": "strikepixel/scripts/service-worker.template.js",
+      "localAdaptationSHA256": "ea1125d47530a746b21d678f88e46d35e6b7aaaf3f6b56386b7fc676b272367c"
+    }
+  },
+  "licenses": {
+    "gameLicenseEqualsRepositoryLicense": true,
+    "gameLicenseSHA256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "gameNOTICEIdentifiesEngineAndWorkerAdaptation": true,
+    "newCodeSPDXHeadersChecked": true
+  }
+}

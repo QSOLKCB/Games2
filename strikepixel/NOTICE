@@ -1,0 +1,20 @@
+Strike Pixel — Sunrelay Yard (SP-001)
+Copyright 2026 QSOL-IMC / Games2 contributors.
+Licensed under the Apache License, Version 2.0; see LICENSE.
+
+Arena geometry, game rules, robot and weapon models, interface, score and sound
+effects are original procedural work authored for Strike Pixel. No commercial
+game assets, third-party fonts, recordings or textures are included.
+
+Contains unchanged selected VANILLAJS public modules and audio API files:
+https://github.com/QSOLKCB/VANILLAJS
+Release v2.5.0, commit 32b4fb1ca80e854297998aa00f87a8f012398b89.
+See vendor/vanillajs/provenance.json for exact source paths, dependency closure,
+SHA-256 digests and local-change declarations. Preserve vendor/vanillajs/LICENSE
+and vendor/vanillajs/NOTICE when redistributing this package.
+
+The package's service worker is adapted from VANILLAJS
+scripts/service-worker.template.js at the same immutable commit. Adaptation
+adds this game's package scope, digest inventory and generated cache identity;
+see scripts/service-worker.template.js in the source distribution. Original
+VANILLAJS notices remain in vendor/vanillajs/NOTICE. No engine module is changed.

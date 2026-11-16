@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "project": "Strike Pixel",
+  "engine": {
+    "repository": "https://github.com/QSOLKCB/VANILLAJS",
+    "release": "v2.5.0",
+    "commit": "32b4fb1ca80e854297998aa00f87a8f012398b89",
+    "catalogue": "MODULES.json"
+  },
+  "selection": {
+    "roots": [
+      "combat3d",
+      "character",
+      "navigation",
+      "render-webgl",
+      "geometry",
+      "input",
+      "time",
+      "math",
+      "audio2d",
+      "soundtrack"
+    ],
+    "modules": [
+      "audio2d",
+      "character",
+      "collision",
+      "combat3d",
+      "geometry",
+      "input",
+      "math",
+      "navigation",
+      "projectiles",
+      "render-webgl",
+      "soundtrack",
+      "time",
+      "weapons"
+    ],
+    "api": [
+      "api/audio/index.js",
+      "api/audio/effects.js"
+    ]
+  },
+  "license": "Apache-2.0",
+  "localChanges": [],
+  "files": [
+    {
+      "path": "LICENSE",
+      "sourcePath": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "localChanges": []
+    },
+    {
+      "path": "MODULES.json",
+      "sourcePath": "MODULES.json",
+      "bytes": 33484,
+      "sha256": "88cc76aefebffd3519cdbd5c6e3481016f0e4facbfa27fa37b7ec8dfca5a5478",
+      "localChanges": []
+    },
+    {
+      "path": "NOTICE",
+      "sourcePath": "NOTICE",
+      "bytes": 15487,
+      "sha256": "3e00b198d9b7e8cf9aba1b6095caf815dd276bd7cff6c3e517927bf690c2c302",
+      "localChanges": []
+    },
+    {
+      "path": "api/audio/effects.js",
+      "sourcePath": "api/audio/effects.js",
+      "bytes": 3108,
+      "sha256": "fc026d3cb208e3a915ad06c6bffae73f267c1ce7d5748ef5a6205b4df594fc5b",
+      "localChanges": []
+    },
+    {
+      "path": "api/audio/index.js",
+      "sourcePath": "api/audio/index.js",
+      "bytes": 2865,
+      "sha256": "66c37457ca606c41451cfcf1ae744d7fbc636e1c7523812c94ebedbcc920a2a8",
+      "localChanges": []
+    },
+    {
+      "path": "modules/audio2d/index.js",
+      "sourcePath": "modules/audio2d/index.js",
+      "bytes": 4440,
+      "sha256": "838c90cc71d2ffb89a205eb47d280721bd36e3bfd8b3f7467f31668359d50034",
+      "localChanges": []
+    },
+    {
+      "path": "modules/character/index.js",
+      "sourcePath": "modules/character/index.js",
+      "bytes": 11390,
+      "sha256": "19cd1846a626d306f291aa3aaffa6ec6fbc2159e3cb4386f68ad2dc814aa1fc8",
+      "localChanges": []
+    },
+    {
+      "path": "modules/collision/index.js",
+      "sourcePath": "modules/collision/index.js",
+      "bytes": 12454,
+      "sha256": "99c0f4bc106d4162fc5bea057a7108d7cf52526279b2a8ad4e4f27c1f0e6f5c1",
+      "localChanges": []
+    },
+    {
+      "path": "modules/combat3d/index.js",
+      "sourcePath": "modules/combat3d/index.js",
+      "bytes": 13717,
+      "sha256": "635ab98c2d654330c0d329c2f2cdbbab57ffde0b027d38cf554ccc10d1dc1c50",
+      "localChanges": []
+    },
+    {
+      "path": "modules/geometry/index.js",
+      "sourcePath": "modules/geometry/index.js",
+      "bytes": 10753,
+      "sha256": "186c7e4a930deece17a7b6f739f796ab75b0e0381631364ce6f7928a0544c8e2",
+      "localChanges": []
+    },
+    {
+      "path": "modules/input/index.js",
+      "sourcePath": "modules/input/index.js",
+      "bytes": 8154,
+      "sha256": "e157c0eaee89ea240fa0abe43ca24d02620c917f3188f75dcc4d765392eca025",
+      "localChanges": []
+    },
+    {
+      "path": "modules/math/index.js",
+      "sourcePath": "modules/math/index.js",
+      "bytes": 3042,
+      "sha256": "4f4ebf0786b97342c11004b8830a535890b16693458a0436edb1fc581a411da7",
+      "localChanges": []
+    },
+    {
+      "path": "modules/navigation/index.js",
+      "sourcePath": "modules/navigation/index.js",
+      "bytes": 10165,
+      "sha256": "d565333fcc9ffa024ba261697f520fd34ef95ecb7e31d9d614b4dd9ec3f4a5ed",
+      "localChanges": []
+    },
+    {
+      "path": "modules/projectiles/index.js",
+      "sourcePath": "modules/projectiles/index.js",
+      "bytes": 3308,
+      "sha256": "9d1c045345593b9babebeb89999d99205a148361166c744d9f17c46ef2f0a0c1",
+      "localChanges": []
+    },
+    {
+      "path": "modules/render-webgl/index.js",
+      "sourcePath": "modules/render-webgl/index.js",
+      "bytes": 7559,
+      "sha256": "b23b2c427d3bf8b29c991e3cf676bcda13bdffa9dae88bbb9f0f4594088aba2d",
+      "localChanges": []
+    },
+    {
+      "path": "modules/soundtrack/index.js",
+      "sourcePath": "modules/soundtrack/index.js",
+      "bytes": 3285,
+      "sha256": "dd0760175923e4c55d85c19fb441b31890bc1bf6c138965f301cfbbb1eddaaee",
+      "localChanges": []
+    },
+    {
+      "path": "modules/time/index.js",
+      "sourcePath": "modules/time/index.js",
+      "bytes": 2752,
+      "sha256": "de94c0bc04e6a269504c5742455ce114f824c2c0d9d59a2fd94555df5d9bb4a2",
+      "localChanges": []
+    },
+    {
+      "path": "modules/weapons/index.js",
+      "sourcePath": "modules/weapons/index.js",
+      "bytes": 2881,
+      "sha256": "13dc690282c0f14518d1c0bcc1130d1aabe383bad1354de228c7cea36f206839",
+      "localChanges": []
+    }
+  ]
+}

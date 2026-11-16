@@ -1,0 +1,134 @@
+Development attempts, in original recorded output. Final successful suite is browser.json.
+
+
+strikepixel-browser-fifth.log
+PASS briefing, real WebGL, gesture audio and first precision elimination
+PASS actual sprint, jump, three weapons, projectile travel and reload
+PASS Escape, blur, hidden page and repeated held input require explicit fresh resume
+PASS native pointer capture, actual mouse fire, unlock pause and relative look
+PASS standard gamepad neutral gate, movement, fire, pause and disconnect
+PASS context loss pauses, restored buffers remain paused until requested
+PASS bots deal actual damage, score deaths, respawn and finish a match; restart resets
+PASS narrow 320px and 390px layouts retain reachable controls
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Offline installation complete/. Input:
+
+'Running the installed offline package. Reconnect to check for updates.'
+
+    at file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:110:12
+    at async check (file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:29:32)
+    at async file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:104:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'Running the installed offline package. Reconnect to check for updates.',
+  expected: /Offline installation complete/,
+  operator: 'match'
+}
+
+Node.js v22.18.0
+
+strikepixel-browser-first.log
+PASS briefing, real WebGL, gesture audio and first precision elimination
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(Math.hypot(moved[0]-before[0],moved[2]-before[2])>.8)
+
+    at file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:52:60
+    at async check (file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:29:32)
+    at async file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:50:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '=='
+}
+
+Node.js v22.18.0
+
+strikepixel-browser-fourth.log
+PASS briefing, real WebGL, gesture audio and first precision elimination
+PASS actual sprint, jump, three weapons, projectile travel and reload
+PASS Escape, blur, hidden page and repeated held input require explicit fresh resume
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to:
+
+-0.6435011087932843
+    at file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:70:62
+    at async check (file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:29:32)
+    at async file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:68:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: -0.6435011087932843,
+  expected: -0.6435011087932843,
+  operator: 'notStrictEqual'
+}
+
+Node.js v22.18.0
+
+strikepixel-browser-second.log
+PASS briefing, real WebGL, gesture audio and first precision elimination
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(current.counters.explosions>0)
+
+    at file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:58:146
+    at async check (file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:29:32)
+    at async file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:50:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '=='
+}
+
+Node.js v22.18.0
+
+strikepixel-browser-sixth.log
+PASS briefing, real WebGL, gesture audio and first precision elimination
+PASS actual sprint, jump, three weapons, projectile travel and reload
+PASS Escape, blur, hidden page and repeated held input require explicit fresh resume
+PASS native pointer capture, actual mouse fire, unlock pause and relative look
+PASS standard gamepad neutral gate, movement, fire, pause and disconnect
+PASS context loss pauses, restored buffers remain paused until requested
+PASS bots deal actual damage, score deaths, respawn and finish a match; restart resets
+PASS narrow 320px and 390px layouts retain reachable controls
+PASS verified service-worker installation and nested-path offline startup/play
+PASS rejected saved settings, denied capture, audio failure and storage failure remain usable
+PASS unsupported graphics and failed module import show usable reload recovery
+{"result":"PASS","browser":"158.0.8127.18","engineCommit":"32b4fb1ca80e854297998aa00f87a8f012398b89","package":"8ccdd4b92fa9dafea5b0135b3564eb34a6941fc36b6212532004cf7917b566a1","checks":["briefing, real WebGL, gesture audio and first precision elimination","actual sprint, jump, three weapons, projectile travel and reload","Escape, blur, hidden page and repeated held input require explicit fresh resume","native pointer capture, actual mouse fire, unlock pause and relative look","standard gamepad neutral gate, movement, fire, pause and disconnect","context loss pauses, restored buffers remain paused until requested","bots deal actual damage, score deaths, respawn and finish a match; restart resets","narrow 320px and 390px layouts retain reachable controls","verified service-worker installation and nested-path offline startup/play","rejected saved settings, denied capture, audio failure and storage failure remain usable","unsupported graphics and failed module import show usable reload recovery"],"elapsedSeconds":39.868,"limitations":["Headless Chromium software rendering; no physical GPU, gamepad, mobile device or other browser engine exercised.","Clock-controlled requestAnimationFrame executes real fixed simulation steps; no mutating gameplay test hooks."]}
+
+strikepixel-browser-third.log
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '2bba17fd95b72efcb1248e65df85b3cafdd9144f1e9d0717420cefa7aba75e06'
+- 'ccd152c801e19fc0d1c3ce6255c8d7444ac918dcb3f33b712ee4fdb54b9073d6'
+
+    at verifyPackage (file:///home/trent/Games2-sp-001/strikepixel/scripts/verify.mjs:58:60)
+    at async file:///home/trent/Games2-sp-001/strikepixel/scripts/browser.mjs:14:16 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '2bba17fd95b72efcb1248e65df85b3cafdd9144f1e9d0717420cefa7aba75e06',
+  expected: 'ccd152c801e19fc0d1c3ce6255c8d7444ac918dcb3f33b712ee4fdb54b9073d6',
+  operator: 'strictEqual'
+}
+
+Node.js v22.18.0

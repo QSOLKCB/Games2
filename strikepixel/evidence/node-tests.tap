@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: original six-bar score and weapon cues produce deterministic bounded non-silent PCM
+ok 1 - original six-bar score and weapon cues produce deterministic bounded non-silent PCM
+  ---
+  duration_ms: 137.277796
+  type: 'test'
+  ...
+# Subtest: audio is opt-in; music and effects toggle independently and mute stops every voice
+ok 2 - audio is opt-in; music and effects toggle independently and mute stops every voice
+  ---
+  duration_ms: 8.973049
+  type: 'test'
+  ...
+# Subtest: actual engine enforces sixteen effect voices, cue deduplication and immediate pause cleanup
+ok 3 - actual engine enforces sixteen effect voices, cue deduplication and immediate pause cleanup
+  ---
+  duration_ms: 2.835953
+  type: 'test'
+  ...
+# Subtest: pending gesture enable cannot create voices after pause, and may resume later
+ok 4 - pending gesture enable cannot create voices after pause, and may resume later
+  ---
+  duration_ms: 11.361392
+  type: 'test'
+  ...
+# Subtest: failed resume is silent, invalid ticks are rejected and disposal is final
+ok 5 - failed resume is silent, invalid ticks are rejected and disposal is final
+  ---
+  duration_ms: 0.955871
+  type: 'test'
+  ...
+# Subtest: engine provenance and declared imports describe the exact immutable native module closure
+ok 6 - engine provenance and declared imports describe the exact immutable native module closure
+  ---
+  duration_ms: 19.312191
+  type: 'test'
+  ...
+# Subtest: build is deterministic, preserves notices and excludes tooling or unlisted root files
+ok 7 - build is deterministic, preserves notices and excludes tooling or unlisted root files
+  ---
+  duration_ms: 164.158455
+  type: 'test'
+  ...
+# Subtest: modified vendor bytes, undeclared files and unsafe runtime links are rejected
+ok 8 - modified vendor bytes, undeclared files and unsafe runtime links are rejected
+  ---
+  duration_ms: 70.582265
+  type: 'test'
+  ...
+# Subtest: package verifier rejects modified content and extra deployed files
+ok 9 - package verifier rejects modified content and extra deployed files
+  ---
+  duration_ms: 128.590017
+  type: 'test'
+  ...
+# Subtest: HTML cannot hide runtime dependencies in unquoted or inline scripts
+ok 10 - HTML cannot hide runtime dependencies in unquoted or inline scripts
+  ---
+  duration_ms: 32.644496
+  type: 'test'
+  ...
+# Subtest: offline registration recognises an installed package without needing an uncached manifest
+ok 11 - offline registration recognises an installed package without needing an uncached manifest
+  ---
+  duration_ms: 2.846333
+  type: 'test'
+  ...
+# Subtest: worker serves verified offline bytes and rejects cache corruption while disconnected
+ok 12 - worker serves verified offline bytes and rejects cache corruption while disconnected
+  ---
+  duration_ms: 93.212359
+  type: 'test'
+  ...
+# Subtest: one bad precache member rejects the entire installation and removes its partial cache
+ok 13 - one bad precache member rejects the entire installation and removes its partial cache
+  ---
+  duration_ms: 61.461426
+  type: 'test'
+  ...
+# Subtest: settings round-trip is owned and rejects stale, unsafe or unbounded data
+ok 14 - settings round-trip is owned and rejects stale, unsafe or unbounded data
+  ---
+  duration_ms: 1.008251
+  type: 'test'
+  ...
+# Subtest: original arena collision blocks walls and six real steps reach the elevated deck
+ok 15 - original arena collision blocks walls and six real steps reach the elevated deck
+  ---
+  duration_ms: 206.05729
+  type: 'test'
+  ...
+# Subtest: jump leaves the floor and returns, sprint moves faster, diagonal movement remains bounded
+ok 16 - jump leaves the floor and returns, sprint moves faster, diagonal movement remains bounded
+  ---
+  duration_ms: 114.230792
+  type: 'test'
+  ...
+# Subtest: Lancet performs real head/body hits, trigger latches and ammunition/reload transitions
+ok 17 - Lancet performs real head/body hits, trigger latches and ammunition/reload transitions
+  ---
+  duration_ms: 96.252633
+  type: 'test'
+  ...
+# Subtest: automatic weapon repeats at its timer cadence; Comet travels before damage and cannot pass stone
+ok 18 - automatic weapon repeats at its timer cadence; Comet travels before damage and cannot pass stone
+  ---
+  duration_ms: 29.842592
+  type: 'test'
+  ...
+# Subtest: bots acquire, remember, route and seek actual occluding cover with bounded work
+ok 19 - bots acquire, remember, route and seek actual occluding cover with bounded work
+  ---
+  duration_ms: 3.197054
+  type: 'test'
+  ...
+# Subtest: bot damage comes from real shots; player dies, team scores and delayed respawn restores state
+ok 20 - bot damage comes from real shots; player dies, team scores and delayed respawn restores state
+  ---
+  duration_ms: 1199.744592
+  type: 'test'
+  ...
+# Subtest: score and time limits produce victory, defeat and draw; ended worlds never advance
+ok 21 - score and time limits produce victory, defeat and draw; ended worlds never advance
+  ---
+  duration_ms: 355.80376
+  type: 'test'
+  ...
+# Subtest: ammo pickup is a real bounded resource change and cooldown prevents repeat collection
+ok 22 - ammo pickup is a real bounded resource change and cooldown prevents repeat collection
+  ---
+  duration_ms: 63.705248
+  type: 'test'
+  ...
+# Subtest: pause stops clocks, resume neutral-gates held fire, restart and seeded play are reproducible
+ok 23 - pause stops clocks, resume neutral-gates held fire, restart and seeded play are reproducible
+  ---
+  duration_ms: 274.376353
+  type: 'test'
+  ...
+# Subtest: invalid commands and options reject atomically before RNG, combat or clocks change
+ok 24 - invalid commands and options reject atomically before RNG, combat or clocks change
+  ---
+  duration_ms: 7.040518
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2416.269862
