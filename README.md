@@ -1,5 +1,7 @@
 # Games2
 Rules - 1 game per PR to start, polish each game in later PRs.  This will enhance each games quality.
+Unless, there are bugs or other technical reasons then a 2nd or is ok in those sort of cases.
+Otherwise 1 game per pr as a general rule.
 
 Monorepo For New QSOL-IMC GAMES:
 Offline Browser Games Arcade Using VANILLAJS
