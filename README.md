@@ -1,8 +1,8 @@
 # Games2
+Rules - 1 game per PR to start, polish each game in later PRs.  This will enhance each games quality.
+
 Monorepo For New QSOL-IMC GAMES:
-
 Offline Browser Games Arcade Using VANILLAJS
-
 games to remake qsol-imc style 
 
 Narc, Ninja Warriors, Shadow Warriors, The Punisher, Lethal Enforcers, Snow Brothers/Bubble Bobble, 
