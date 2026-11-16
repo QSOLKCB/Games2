@@ -9,16 +9,24 @@ Monorepo For New QSOL-IMC GAMES:
 Offline Browser Games Arcade Using VANILLAJS
 games to remake qsol-imc style 
 
+System Shock without the shit controls.
 Narc, Ninja Warriors, Shadow Warriors, The Punisher, Lethal Enforcers, Snow Brothers/Bubble Bobble, 
-Shadow Dancer, Golden Axe,.
+Shadow Dancer, Golden Axe,. Syndicate FPS (Syndicate 2012) A Game I cannot buy.
 Modern - Minecraft Remake, Survival Game Remake.
 Retro - Pinball
 Arcade - Mortal Kombat , Steet Fighter 2 ,
 Ninja Combat, Cabal.
-RTS GAMES - Starcraft, Command & Conquer.
-
+RTS GAMES - Starcraft, Command & Conquer. Game modes from Starcraft ums maps like ww2 and paintball.
+RTS games like Mech Games + Base Building.
+Tower Defense Games.
+Games like Carmen Sandiego but more Futuristic.
 Space Games - Subspace: Continuum , Star Wars - The Arcade Game.
-- Star Trek - Bridge Commander.
+- Star Trek - Bridge Commander. Wing Commander - IV / Prophecy Type game that isn't locked to 24fps
+- like WC4 was.  Other games, 
+
+Other games - Super Mario 3 , Mario Kart, Mechwarrior, 
+
+Add too ROADMAP when x number of games are finished, then use to upgrade VANILLAJS.
 
 Donor Repos - https://github.com/QSOLKCB/E8 , https://github.com/QSOLKCB/SPECTRAL ,  
 https://github.com/QSOLKCB/SONIFICATION , https://github.com/QSOLKCB/PSYCLE-LINUX ,
