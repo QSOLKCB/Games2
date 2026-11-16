@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="220" viewBox="0 0 240 220" role="img" aria-labelledby="title">
+  <!-- SPDX-License-Identifier: Apache-2.0; Original Games2 cartridge label. -->
+  <title id="title">Strike Pixel original cartridge label</title>
+  <rect width="240" height="220" fill="#99c9a8"/><circle cx="172" cy="49" r="36" fill="#e8db94"/>
+  <path d="m-30 168 140-73 160 82-140 73Z" fill="#265c50"/><path d="m-20 143 65-33 48 25-65 34Z" fill="#80ad8f"/><path d="m-20 143 48 26v61l-48-26Z" fill="#447b63"/><path d="m28 169 65-34v61l-65 34Z" fill="#1d493f"/>
+  <g stroke="#315343" stroke-width="2"><path d="m166 24 13-7 14 7-14 7Z" fill="#ffe3a0"/><path d="m166 24 13 7v98l-13-7Z" fill="#e8b658"/><path d="m179 31 14-7v98l-14 7Z" fill="#b77f35"/><path d="m158 63 21-10 22 10-22 12Z" fill="#ffe6a5"/><path d="m158 63 21 12v9l-21-11Z" fill="#e8b658"/><path d="m179 75 22-12v9l-22 12Z" fill="#b77f35"/></g>
+  <g stroke="#304c40" stroke-width="2" stroke-linejoin="round"><path d="m95 102 28-14 29 15-28 15Z" fill="#ffb58a"/><path d="m95 102 29 16v41l-29-15Z" fill="#ed8c70"/><path d="m124 118 28-15v41l-28 15Z" fill="#b86351"/><path d="m102 74 20-10 23 12-21 10Z" fill="#ffc393"/><path d="m102 74 22 12v27l-22-12Z" fill="#ee9979"/><path d="m124 86 21-10v26l-21 11Z" fill="#bd705a"/><path d="m108 85 12 7v8l-12-7Z" fill="#244d3e" stroke="none"/><path d="m108 87 3 2v3l-3-2Zm6 3 3 2v3l-3-2Z" fill="#d4ed86" stroke="none"/><path d="m99 150 15 8v38l-15-9Zm28 8 15-8v36l-15 9Z" fill="#d27b64"/><path d="m78 127 17-8 32 18-17 8Z" fill="#719985"/><path d="m78 127 32 18v13l-32-18Z" fill="#315d4b"/><path d="m110 145 17-8v13l-17 8Z" fill="#1c4236"/></g>
+  <path d="M17 23h34v3H17Zm0 9h22v3H17Z" fill="#387357"/><text x="17" y="58" fill="#2c614e" font-family="monospace" font-size="9" letter-spacing="1">SP / 001</text>
+  <path d="M0 205h240v15H0Z" fill="#224d40"/><text x="17" y="216" fill="#b9d293" font-family="monospace" font-size="7" letter-spacing="2">SUNRELAY YARD</text>
+</svg>

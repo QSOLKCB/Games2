@@ -1,0 +1,79 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#171b1a">
+  <meta name="description" content="The Games2 arcade. Pick a cartridge and play original, independent browser games. No accounts. No coins required.">
+  <title>Games2 Arcade — Pick a cartridge. Press play.</title>
+  <link rel="icon" href="./cabinet/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./cabinet/style.css">
+  <script type="module" src="./cabinet/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#cartridge-rack">Skip to cartridges</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="wordmark" href="./" aria-label="Games2 Arcade home"><span class="brand-icon" aria-hidden="true">G<span>2</span></span><span>GAMES<span class="wordmark-two">2</span><small>THE INDEPENDENT ARCADE</small></span></a>
+      <nav aria-label="Main navigation"><a href="https://github.com/QSOLKCB/Games2/blob/main/docs/GAME_IDEAS.md">The game ideas <span aria-hidden="true">↗</span></a><a href="https://github.com/QSOLKCB/Games2">Open source <span aria-hidden="true">↗</span></a></nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> QSOL-IMC / INDEPENDENT BY DESIGN</p><h1 id="page-title">Pick a cartridge.<br class="mobile-break"> <span>Press play.</span></h1></div>
+        <p class="intro-note">Small worlds. Big ideas.<br>Original games, built to be yours.</p>
+      </section>
+
+      <section id="cabinet" class="cabinet" data-state="loading" aria-label="Games2 cartridge arcade">
+        <div class="cabinet-marquee"><span class="marquee-name">GAMES2 <span>ARCADE</span></span><span class="marquee-center">BUILT TO PLAY. FREE TO EXPLORE.</span><span class="power-label"><span class="live-dot" aria-hidden="true"></span> POWER ON</span></div>
+        <div class="cabinet-body">
+          <div class="display-column">
+            <div class="monitor-bezel">
+              <span class="screw screw-tl" aria-hidden="true"></span><span class="screw screw-tr" aria-hidden="true"></span>
+              <div id="preview" class="preview">
+                <div id="art-fallback" class="art-fallback"><span class="fallback-symbol" aria-hidden="true">G2</span><span id="fallback-title">Games2 Arcade</span><small id="fallback-note">Choose a world to step into.</small></div>
+                <img id="preview-art" class="preview-art" alt="" hidden>
+                <div class="screen-topline" aria-hidden="true"><span><span class="screen-dot"></span> G2 // CARTRIDGE SYSTEM</span><span id="preview-number">— / —</span></div>
+                <div class="screen-caption"><span id="art-caption">ORIGINAL CABINET ART</span><span class="screen-corners" aria-hidden="true">⌜ &nbsp; ⌟</span></div>
+                <div class="screen-glass" aria-hidden="true"></div>
+              </div>
+              <div class="monitor-foot"><span>INDEPENDENT ENTERTAINMENT SYSTEM</span><span aria-hidden="true">▰ ▰ ▰ <span class="monitor-led">●</span></span></div>
+              <span class="screw screw-bl" aria-hidden="true"></span><span class="screw screw-br" aria-hidden="true"></span>
+            </div>
+            <div class="control-panel">
+              <div class="slot-assembly"><span class="hardware-label">01 / CARTRIDGE BAY</span><div class="slot-mouth" aria-hidden="true"><div id="inserted-cartridge" class="inserted-cartridge"><span class="inserted-mark">G2</span><span id="inserted-title">SELECT CARTRIDGE</span><span class="inserted-arrow">▼</span></div></div><span id="slot-caption" class="slot-caption">WAITING FOR A CARTRIDGE</span></div>
+              <div class="launch-assembly"><a id="play-link" class="play-link" role="link" aria-disabled="true" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 4 20 12 7 20Z" fill="currentColor"/></svg><span id="play-label">PLEASE WAIT</span></a><span class="launch-caption">NO COINS REQUIRED</span></div>
+            </div>
+          </div>
+
+          <div class="game-dossier">
+            <div class="dossier-top"><span class="hardware-label">NOW IN THE MACHINE</span><span class="dossier-index" id="selected-index">01</span></div>
+            <p id="selected-status" class="game-status">LOADING THE RACK</p>
+            <h2 id="selected-title">A world<br>is waiting.</h2>
+            <p id="selected-subtitle" class="game-subtitle">ORIGINAL GAMES. YOUR ARCADE.</p>
+            <p id="selected-genre" class="genre-label">BROWSER GAMES</p>
+            <p id="selected-description" class="game-description">Loading the local cartridge catalogue…</p>
+            <ul id="game-features" class="game-features" aria-label="Cartridge details"></ul>
+            <div class="dossier-footer"><span class="tiny-emblem" aria-hidden="true">G2</span><p>No accounts. No microtransactions.<br>Just you and the game.</p></div>
+          </div>
+        </div>
+
+        <div class="cabinet-status-bar"><span class="status-light" aria-hidden="true"></span><p id="cabinet-status" role="status" aria-live="polite" aria-atomic="true">Reading the cartridge catalogue…</p><span class="serial-label" aria-hidden="true">UNIT G2—001</span></div>
+        <div id="registry-error" class="registry-error" role="alert" hidden><div><strong>The cartridge rack could not be loaded.</strong><p id="registry-error-detail">Please try again.</p></div><button id="retry-registry" type="button">RELOAD CATALOGUE <span aria-hidden="true">↻</span></button></div>
+      </section>
+
+      <section class="rack-section" aria-labelledby="rack-title">
+        <div class="rack-heading"><div><span class="section-number" aria-hidden="true">02</span><h2 id="rack-title">The cartridge rack</h2></div><p id="rack-summary">CHOOSE · INSERT · PLAY</p></div>
+        <div id="cartridge-rack" class="cartridge-rack" aria-label="Choose a cartridge" tabindex="-1"></div>
+        <p class="rack-note"><span aria-hidden="true">↳</span> Choose a cartridge to load it into the cabinet. Concept cartridges are ideas, not playable games.</p>
+      </section>
+
+      <noscript><p class="noscript-note">The cabinet needs JavaScript to validate and load its cartridges. You can <a href="./docs/GAME_IDEAS.md">read the local game ideas catalogue</a> without it.</p></noscript>
+    </main>
+
+    <footer class="site-footer"><p>THIS IS NOT A PRODUCT. <strong>THIS IS INDEPENDENCE.</strong></p><div><span>Games by <a href="https://github.com/QSOLKCB/Games2">Games2</a></span><span>Engine by <a href="https://github.com/QSOLKCB/VANILLAJS">VANILLAJS</a></span><a href="./LICENSE">Apache-2.0</a></div></footer>
+  </div>
+</body>
+</html>

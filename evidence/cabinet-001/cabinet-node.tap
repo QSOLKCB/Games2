@@ -1,0 +1,140 @@
+TAP version 13
+# Subtest: actual workflow graph has reviewed official pins, isolated hosted checks and a verified artifact dependency
+ok 1 - actual workflow graph has reviewed official pins, isolated hosted checks and a verified artifact dependency
+  ---
+  duration_ms: 1.261902
+  type: 'test'
+  ...
+# Subtest: actual artifact and deployment guards reject PRs, forks, tags and feature-branch dispatches
+ok 2 - actual artifact and deployment guards reject PRs, forks, tags and feature-branch dispatches
+  ---
+  duration_ms: 2.560473
+  type: 'test'
+  ...
+# Subtest: workflow audit rejects privilege escalation, untrusted events, mutable actions and unsafe checkout
+ok 3 - workflow audit rejects privilege escalation, untrusted events, mutable actions and unsafe checkout
+  ---
+  duration_ms: 5.080835
+  type: 'test'
+  ...
+# Subtest: workflow audit rejects skipped tests, stale or mismatched artifacts and hidden shell overrides
+ok 4 - workflow audit rejects skipped tests, stale or mismatched artifacts and hidden shell overrides
+  ---
+  duration_ms: 3.329614
+  type: 'test'
+  ...
+# Subtest: actual deploy shell rejects superseded commits and lookup failure without accessing GitHub
+ok 5 - actual deploy shell rejects superseded commits and lookup failure without accessing GitHub
+  ---
+  duration_ms: 20.295631
+  type: 'test'
+  ...
+# Subtest: the real registry launches only the implemented cartridge and returns owned frozen data
+ok 6 - the real registry launches only the implemented cartridge and returns owned frozen data
+  ---
+  duration_ms: 4.220465
+  type: 'test'
+  ...
+# Subtest: concept and development entries never launch; released entries use the same fixed local path
+ok 7 - concept and development entries never launch; released entries use the same fixed local path
+  ---
+  duration_ms: 0.22843
+  type: 'test'
+  ...
+# Subtest: malformed, unknown, duplicate, escaping, executable and stale registry fields fail closed
+ok 8 - malformed, unknown, duplicate, escaping, executable and stale registry fields fail closed
+  ---
+  duration_ms: 1.017411
+  type: 'test'
+  ...
+# Subtest: registry validation never executes getters or accepts sparse and decorated arrays
+ok 9 - registry validation never executes getters or accepts sparse and decorated arrays
+  ---
+  duration_ms: 0.23976
+  type: 'test'
+  ...
+# Building alpha
+# Building beta
+# Building alpha
+# Building beta
+# Subtest: full site builds retain two complete games and rebuild both after only one changes
+ok 10 - full site builds retain two complete games and rebuild both after only one changes
+  ---
+  duration_ms: 291.411051
+  type: 'test'
+  ...
+# Subtest: source validation rejects missing entries, artwork, unknown runtime files and undeclared game directories
+ok 11 - source validation rejects missing entries, artwork, unknown runtime files and undeclared game directories
+  ---
+  duration_ms: 10.779882
+  type: 'test'
+  ...
+# Subtest: symlinked build scripts, their ancestors and runtime resources cannot enter a site
+ok 12 - symlinked build scripts, their ancestors and runtime resources cannot enter a site
+  ---
+  duration_ms: 8.776949
+  type: 'test'
+  ...
+# Building alpha
+# Building beta
+# Subtest: verification catches extra files, empty undeclared directories and altered copied game bytes
+ok 13 - verification catches extra files, empty undeclared directories and altered copied game bytes
+  ---
+  duration_ms: 261.023319
+  type: 'test'
+  ...
+# Building alpha
+# Building beta
+# Building alpha
+# Building beta
+# Subtest: invalid game output blocks publication while preserving the previously complete site
+ok 14 - invalid game output blocks publication while preserving the previously complete site
+  ---
+  duration_ms: 202.627067
+  type: 'test'
+  ...
+# Building alpha
+# Building beta
+# Subtest: invented package entries, escaping imports and external artwork are rejected
+ok 15 - invented package entries, escaping imports and external artwork are rejected
+  ---
+  duration_ms: 139.425869
+  type: 'test'
+  ...
+# Building alpha
+# Building beta
+# Subtest: a permissive game verifier cannot publish correctly hashed private tooling or credential files
+ok 16 - a permissive game verifier cannot publish correctly hashed private tooling or credential files
+  ---
+  duration_ms: 449.49859
+  type: 'test'
+  ...
+# Subtest: default-plus-named and namespace imports cannot bypass local module validation
+ok 17 - default-plus-named and namespace imports cannot bypass local module validation
+  ---
+  duration_ms: 22.602574
+  type: 'test'
+  ...
+# Subtest: SVG stylesheet imports are rejected in quoted, URL and mixed-case forms
+ok 18 - SVG stylesheet imports are rejected in quoted, URL and mixed-case forms
+  ---
+  duration_ms: 17.287979
+  type: 'test'
+  ...
+# Building alpha
+# Building beta
+# Subtest: shell-like catalogue metadata remains inert data and never selects a command
+ok 19 - shell-like catalogue metadata remains inert data and never selects a command
+  ---
+  duration_ms: 105.690283
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1554.160051

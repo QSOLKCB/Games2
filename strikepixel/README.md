@@ -1,6 +1,6 @@
 # Strike Pixel
 
-**SP-001: playable implementation, pending PR review. Unreleased.**
+**SP-001: playable preview, merged in PR #2. Unreleased.**
 
 An original offline arena FPS for Games2. Enter **Sunrelay Yard**, a compact
 34-metre block-built arena with teal cover, a warm amber relay tower, flank routes
@@ -24,6 +24,16 @@ python3 -m http.server 8000 --bind 127.0.0.1
 Open **http://127.0.0.1:8000/strikepixel/dist/** in a WebGL-capable browser.
 Choose a match and difficulty, then select **Enter the Yard**. Sound starts after
 that user action; a missing audio device does not prevent play.
+
+To test it through the Games2 cabinet, run `node scripts/build-site.mjs` from the
+repository root, serve `site/`, and select the Strike Pixel cartridge. The site
+build reuses this game's build/verifier and copies its complete verified package.
+When the parent cabinet registry is available, the footer offers **Return to
+Games2 Arcade**; leaving pauses and cancels controls through the existing lifecycle.
+The standalone export still works without a cabinet. The cabinet itself requires
+network access; cached game visits retain their independent offline support.
+See the repository's [Pages deployment guide](https://github.com/QSOLKCB/Games2/blob/main/docs/DEPLOYMENT.md)
+for deployment status and the post-merge live-site check.
 
 - **Arena match:** first to eight eliminations, or the higher score after three minutes.
 - **Quick skirmish:** first to three eliminations, or the higher score after two minutes.

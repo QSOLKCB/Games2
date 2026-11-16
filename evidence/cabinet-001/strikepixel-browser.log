@@ -1,0 +1,14 @@
+PASS briefing, real WebGL, gesture audio and first precision elimination
+PASS actual sprint, jump, three weapons, projectile travel and reload
+PASS Escape, blur, hidden page and repeated held input require explicit fresh resume
+PASS native pointer capture, actual mouse fire, unlock pause and relative look
+PASS standard gamepad neutral gate, movement, fire, pause and disconnect
+PASS context loss pauses, restored buffers remain paused until requested
+PASS bots deal actual damage, score deaths, respawn and finish a match; restart resets
+PASS three aimed precision eliminations produce the actual victory screen
+PASS narrow 320px and 390px layouts retain reachable controls
+PASS verified service-worker installation and nested-path offline startup/play
+PASS rejected saved settings, denied capture, audio failure and storage failure remain usable
+PASS unsupported graphics and failed module import show usable reload recovery
+PASS fatal rendering failure disables resume and stops audio safely
+{"result":"PASS","browser":"158.0.8127.18","engineCommit":"32b4fb1ca80e854297998aa00f87a8f012398b89","package":"d48a908aa59af65529b53140263767cd9f04bdc18420d38e94071a2dcc7400af","checks":["briefing, real WebGL, gesture audio and first precision elimination","actual sprint, jump, three weapons, projectile travel and reload","Escape, blur, hidden page and repeated held input require explicit fresh resume","native pointer capture, actual mouse fire, unlock pause and relative look","standard gamepad neutral gate, movement, fire, pause and disconnect","context loss pauses, restored buffers remain paused until requested","bots deal actual damage, score deaths, respawn and finish a match; restart resets","three aimed precision eliminations produce the actual victory screen","narrow 320px and 390px layouts retain reachable controls","verified service-worker installation and nested-path offline startup/play","rejected saved settings, denied capture, audio failure and storage failure remain usable","unsupported graphics and failed module import show usable reload recovery","fatal rendering failure disables resume and stops audio safely"],"elapsedSeconds":41.709,"limitations":["Headless Chromium software rendering; no physical GPU, gamepad, mobile device or other browser engine exercised.","Clock-controlled requestAnimationFrame executes real fixed simulation steps; no mutating gameplay test hooks."]}

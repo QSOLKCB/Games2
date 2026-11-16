@@ -1,0 +1,24 @@
+{
+  "auditUTC": "2026-11-16T07:59:08Z",
+  "method": "read-only GitHub API via gh; HTTP HEAD via curl",
+  "repository": "QSOLKCB/Games2",
+  "pages": {
+    "build_type": "workflow",
+    "html_url": "https://qsolkcb.github.io/Games2/",
+    "https_enforced": true
+  },
+  "environment": {
+    "name": "github-pages",
+    "custom_branch_policies": true,
+    "protected_branches": false,
+    "permitted": [
+      {
+        "name": "main",
+        "type": "branch"
+      }
+    ]
+  },
+  "publicRootHTTPStatus": 404,
+  "settingsChanged": false,
+  "productionDeployed": false
+}

@@ -30,4 +30,9 @@ This directory owns the **Strike Pixel game**. It does not own VANILLAJS physics
 - Review source licence and notices for any adapted donor/engine files.
 - Do not merge, tag, publish, deploy or alter VANILLAJS without owner permission.
 
-The next authorised coding scope is described in [CODEX_HANDOFF.md](CODEX_HANDOFF.md), **but this documentation-only PR does not authorise implementation**.
+SP-001 merged in PR #2; [CODEX_HANDOFF.md](CODEX_HANDOFF.md) remains the original
+implementation brief. The game is a playable preview, not a versioned release.
+Cabinet integration must reuse `scripts/build.mjs` and `scripts/verify.mjs`, copy
+the complete verified package, preserve its worker scope and cache namespace,
+and keep standalone exports playable. Navigation changes must retain existing
+pause, input and audio cancellation. New gameplay requires its own reviewed scope.

@@ -1,0 +1,312 @@
+{
+  "baseline": "b47c7cf572fb474f3cb0abaf03eefa4ce7cf0908",
+  "result": "PASS",
+  "files": [
+    {
+      "path": "docs/GAME_IDEAS.md",
+      "bytes": 3753,
+      "sha256": "38e3de9f2fdec9eefed44a5f4808372796179c2baaff413c472f24040fb58a12",
+      "equalsBaseline": true
+    },
+    {
+      "path": "docs/DONOR_CATALOGUE.md",
+      "bytes": 2511,
+      "sha256": "14767a6a9c0df2e1b1ccda671707ab0b38f3af0cd464c9f377dfb2494b275760",
+      "equalsBaseline": true
+    },
+    {
+      "path": "docs/ORIGINAL_README_2026-11-16.md",
+      "bytes": 2325,
+      "sha256": "7320e3b671f2f2ac8a66b82a126e24472470f85ced24f3d884eedcc1c643c80d",
+      "equalsBaseline": true
+    },
+    {
+      "path": "docs/ENGINE_INTEGRATION.md",
+      "bytes": 5438,
+      "sha256": "c9a74c2dd0a0cfc5fb127b8a569148b0e6b8a7acb5defdc9798c3c90325ea119",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/CODEX_HANDOFF.md",
+      "bytes": 3909,
+      "sha256": "f6b4caaefba27a0c0b13c992b3eb9a15f4c65cb06b9c6cca6eeeab8c367e7ade",
+      "equalsBaseline": true
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/NOTICE",
+      "bytes": 1146,
+      "sha256": "7c7fb412a079c2dd0c4872025ccdf94da6f544a5da9bb2e9d3e4f30598f9d856",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/MODULES.json",
+      "bytes": 33484,
+      "sha256": "88cc76aefebffd3519cdbd5c6e3481016f0e4facbfa27fa37b7ec8dfca5a5478",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/NOTICE",
+      "bytes": 15487,
+      "sha256": "3e00b198d9b7e8cf9aba1b6095caf815dd276bd7cff6c3e517927bf690c2c302",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/api/audio/effects.js",
+      "bytes": 3108,
+      "sha256": "fc026d3cb208e3a915ad06c6bffae73f267c1ce7d5748ef5a6205b4df594fc5b",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/api/audio/index.js",
+      "bytes": 2865,
+      "sha256": "66c37457ca606c41451cfcf1ae744d7fbc636e1c7523812c94ebedbcc920a2a8",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/audio2d/index.js",
+      "bytes": 4440,
+      "sha256": "838c90cc71d2ffb89a205eb47d280721bd36e3bfd8b3f7467f31668359d50034",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/character/index.js",
+      "bytes": 11390,
+      "sha256": "19cd1846a626d306f291aa3aaffa6ec6fbc2159e3cb4386f68ad2dc814aa1fc8",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/collision/index.js",
+      "bytes": 12454,
+      "sha256": "99c0f4bc106d4162fc5bea057a7108d7cf52526279b2a8ad4e4f27c1f0e6f5c1",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/combat3d/index.js",
+      "bytes": 13717,
+      "sha256": "635ab98c2d654330c0d329c2f2cdbbab57ffde0b027d38cf554ccc10d1dc1c50",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/geometry/index.js",
+      "bytes": 10753,
+      "sha256": "186c7e4a930deece17a7b6f739f796ab75b0e0381631364ce6f7928a0544c8e2",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/input/index.js",
+      "bytes": 8154,
+      "sha256": "e157c0eaee89ea240fa0abe43ca24d02620c917f3188f75dcc4d765392eca025",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/math/index.js",
+      "bytes": 3042,
+      "sha256": "4f4ebf0786b97342c11004b8830a535890b16693458a0436edb1fc581a411da7",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/navigation/index.js",
+      "bytes": 10165,
+      "sha256": "d565333fcc9ffa024ba261697f520fd34ef95ecb7e31d9d614b4dd9ec3f4a5ed",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/projectiles/index.js",
+      "bytes": 3308,
+      "sha256": "9d1c045345593b9babebeb89999d99205a148361166c744d9f17c46ef2f0a0c1",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/render-webgl/index.js",
+      "bytes": 7559,
+      "sha256": "b23b2c427d3bf8b29c991e3cf676bcda13bdffa9dae88bbb9f0f4594088aba2d",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/soundtrack/index.js",
+      "bytes": 3285,
+      "sha256": "dd0760175923e4c55d85c19fb441b31890bc1bf6c138965f301cfbbb1eddaaee",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/time/index.js",
+      "bytes": 2752,
+      "sha256": "de94c0bc04e6a269504c5742455ce114f824c2c0d9d59a2fd94555df5d9bb4a2",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/modules/weapons/index.js",
+      "bytes": 2881,
+      "sha256": "13dc690282c0f14518d1c0bcc1130d1aabe383bad1354de228c7cea36f206839",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/vendor/vanillajs/provenance.json",
+      "bytes": 4979,
+      "sha256": "db461f49acbf16eecb7607e07ced177757ad8fed858663e938ffac3062c1828a",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/README.md",
+      "bytes": 1186,
+      "sha256": "f86f2cbb41f7211bac2af92cc596e4f11892d3f5ecc32015ea6b7e92f8c7715d",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/briefing.png",
+      "bytes": 459431,
+      "sha256": "f989acab666f0bb9479fdc36a32ab1a4e0384254cbb79a98d391132bf91461a2",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/browser-attempts.log",
+      "bytes": 6620,
+      "sha256": "cf8aa91114774dddeba76c00f0ac0df0a3c594a8c7cd7ddca4f56f45766a5e22",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/browser.json",
+      "bytes": 1524,
+      "sha256": "5193e3cb1a1db045a412a45bb3d90b97ec712d4f162d816603f414a0cf7f8ad4",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/browser.log",
+      "bytes": 2410,
+      "sha256": "b33c1626aa8d46c66aca6fefacd44e1d33a2c3f82228ecce70b64a9d678501c1",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/combat.png",
+      "bytes": 77006,
+      "sha256": "9b76a9f4aaa3c7bd5414ca3d137d7c04483118ed0d85444320988d10cd0a6afe",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/layout-320.png",
+      "bytes": 159529,
+      "sha256": "bf4dd62aeb1c74862c9fe4fb49652d292e75101ae99b2a702ac8619945115fef",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/layout-390.png",
+      "bytes": 185487,
+      "sha256": "f7405f004dfd453a8e995f825e69ed98b0957b12b7f1daf4704348c9e8a2a507",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/match-end.png",
+      "bytes": 103572,
+      "sha256": "eafdf7b683f6e9862d4f59f97fd73dd79e0aaab4045d604f0b29bad4e9c5341f",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/node-tests.tap",
+      "bytes": 5834,
+      "sha256": "564290faf2a1881ad2e20cc13dcc40b14218940ce627779e23d9fe5fc4546f39",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/preservation.json",
+      "bytes": 7725,
+      "sha256": "d3efb9db31300ba44821e64d5545bdc21e9aa3d0fd348611f52ba7735fd779e6",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/evidence/victory.png",
+      "bytes": 106711,
+      "sha256": "4c769988a0e9daedecd9ef3e4187b9496c9700a9ea6bd00bdbe021c60314c2c6",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/scripts/browser.mjs",
+      "bytes": 17918,
+      "sha256": "992a326604e7b8a7e0b330543145fee785f8fe2d7cca0318d65251f127565b37",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/scripts/build.mjs",
+      "bytes": 1520,
+      "sha256": "4594a87051ec32c507de748a9258ac64b5a11f4924303e982e172c1f7411cdc1",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/scripts/package-lib.mjs",
+      "bytes": 6106,
+      "sha256": "c53007adbb00ee3ae0131e3f6ab1f69ec4bb2b0f2ddad284ababb726c86ffec0",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/scripts/service-worker.template.js",
+      "bytes": 3092,
+      "sha256": "ea1125d47530a746b21d678f88e46d35e6b7aaaf3f6b56386b7fc676b272367c",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/scripts/verify.mjs",
+      "bytes": 5479,
+      "sha256": "b30cb8e8989052c414e893735b0dd49f8926c1079980ce983be1c2621858cfe5",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/src/world.js",
+      "bytes": 10845,
+      "sha256": "52efc0c1dfb4ed0c24949e903c43fa3c3eaa1d27d01c900b8ad67f3146da6a38",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/src/arena.js",
+      "bytes": 2659,
+      "sha256": "f288d1ee20091162136c301756d6698047ea80b620fe1ee0b173d0295daa1689",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/src/bots.js",
+      "bytes": 4918,
+      "sha256": "b464cf5d5e6ca195127c11df25f498a25bfab788f6a0ec78ac07c855a9692e0a",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/src/render.js",
+      "bytes": 10388,
+      "sha256": "ca91eb6058fd76935c7b446df164c9a3cc5ac63cb42f0b5d10331ef37cbe29b6",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/src/audio.js",
+      "bytes": 7525,
+      "sha256": "39e207ada614fd11108d71a2ac5ca9c83496821488d68d087aa04e08c725b716",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/src/settings.js",
+      "bytes": 1268,
+      "sha256": "a37da33707590909038999fe0cc46c6d97fc66b01963427e285e09371c1f44af",
+      "equalsBaseline": true
+    },
+    {
+      "path": "strikepixel/src/offline.js",
+      "bytes": 2477,
+      "sha256": "e8c9934f1d733f6c113e629634ae1d66b4dedf443467038207af18179333b3d5",
+      "equalsBaseline": true
+    }
+  ]
+}

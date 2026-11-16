@@ -1,0 +1,121 @@
+{
+  "name": "Cabinet verification",
+  "on": {
+    "pull_request": {
+      "branches": [
+        "main"
+      ]
+    },
+    "workflow_call": {
+      "inputs": {
+        "pages_artifact": {
+          "description": "Upload the verified site for the same main-branch Pages run.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        }
+      }
+    }
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "jobs": {
+    "verify": {
+      "name": "Source, game, cabinet and browser checks",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 30,
+      "permissions": {
+        "contents": "read"
+      },
+      "steps": [
+        {
+          "id": "checkout",
+          "name": "Check out this event commit",
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "persist-credentials": false
+          }
+        },
+        {
+          "id": "node",
+          "name": "Set up Node 22",
+          "uses": "actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+          "with": {
+            "node-version": "22",
+            "package-manager-cache": false
+          }
+        },
+        {
+          "id": "policy",
+          "name": "Validate deployment trust policy",
+          "run": "node scripts/verify-workflows.mjs",
+          "shell": "bash"
+        },
+        {
+          "id": "source",
+          "name": "Verify source inventories and provenance",
+          "run": "node scripts/verify-site.mjs --source\nnode strikepixel/scripts/verify.mjs --source",
+          "shell": "bash"
+        },
+        {
+          "id": "tests",
+          "name": "Run cabinet and existing Strike Pixel Node tests",
+          "run": "node --test tests/*.test.mjs\nnode --test strikepixel/tests/*.test.mjs",
+          "shell": "bash"
+        },
+        {
+          "id": "build",
+          "name": "Build and verify actual game and site packages",
+          "run": "node strikepixel/scripts/build.mjs\nnode strikepixel/scripts/verify.mjs\nnode scripts/build-site.mjs\nnode scripts/verify-site.mjs",
+          "shell": "bash"
+        },
+        {
+          "id": "provision",
+          "name": "Install pinned external browser tooling",
+          "run": "npm install --prefix \"$RUNNER_TEMP/games2-browser\" --ignore-scripts --no-save --package-lock=false --no-audit --no-fund playwright@1.64.0\nnode \"$RUNNER_TEMP/games2-browser/node_modules/playwright/cli.js\" install --with-deps chromium\nnode -e 'console.log(\"Playwright \"+require(\"playwright/package.json\").version); console.log(\"Chromium executable \"+require(\"playwright\").chromium.executablePath());'",
+          "shell": "bash",
+          "env": {
+            "NODE_PATH": "${{ runner.temp }}/games2-browser/node_modules",
+            "PLAYWRIGHT_BROWSERS_PATH": "${{ runner.temp }}/games2-browsers"
+          }
+        },
+        {
+          "id": "browser",
+          "name": "Exercise both packaged browser surfaces",
+          "run": "node strikepixel/scripts/browser.mjs\nnode scripts/browser-site.mjs",
+          "shell": "bash",
+          "env": {
+            "NODE_PATH": "${{ runner.temp }}/games2-browser/node_modules",
+            "PLAYWRIGHT_BROWSERS_PATH": "${{ runner.temp }}/games2-browsers"
+          }
+        },
+        {
+          "id": "final",
+          "name": "Reverify bytes that will be uploaded",
+          "run": "node scripts/verify-site.mjs\ngit diff --check",
+          "shell": "bash"
+        },
+        {
+          "id": "publication",
+          "name": "Enforce exact publication repository, ref and event",
+          "if": "${{ inputs.pages_artifact == true }}",
+          "run": "test \"$GITHUB_REPOSITORY\" = \"QSOLKCB/Games2\"\ntest \"$GITHUB_REF\" = \"refs/heads/main\"\ncase \"$GITHUB_EVENT_NAME\" in push|workflow_dispatch) ;; *) exit 1 ;; esac",
+          "shell": "bash"
+        },
+        {
+          "id": "artifact",
+          "name": "Upload only the verified main-branch site",
+          "if": "${{ inputs.pages_artifact == true && (github.repository == 'QSOLKCB/Games2' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')) }}",
+          "uses": "actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9",
+          "with": {
+            "name": "github-pages",
+            "path": "site/",
+            "retention-days": 1,
+            "include-hidden-files": true
+          }
+        }
+      ]
+    }
+  }
+}

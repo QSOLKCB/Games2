@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title description">
+  <!-- SPDX-License-Identifier: Apache-2.0; Original Games2 concept illustration. -->
+  <title id="title">Starward Signal — concept cartridge</title><desc id="description">An original angular exploration ship crosses a pale ringed planet in a deep teal starfield. A concept illustration, not a playable game.</desc>
+  <defs><radialGradient id="sky"><stop stop-color="#315c67"/><stop offset="1" stop-color="#142d40"/></radialGradient><linearGradient id="planet" x2=".7" y2="1"><stop stop-color="#d7d5ad"/><stop offset=".5" stop-color="#b7c7ad"/><stop offset="1" stop-color="#477c83"/></linearGradient><linearGradient id="trail" x2="1" y2=".3"><stop stop-color="#99f2c4" stop-opacity="0"/><stop offset="1" stop-color="#b5ffdb"/></linearGradient><pattern id="stars" width="167" height="137" patternUnits="userSpaceOnUse"><path d="M18 23h2v2h-2Zm78 65h1v1h-1Zm43-43h2v2h-2Zm-92 62h1v1h-1Z" fill="#c4e4cf" opacity=".6"/></pattern></defs>
+  <rect width="1200" height="620" fill="url(#sky)"/><rect width="1200" height="620" fill="url(#stars)"/>
+  <circle cx="877" cy="219" r="174" fill="url(#planet)"/><path d="M728 130c87 42 171-16 287-12M705 192c100 21 177-6 337 4M709 241c95-33 170 5 334 20M730 307c114-32 167 18 270 28" fill="none" stroke="#d4dab9" stroke-width="18" opacity=".15"/>
+  <ellipse cx="870" cy="244" rx="303" ry="69" transform="rotate(-23 870 244)" fill="none" stroke="#adc8b4" stroke-width="15" opacity=".3"/><path d="M595 351c25 57 243 13 412-64 120-54 178-102 156-127" fill="none" stroke="#d9dfbd" stroke-width="6" opacity=".75"/>
+  <path d="m0 620 547-286 28 46L104 620Z" fill="url(#trail)" opacity=".23"/><path d="m183 620 478-258 13 29-422 229Z" fill="url(#trail)" opacity=".36"/><path d="m57 620 536-264m-328 264 412-241" fill="none" stroke="#8ddbbe" stroke-width="2" opacity=".3"/>
+  <g stroke="#1a3944" stroke-width="4" stroke-linejoin="round">
+    <path d="m400 396 191-105 184-24-65 84-141 122Z" fill="#587f83"/>
+    <path d="m400 396 191-105 184-24-179 131Z" fill="#b6cbbb"/>
+    <path d="m400 396 196 2-27 75-131-35Z" fill="#6f9c94"/>
+    <path d="m541 319 41-78 110-47 16 83-112 121Z" fill="#d1d6b9"/><path d="m596 398 112-121 67-10-65 84-141 122Z" fill="#477b7f"/>
+    <path d="m582 241 110-47-34 100-62 104-55-79Z" fill="#e1dfbf"/>
+    <path d="m597 250 66-31-23 67-43 70-35-36Z" fill="#2f6070"/><path d="m618 242 8 48-39 46" fill="none" stroke="#90b8ab" stroke-width="3"/>
+    <path d="m691 265 181-36-115 111-47 11Z" fill="#b4c7b6"/><path d="m757 340 115-111-78 123-53 27Z" fill="#417278"/>
+    <path d="m416 382 19-56 52-38-8 61-33 49Z" fill="#b3c9b7"/><path d="m435 326 52-38-6 39-32 35Z" fill="#d6d9bd"/>
+    <path d="m451 415 46-4-12 41-40-11Z" fill="#20414a"/><path d="m459 420 29-3-8 26-25-6Z" fill="#acf4c9" stroke="none"/>
+    <path d="m530 424 47-1-13 41-44-11Z" fill="#20414a"/><path d="m538 430 29-1-8 26-27-7Z" fill="#acf4c9" stroke="none"/>
+    <path d="m704 310 49-15-17 18-40 15Z" fill="#eeaa76" stroke="none"/><path d="m532 347 19-11-12 20-18 10Z" fill="#eeaa76" stroke="none"/>
+  </g>
+  <g fill="none" stroke="#8dbbb7" opacity=".5"><circle cx="571" cy="343" r="224" stroke-dasharray="2 14"/><path d="M304 343h31m473 0h31M571 76v31m0 473v30"/><path d="m1019 491 55-32h76M251 356l-44-29h-75"/></g>
+  <g font-family="Arial,sans-serif" font-weight="900" fill="#dce5c9"><text x="94" y="126" font-size="53" letter-spacing="-2">STARWARD</text><text x="94" y="179" font-size="53" letter-spacing="-2">SIGNAL</text></g><path d="M98 203h177" stroke="#79a4a3" stroke-width="2"/><text x="98" y="229" fill="#a4c3b7" font-family="monospace" font-size="10" letter-spacing="2">A SPACE EXPLORATION IDEA</text>
+  <g fill="#b7d4be" font-family="monospace" font-size="8" letter-spacing="2"><text x="1022" y="510">SIGNAL / UNKNOWN</text><text x="95" y="345">BEYOND THE MAP</text></g>
+</svg>
