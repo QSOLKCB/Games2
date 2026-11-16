@@ -1,0 +1,63 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b33">
+  <meta name="description" content="Strike Pixel: an original offline arena FPS. Three weapons. One sunlit yard. No accounts. Just play.">
+  <title>Strike Pixel — Sunrelay Yard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="./index.html" aria-label="Strike Pixel home"><span class="brand-icon" aria-hidden="true">✳</span><span>STRIKE<span class="brand-pixel">PIXEL</span><small>INDEPENDENT ARENA COMBAT</small></span></a>
+    <div class="arena-label"><span class="status-dot" aria-hidden="true"></span> SUNRELAY YARD <span class="tag">SP—001</span></div>
+    <nav aria-label="Game controls"><button id="help-toggle" aria-expanded="false" aria-controls="controls">Controls <kbd>?</kbd></button><button id="fullscreen">Full screen</button><button id="pause" disabled>Pause <kbd>Esc</kbd></button></nav>
+  </header>
+  <main>
+    <section class="arena" aria-label="Strike Pixel arena">
+      <canvas id="game" tabindex="0" aria-label="First-person arena. WASD move, mouse or arrows aim, F fires, Space jumps. Escape pauses."></canvas>
+      <div class="scan-corner top-left" aria-hidden="true"></div><div class="scan-corner bottom-right" aria-hidden="true"></div>
+      <div id="hud" class="hud" hidden>
+        <div class="score-block"><span class="micro">RELAY CLASH</span><div><strong id="score-player">0</strong><span class="score-divider">/</span><strong id="score-bots">0</strong></div><span class="score-labels">YOU <span>THE CREW</span></span></div>
+        <div class="clock-block"><span id="match-goal" class="micro">FIRST TO 8</span><strong id="timer">3:00</strong></div>
+        <div class="health-block"><span class="micro">INTEGRITY <b id="health">100</b></span><div class="health-track"><i id="health-fill"></i></div><span class="micro shield">SHIELD <b id="armour">0</b></span></div>
+        <div id="crosshair" class="crosshair" aria-hidden="true"><i></i><i></i><i></i><i></i><span></span></div>
+        <div id="hit-marker" class="hit-marker" aria-hidden="true">×</div>
+        <div id="damage-vignette" aria-hidden="true"></div>
+        <div id="combat-notice" class="combat-notice" role="status" aria-live="polite"></div>
+        <div id="feed" class="feed" aria-label="Combat log" aria-live="polite"></div>
+        <div class="ammo-block"><span class="micro" id="weapon-name">LANCET</span><div><strong id="ammo">6</strong><span>/ <b id="reserve">30</b></span></div><span id="reload-status" class="micro">PRECISION · PRESS TO FIRE</span></div>
+      </div>
+      <div id="briefing" class="overlay">
+        <section class="briefing-card" aria-labelledby="briefing-title">
+          <div class="eyebrow"><span>01 / SUNRELAY YARD</span><span>OFFLINE ARENA</span></div>
+          <p class="kicker">THE YARD IS YOURS.</p>
+          <h1 id="briefing-title">MAKE EVERY<br><span>PIXEL COUNT.</span></h1>
+          <p class="intro">Warm concrete. Cold aim. Outplay the relay crew in a compact arena built for cover, movement and a well-timed shot.</p>
+          <div class="match-facts"><span><b>3</b> WEAPONS</span><span><b>3</b> OFFLINE BOTS</span><span><b>0</b> ACCOUNTS</span></div>
+          <div class="match-selectors"><label>Match<select id="match-length"><option value="quick">Quick skirmish · 3 points / 2 min</option><option value="arena" selected>Arena match · 8 points / 3 min</option></select></label><label>Crew<select id="difficulty"><option value="casual">Casual · room to learn</option><option value="standard">Standard · stay moving</option></select></label></div>
+          <button id="start" class="primary" disabled>ENTER THE YARD <span aria-hidden="true">↗</span></button>
+          <p id="boot-message" class="boot-message" role="status">Preparing the arena…</p>
+          <p class="capture-help">WASD move · Click the arena to capture your mouse · Esc pauses<br>Mouse capture unavailable? Drag to look and press F to fire.</p>
+          <details id="settings"><summary>Field settings <span>sound / aim</span></summary><div class="settings-grid"><label class="check"><input id="music" type="checkbox" checked> Music</label><label class="check"><input id="effects" type="checkbox" checked> Sound effects</label><label class="check"><input id="invert-y" type="checkbox"> Invert vertical aim</label><label class="sensitivity">Aim sensitivity <output id="sensitivity-value">1.0×</output><input id="sensitivity" type="range" min="0.4" max="2.2" step="0.1" value="1"></label></div></details>
+          <p id="settings-status" class="quiet" role="status"></p>
+        </section>
+        <aside class="arena-card" aria-label="Arena briefing"><span class="micro">FIELD NOTES / 001</span><h2>Sunrelay<br>Yard.</h2><p>Circle the relay. Break sightlines. Take the high route.</p><div class="arena-diagram" aria-hidden="true"><i class="diagram-block a"></i><i class="diagram-block b"></i><i class="diagram-block c"></i><i class="diagram-relay"></i><i class="diagram-path"></i><span>N</span></div><p class="micro">AMBER = RELAY STRUCTURES<br>TEAL = COVER<br>CORAL = HOSTILE CREW</p><div class="arena-rule">First to the point limit wins.<br>On timeout, the higher score wins.<br>Death costs time, not your match.</div></aside>
+      </div>
+      <div id="end-screen" class="end-overlay" hidden><section class="end-card" aria-labelledby="outcome"><span class="micro">RELAY CLASH / COMPLETE</span><h2 id="outcome">YARD SECURED</h2><p id="end-description"></p><div class="end-score"><div><span>YOU</span><strong id="end-player">0</strong></div><span>:</span><div><span>THE CREW</span><strong id="end-bots">0</strong></div></div><p id="end-stats"></p><button id="restart" class="primary">RUN IT BACK <span aria-hidden="true">↻</span></button><button id="back" class="secondary">Return to briefing</button></section></div>
+      <div id="error" class="error-panel" hidden role="alert"><strong>Arena unavailable</strong><p id="error-message"></p><button id="retry">Reload game</button></div>
+    </section>
+    <section id="weapons" class="loadout" aria-label="Select weapon">
+      <button data-weapon="0" aria-pressed="true"><kbd>1</kbd><span class="weapon-glyph precision" aria-hidden="true">━╋━</span><span><b>LANCET</b><small>PRECISION / CLICK FIRE</small></span></button>
+      <button data-weapon="1" aria-pressed="false"><kbd>2</kbd><span class="weapon-glyph automatic" aria-hidden="true">▰▰▰</span><span><b>RIVET</b><small>AUTOMATIC / HOLD FIRE</small></span></button>
+      <button data-weapon="2" aria-pressed="false"><kbd>3</kbd><span class="weapon-glyph projectile" aria-hidden="true">◈➜</span><span><b>COMET</b><small>PROJECTILE / SPLASH</small></span></button>
+      <div class="loadout-note">Move with purpose.<br><span>Every weapon is yours from the start.</span></div>
+    </section>
+    <section id="controls" class="controls" hidden aria-labelledby="controls-heading"><h2 id="controls-heading">Your field manual</h2><div><p><kbd>W A S D</kbd> Move<br><kbd>Shift</kbd> Sprint · <kbd>Space</kbd> Jump</p><p><kbd>Mouse</kbd> Look / click to capture<br><kbd>Arrows</kbd> Aim · <kbd>F</kbd> Fire</p><p><kbd>1 2 3</kbd> Select weapon<br><kbd>R</kbd> Reload · <kbd>Esc</kbd> Pause</p><p><b>Standard controller</b><br>Sticks move / look · RT fire · A jump<br>X reload · LB / RB weapon · Start pause</p></div><p>Casual mode gives you more reaction time. Break line of sight to reload; pick up supplies when you are low. Comet splash can hurt you at close range. Desktop keyboard/mouse is the primary control scheme; small-screen layout is supported, touch combat is deferred.</p></section>
+  </main>
+  <footer><span><b>QSOL—IMC</b> / ORIGINAL GAMES, OWNED BY YOU.</span><span id="offline-status" role="status">Offline package: checking…</span><a href="README.md">Readme &amp; credits ↗</a></footer>
+  <script type="module" src="start.js"></script>
+</body>
+</html>

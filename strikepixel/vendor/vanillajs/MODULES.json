@@ -1,0 +1,1075 @@
+{
+  "schemaVersion": 1,
+  "release": "1.0.0",
+  "license": "Apache-2.0",
+  "modules": {
+    "math": {
+      "entry": "modules/math/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Vectors, quaternions, matrices and seeded randomness"
+    },
+    "time": {
+      "entry": "modules/time/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Fixed simulation ticks, interpolation and pause"
+    },
+    "collision": {
+      "entry": "modules/collision/index.js",
+      "depends": [
+        "math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Static and translating AABB sweeps, body sliding, finite shots and bounded kinematic contacts"
+    },
+    "flight": {
+      "entry": "modules/flight/index.js",
+      "depends": [
+        "math",
+        "collision"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "6DOF rigid-body integration, assisted/inertial control and direct mouse look"
+    },
+    "input": {
+      "entry": "modules/input/index.js",
+      "depends": [
+        "math"
+      ],
+      "environment": "pure state with opt-in browser adapter",
+      "status": "experimental",
+      "description": "Action state, keyboard/mouse lifecycle and standard gamepad mapping"
+    },
+    "render-webgl": {
+      "entry": "modules/render-webgl/index.js",
+      "depends": [
+        "math"
+      ],
+      "environment": "browser-webgl1",
+      "status": "experimental",
+      "description": "Minimal coloured geometry, lines, points and camera rendering"
+    },
+    "projectiles": {
+      "entry": "modules/projectiles/index.js",
+      "depends": [
+        "math",
+        "collision"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded straight projectiles against static or translating targets, ordered impacts and lifetimes"
+    },
+    "interactions": {
+      "entry": "modules/interactions/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Declarative conditions and effects with ordered resolution and explanatory outcomes"
+    },
+    "character": {
+      "entry": "modules/character/index.js",
+      "depends": [
+        "math",
+        "collision"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Grounded walking, crouching, jumping and static stairs or translating-platform riding"
+    },
+    "weapons": {
+      "entry": "modules/weapons/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Simulation-time magazines, fire cadence and finite-reserve reloading"
+    },
+    "navigation": {
+      "entry": "modules/navigation/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Immutable X/Z grids, bounded A*, group destinations and incremental shared flow fields"
+    },
+    "geometry": {
+      "entry": "modules/geometry/index.js",
+      "depends": [
+        "collision"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Exact Float32 box batching, conservative ternary frustum classification and bounded static AABB indexing with reusable candidate collection"
+    },
+    "terrain": {
+      "entry": "modules/terrain/index.js",
+      "depends": [
+        "math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded immutable triangulated heightfield, sampling and ridge-safe continuous segment crossings"
+    },
+    "ballistics": {
+      "entry": "modules/ballistics/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Closed-form bounded constant-gravity vertical stepping with explicit ground clamping"
+    },
+    "adaptive-circles": {
+      "entry": "modules/adaptive-circles/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Immutable 2D circle snapshots with adaptive serial brute-force/grid swept-hit queries"
+    },
+    "cuboid-stream": {
+      "entry": "modules/cuboid-stream/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Retained Float32 cuboid instance stream, exact encoded input and deterministic distance LOD"
+    },
+    "appearance": {
+      "entry": "modules/appearance/index.js",
+      "depends": [
+        "cuboid-stream"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Renderer-independent bounded cuboid appearances with shared RGB LUT, deterministic actor variation, high/low detail emission and cuboid-stream adapter"
+    },
+    "navigation-pool": {
+      "entry": "modules/navigation-pool/index.js",
+      "depends": [
+        "navigation"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Generation-stamped reusable typed-array A* workspace with exact navigation.findPath parity and retained parallel heap"
+    },
+    "frame-gate": {
+      "entry": "modules/frame-gate/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Transactional opt-in presentation invalidation, exact primitive keys and skipped idle rendering"
+    },
+    "range2d": {
+      "entry": "modules/range2d/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Conservative Euclidean 2D axis rejection preserving exact Math.hypot range decisions"
+    },
+    "integer-replay": {
+      "entry": "modules/integer-replay/index.js",
+      "depends": [
+        "integer-engine",
+        "integer-math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Source-pinned complete integer command tapes, strict validation and checked replay admission"
+    },
+    "nexus-lattice": {
+      "entry": "modules/nexus-lattice/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded reversible Z4 cuboctahedral lattice derived from integer graph geometry"
+    },
+    "orbital-physics": {
+      "entry": "modules/orbital-physics/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Classical Newtonian central-mass gravity in SI units with velocity-Verlet orbit integration"
+    },
+    "integer-math": {
+      "entry": "modules/integer-math/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Checked signed fixed-point arithmetic, integer square root and explicit uint32 PRNG"
+    },
+    "integer-vector": {
+      "entry": "modules/integer-vector/index.js",
+      "depends": [
+        "integer-math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Checked 16.16 vector operations with exact BigInt dot/cross/distance intermediates and rational interpolation"
+    },
+    "integer-time": {
+      "entry": "modules/integer-time/index.js",
+      "depends": [
+        "integer-math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Integer microsecond scheduling, rational tick phase and bounded catch-up"
+    },
+    "integer-physics": {
+      "entry": "modules/integer-physics/index.js",
+      "depends": [
+        "integer-math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Integer X/Y/Z axis sweeps against immutable static AABBs"
+    },
+    "integer-engine": {
+      "entry": "modules/integer-engine/index.js",
+      "depends": [
+        "integer-math",
+        "integer-physics"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Atomic integer simulation ticks, canonical snapshots and bounded replay"
+    },
+    "lead-solver": {
+      "entry": "modules/lead-solver/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded 3D constant-velocity intercept prediction with optional shooter-velocity inheritance"
+    },
+    "motion2d": {
+      "entry": "modules/motion2d/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Deterministic integer X/Y movement for RTS, shooter, platformer and car with explicit bounds"
+    },
+    "audio2d": {
+      "entry": "modules/audio2d/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Four-lane, bounded, integer-sample procedural audio and 48kHz mono PCM16LE WAV output"
+    },
+    "logical-sampling": {
+      "entry": "modules/logical-sampling/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Exact positive-u64 logical population sampling and bounded deterministic resident work partitions"
+    },
+    "gf3-lattice": {
+      "entry": "modules/gf3-lattice/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded reversible GF(3) SUM/SWAP state transforms on periodic 2D lattices"
+    },
+    "ternary-store2d": {
+      "entry": "modules/ternary-store2d/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Canonical UTF-8 TXT/JSON to 27-column radix-3 arrays with 256-byte LUT and invariant snapshot reuse"
+    },
+    "time-domains": {
+      "entry": "modules/time-domains/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Deterministic independent real, world, player and weapon time domains for fixed-tick simulation"
+    },
+    "qfloat": {
+      "entry": "modules/qfloat/index.js",
+      "depends": [
+        "integer-math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Float-like decimal authoring facade backed entirely by checked signed Q16.16, explicit quantization, no implicit Float64 arithmetic"
+    },
+    "exact-rational": {
+      "entry": "modules/exact-rational/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded immutable BigInt rationals, strict decimal-string parsing and exact canonical serialization; authoring only"
+    },
+    "exact-interval": {
+      "entry": "modules/exact-interval/index.js",
+      "depends": [
+        "exact-rational"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Immutable exact closed rational intervals, inclusive membership, source-admissible three-way separation and exact intersection"
+    },
+    "exact-geometry": {
+      "entry": "modules/exact-geometry/index.js",
+      "depends": [
+        "exact-rational",
+        "exact-interval"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Source-checked XY rational points/boxes, wide-BigInt orientation, closed segment predicates and positive-area AABB classification"
+    },
+    "rational-q16": {
+      "entry": "modules/rational-q16/index.js",
+      "depends": [
+        "exact-rational",
+        "integer-math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Explicit bounded exact-rational to checked Q16.16 quantization with six rounding policies, fail-closed or opt-in saturating overflow, and exact inverse"
+    },
+    "render-optional": {
+      "entry": "modules/render-optional/index.js",
+      "depends": [],
+      "environment": "browser-canvas2d with opt-in WebGPU/WASM",
+      "status": "experimental",
+      "description": "Bounded retained XYZ/RGB geometry, CPU default, lazy explicit GPU consent and CPU recovery"
+    },
+    "exact-d4": {
+      "entry": "modules/exact-d4/index.js",
+      "depends": [
+        "exact-rational",
+        "exact-interval",
+        "exact-geometry"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded exact D4 origin-centred XY actions, composition/inverses, closed box transforms and reduced exact squared distance; authoring only"
+    },
+    "exact-graph": {
+      "entry": "modules/exact-graph/index.js",
+      "depends": [
+        "exact-rational"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/graph-lab/index.html",
+      "description": "Bounded simple undirected graphs, deterministic BFS/DFS, exact rational/integer invariants and BigInt adjacency characteristic polynomials; authoring only"
+    },
+    "exact-course": {
+      "entry": "modules/exact-course/index.js",
+      "depends": [
+        "exact-rational",
+        "rational-q16",
+        "integer-math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/alien-course-lab/index.html",
+      "description": "Opt-in exact decimal drone-course authoring, explicit Q16.16 aperture bounds and widened BigInt swept crossing predicates"
+    },
+    "mod-sdk": {
+      "entry": "modules/mod-sdk/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded data-only manifest registry, exact-version dependencies and transactional local lifecycle; no executable plugin loading"
+    },
+    "exact-circuit": {
+      "entry": "modules/exact-circuit/index.js",
+      "depends": [
+        "exact-rational",
+        "rational-q16",
+        "integer-math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/circuit-mod-lab/index.html",
+      "description": "Exact Q16 cardinal X/Z racing planes and inert obstacle bounds; widened BigInt sweeps, chronological lap transitions and conservative contact suppression"
+    },
+    "mod-course": {
+      "entry": "modules/mod-course/index.js",
+      "depends": [
+        "mod-sdk",
+        "exact-course",
+        "exact-circuit"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/circuit-mod-lab/index.html",
+      "description": "Typed, fail-closed ALIEN MATH v1/v2 data-only course adapters for the existing Mod SDK registry, without executing extensions"
+    },
+    "gf3": {
+      "entry": "modules/gf3/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/quantum-game-lab/index.html",
+      "description": "Bounded exact GF(3) vectors, matrices, reversible affine maps, syndromes and directed finite transition graphs"
+    },
+    "symbolic-events": {
+      "entry": "modules/symbolic-events/index.js",
+      "depends": [
+        "gf3",
+        "audio2d"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/quantum-game-lab/index.html",
+      "description": "Versioned deterministic ternary composition rules, canonical symbolic events and reference PCM through audio2d"
+    },
+    "mod-experiment": {
+      "entry": "modules/mod-experiment/index.js",
+      "depends": [
+        "mod-sdk",
+        "gf3",
+        "symbolic-events"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/quantum-game-lab/index.html",
+      "description": "Typed bounded data-only experiment packs over the existing transactional Mod SDK registry"
+    },
+    "gamepad": {
+      "entry": "modules/gamepad/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Owned action profiles, raw USB axes and hats, pure calibration capture and mapping"
+    },
+    "soundtrack": {
+      "entry": "modules/soundtrack/index.js",
+      "depends": [
+        "audio2d"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded multi-phrase PCM scores, exact tick positions and complete loop WAV export"
+    },
+    "mod-football": {
+      "entry": "modules/mod-football/index.js",
+      "depends": [
+        "mod-sdk"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Typed, bounded football content packs: clubs, rosters, formations and rules; transactional composition over the data-only registry.",
+      "demo": "demos/football-manager/index.html"
+    },
+    "football": {
+      "entry": "modules/football/index.js",
+      "depends": [
+        "mod-football"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "SOCCERWEB-derived fixed-step spectator football, management performance, live commands and versioned replay verification.",
+      "demo": "demos/football-manager/index.html"
+    },
+    "road-arcade": {
+      "entry": "modules/road-arcade/index.js",
+      "depends": [
+        "math"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/pursuit-lab/index.html",
+      "description": "Outruin-derived road-local SI arcade handling and owned continuous curvature; stateless fixed-step vehicle response."
+    },
+    "combat2d": {
+      "entry": "modules/combat2d/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/arcade-combat-lab/index.html",
+      "description": "Bounded atomic integer XY combat, attack windows, deduplicated melee and swept projectile contacts"
+    },
+    "mod-arcade": {
+      "entry": "modules/mod-arcade/index.js",
+      "depends": [
+        "mod-sdk",
+        "combat2d"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/arcade-combat-lab/index.html",
+      "description": "Strict data-only arcade content packs and transactional replacement over the Mod SDK registry"
+    },
+    "combat3d": {
+      "entry": "modules/combat3d/index.js",
+      "depends": [
+        "collision",
+        "projectiles",
+        "weapons"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/block-arena-lab/index.html",
+      "description": "Bounded Float64 3D hit regions, weapon timers, hitscan penetration, projectiles, splash occlusion and attributed damage/death/assist/respawn events"
+    },
+    "mod-fps": {
+      "entry": "modules/mod-fps/index.js",
+      "depends": [
+        "mod-sdk",
+        "combat3d"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "demo": "demos/block-arena-lab/index.html",
+      "description": "Strict inert FPS arena packs, bounded blocks and stair ramps, supported spawns, weapons, bots and transactional admission"
+    },
+    "demo-timeline": {
+      "entry": "modules/demo-timeline/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Absolute 48 kHz sample time, seekable keyframes and score-driven cue envelopes",
+      "demo": "demos/demoscene-lab/index.html"
+    },
+    "demo-scene": {
+      "entry": "modules/demo-scene/index.js",
+      "depends": [
+        "demo-timeline"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Bounded procedural choreography, original 3D block glyphs and retained geometry streams",
+      "demo": "demos/demoscene-lab/index.html"
+    },
+    "mod-demo": {
+      "entry": "modules/mod-demo/index.js",
+      "depends": [
+        "mod-sdk",
+        "soundtrack",
+        "demo-timeline",
+        "demo-scene"
+      ],
+      "environment": "pure-js",
+      "status": "experimental",
+      "description": "Strict inert demoscene projects, integer four-voice scores and atomic activation",
+      "demo": "demos/demoscene-lab/index.html"
+    }
+  },
+  "recipes": {
+    "assisted-tunnel": {
+      "entry": "demos/flight-lab/worlds.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "flight",
+        "input",
+        "render-webgl",
+        "geometry"
+      ],
+      "preset": "tunnel"
+    },
+    "inertial-arena": {
+      "entry": "demos/flight-lab/worlds.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "flight",
+        "input",
+        "render-webgl",
+        "geometry"
+      ],
+      "preset": "arena"
+    },
+    "space-target-practice": {
+      "entry": "demos/interaction-lab/recipes.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "flight",
+        "input",
+        "render-webgl",
+        "projectiles",
+        "interactions"
+      ],
+      "preset": "space"
+    },
+    "reaction-bench": {
+      "entry": "demos/interaction-lab/recipes.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "flight",
+        "input",
+        "render-webgl",
+        "projectiles",
+        "interactions"
+      ],
+      "preset": "bench"
+    },
+    "fps-footwork": {
+      "entry": "demos/fps-lab/worlds.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "character",
+        "weapons",
+        "input",
+        "render-webgl",
+        "projectiles",
+        "interactions",
+        "geometry"
+      ],
+      "preset": "course"
+    },
+    "fps-live-range": {
+      "entry": "demos/fps-lab/worlds.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "character",
+        "weapons",
+        "input",
+        "render-webgl",
+        "projectiles",
+        "interactions",
+        "geometry"
+      ],
+      "preset": "range"
+    },
+    "fps-low-passage": {
+      "entry": "demos/fps-lab/worlds.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "character",
+        "weapons",
+        "input",
+        "render-webgl",
+        "projectiles",
+        "interactions",
+        "geometry"
+      ],
+      "preset": "lowpass"
+    },
+    "fps-tracking-range": {
+      "entry": "demos/fps-lab/worlds.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "character",
+        "weapons",
+        "input",
+        "render-webgl",
+        "projectiles",
+        "interactions",
+        "geometry"
+      ],
+      "preset": "tracking"
+    },
+    "fps-clearance-lift": {
+      "entry": "demos/fps-lab/worlds.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "character",
+        "weapons",
+        "input",
+        "render-webgl",
+        "projectiles",
+        "interactions",
+        "geometry"
+      ],
+      "preset": "lift"
+    },
+    "fps-shuttle-run": {
+      "entry": "demos/fps-lab/worlds.js",
+      "modules": [
+        "math",
+        "time",
+        "collision",
+        "character",
+        "weapons",
+        "input",
+        "render-webgl",
+        "projectiles",
+        "interactions",
+        "geometry"
+      ],
+      "preset": "shuttle"
+    },
+    "rts-route-planner": {
+      "entry": "demos/rts-lab/worlds.js",
+      "modules": [
+        "navigation",
+        "time"
+      ],
+      "preset": "route"
+    },
+    "rts-squad-orders": {
+      "entry": "demos/rts-lab/worlds.js",
+      "modules": [
+        "navigation",
+        "time"
+      ],
+      "preset": "squad"
+    },
+    "rts-flow-convoy": {
+      "entry": "demos/rts-lab/flow-worlds.js",
+      "modules": [
+        "navigation",
+        "time"
+      ],
+      "preset": "flow"
+    },
+    "rts-two-exit-evacuation": {
+      "entry": "demos/rts-lab/flow-worlds.js",
+      "modules": [
+        "navigation",
+        "time"
+      ],
+      "preset": "evacuation"
+    },
+    "clockwork-vault": {
+      "entry": "demos/clockwork-vault/world.js",
+      "modules": [
+        "math",
+        "time",
+        "input",
+        "character",
+        "collision",
+        "interactions",
+        "render-webgl"
+      ],
+      "research": [
+        "arch-omi"
+      ],
+      "preset": "vault"
+    },
+    "integer-foundry": {
+      "entry": "demos/integer-foundry/world.js",
+      "modules": [
+        "integer-math",
+        "integer-time",
+        "integer-physics",
+        "integer-engine",
+        "input",
+        "render-webgl"
+      ],
+      "preset": "foundry"
+    },
+    "bullet-time-range": {
+      "entry": "demos/bullet-time-lab/world.js",
+      "modules": [
+        "time-domains",
+        "collision",
+        "geometry",
+        "time",
+        "frame-gate"
+      ],
+      "preset": "bullet-time"
+    },
+    "arcade-ricochet": {
+      "entry": "demos/arcade-lab/world.js",
+      "modules": [
+        "collision",
+        "geometry",
+        "time",
+        "frame-gate"
+      ],
+      "preset": "brick-bank"
+    },
+    "visual-editor-alpha": {
+      "entry": "demos/editor/model.js",
+      "modules": [
+        "math",
+        "geometry",
+        "time",
+        "frame-gate"
+      ],
+      "preset": "visual-workbench",
+      "description": "Local JSON scene editor with hierarchy, inspector, WebGL and fixed-step preview (experimental)"
+    },
+    "component-forge-editor": {
+      "entry": "demos/editor/model.js",
+      "modules": [
+        "math",
+        "geometry",
+        "collision",
+        "time",
+        "frame-gate"
+      ],
+      "preset": "component-forge-v1.5",
+      "description": "Schema-v2 typed scene components, local/world gizmos and deterministic component-driven preview (experimental)"
+    },
+    "gpu-lab": {
+      "entry": "demos/gpu-lab/app.js",
+      "modules": [
+        "render-optional",
+        "time",
+        "geometry",
+        "logical-sampling"
+      ],
+      "preset": "gpu-lab"
+    },
+    "space-lab": {
+      "entry": "demos/space-lab/world.js",
+      "modules": [
+        "render-optional",
+        "time",
+        "exact-rational",
+        "rational-q16",
+        "exact-geometry",
+        "orbital-physics",
+        "lead-solver"
+      ],
+      "preset": "space-lab"
+    },
+    "4x-game-lab": {
+      "entry": "demos/4x-game-lab/world.js",
+      "modules": [
+        "integer-math",
+        "exact-rational",
+        "exact-graph"
+      ],
+      "preset": "seeded-sector",
+      "description": "Experimental turn-based 4X: seeded starlanes, fog of war, colonies, exact economy, rival fleets and command replay"
+    },
+    "voidward-4x": {
+      "entry": "demos/4x-game-lab/voidward/js/core.js",
+      "modules": [
+        "integer-math",
+        "exact-rational",
+        "exact-graph",
+        "audio2d",
+        "mod-sdk"
+      ],
+      "preset": "voidward-campaigns",
+      "description": "Experimental demo-owned VOIDWARD campaign engine, declarative packs and ship/campaign workshop; source adapted from QSOLKCB/4XGAMES PR #2, not a generic engine module"
+    },
+    "editor-voidward-pack": {
+      "entry": "demos/editor/4x-workflow.js",
+      "modules": [
+        "math",
+        "geometry",
+        "integer-math",
+        "mod-sdk"
+      ],
+      "preset": "voidward-text-pack",
+      "description": "Experimental demo-owned 4X campaign sidecar, bounded undo/recovery, native pack exchange, 2:1 chart placement and attributed convex hull projection"
+    },
+    "soundtrack-lab": {
+      "entry": "demos/soundtrack-lab/index.html",
+      "modules": [
+        "audio2d"
+      ],
+      "research": [
+        "e8-geometry"
+      ],
+      "description": "Original bounded cue authoring, explicit source/mapping and WAV/recipe/score export"
+    },
+    "creator-hub": {
+      "entry": "demos/creator-hub/index.html",
+      "modules": [],
+      "description": "Guided game creation, genre choices and offline packaging help"
+    },
+    "track-foundry": {
+      "entry": "demos/racing-lab/track.js",
+      "modules": [],
+      "description": "RACING-002B: native offline road/circuit editor with inert JSON pack validation and physical branch geometry"
+    },
+    "retro-racing-lab": {
+      "entry": "demos/racing-lab/world.js",
+      "modules": [
+        "math",
+        "time",
+        "render-webgl"
+      ],
+      "preset": "retro",
+      "description": "Experimental pseudo-3D arcade traffic overtaking and stage progression"
+    },
+    "touring-racing-lab": {
+      "entry": "demos/racing-lab/world.js",
+      "modules": [
+        "math",
+        "time",
+        "render-webgl"
+      ],
+      "preset": "tour",
+      "description": "RACING-002 original pseudo-3D scenic highway with lane-selected stage forks"
+    },
+    "circuit-racing-lab": {
+      "entry": "demos/racing-lab/world.js",
+      "modules": [
+        "math",
+        "time",
+        "render-webgl"
+      ],
+      "preset": "circuit",
+      "description": "Experimental WebGL circuit racing with bots and lap gates"
+    },
+    "sprint-racing-lab": {
+      "entry": "demos/racing-lab/world.js",
+      "modules": [
+        "math",
+        "time",
+        "render-webgl"
+      ],
+      "preset": "sprint",
+      "description": "RACING-002 original winding WebGL 3D point-to-point sprint with traffic"
+    },
+    "derby-racing-lab": {
+      "entry": "demos/racing-lab/world.js",
+      "modules": [
+        "math",
+        "time",
+        "render-webgl"
+      ],
+      "preset": "derby",
+      "description": "Experimental contact-driven vehicle demolition and damage"
+    },
+    "ball-racing-lab": {
+      "entry": "demos/racing-lab/world.js",
+      "modules": [
+        "math",
+        "time",
+        "render-webgl"
+      ],
+      "preset": "ball",
+      "description": "Experimental boost-and-jump vehicular ball arena"
+    },
+    "stunt-racing-lab": {
+      "entry": "demos/racing-lab/world.js",
+      "modules": [
+        "math",
+        "time",
+        "render-webgl"
+      ],
+      "preset": "stunt",
+      "description": "Experimental elevated stunt circuit with ramps, gaps, landings and checkpoint recovery"
+    },
+    "subhunt-lab": {
+      "entry": "demos/subhunt-lab/index.html",
+      "modules": [
+        "gamepad",
+        "soundtrack",
+        "audio2d"
+      ],
+      "description": "Source-pinned SubHunt release recipes: living-toy races, salvage, difficulty, raw controllers and tick-driven music"
+    },
+    "football-manager": {
+      "entry": "demos/football-manager/index.html",
+      "modules": [
+        "football",
+        "mod-football",
+        "mod-sdk"
+      ],
+      "description": "Touchline: eight SOCCERWEB clubs, squad and financial management, a full league, live matches and a JSON mod workshop."
+    },
+    "pursuit-lab": {
+      "entry": "demos/pursuit-lab/index.html",
+      "modules": [
+        "road-arcade",
+        "math",
+        "time",
+        "audio2d",
+        "soundtrack"
+      ],
+      "description": "Original Chase H.Q.-style five-case highway pursuit, traffic, turbo, replay, fitted/fullscreen display and deterministic PCM soundtrack."
+    },
+    "skyguard-lab": {
+      "entry": "demos/skyguard-lab/index.html",
+      "modules": [
+        "math",
+        "collision",
+        "time",
+        "audio2d",
+        "soundtrack"
+      ],
+      "description": "Spooky v0.1.0-derived naval air defence: autocannon, proximity flak, guided missiles, charged railgun, persistent refits and deterministic soundtrack."
+    },
+    "arcade-combat-run": {
+      "entry": "demos/arcade-combat-lab/world.js",
+      "modules": [
+        "combat2d",
+        "mod-arcade",
+        "motion2d",
+        "integer-math",
+        "time",
+        "input",
+        "audio2d"
+      ],
+      "preset": "run"
+    },
+    "arcade-combat-arena": {
+      "entry": "demos/arcade-combat-lab/world.js",
+      "modules": [
+        "combat2d",
+        "mod-arcade",
+        "motion2d",
+        "integer-math",
+        "time",
+        "input",
+        "audio2d"
+      ],
+      "preset": "arena"
+    },
+    "block-arena": {
+      "entry": "demos/block-arena-lab/index.html",
+      "modules": [
+        "combat3d",
+        "mod-fps",
+        "character",
+        "collision",
+        "weapons",
+        "projectiles",
+        "navigation",
+        "render-webgl",
+        "geometry",
+        "input",
+        "time",
+        "math",
+        "audio2d"
+      ],
+      "description": "Block Arena Foundry: skirmish, survival, arena and weapon authoring, source-bound same-runtime replay"
+    },
+    "demoscene": {
+      "entry": "api/demoscene/index.js",
+      "modules": [
+        "demo-timeline",
+        "demo-scene",
+        "mod-demo",
+        "audio2d",
+        "soundtrack",
+        "render-webgl",
+        "frame-gate"
+      ],
+      "description": "Sample-indexed audiovisual production, strict compositions and opt-in audio transport"
+    }
+  },
+  "experiments": {
+    "arch-omi": {
+      "entry": "experiments/arch-omi/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "research-experiment",
+      "demo": "demos/omi-lab/index.html",
+      "description": "Attributed 16-bit delta law, explicit nibble encoding and tetrahedral XOR relations; not a game engine API",
+      "demonstrations": {
+        "word-bench": "demos/omi-lab/index.html",
+        "brass-engine": "demos/ancient-machine/index.html",
+        "clockwork-vault": "demos/clockwork-vault/index.html"
+      }
+    },
+    "e8-geometry": {
+      "entry": "experiments/e8-geometry/index.js",
+      "depends": [],
+      "environment": "pure-js",
+      "status": "research-experiment",
+      "description": "Independent 240-root E8 inventory and authored non-isometric 3D point projection; not a collision model"
+    }
+  }
+}

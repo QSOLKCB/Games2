@@ -1,6 +1,6 @@
 # Games2 development roadmap
 
-**State:** Planning only; no playable Games2 releases at this baseline.
+**State:** Strike Pixel SP-001 is playable and awaiting owner review. No Games2 game has an owner-approved release or equivalent completion milestone yet.
 
 This roadmap governs the games monorepo; [VANILLAJS](https://github.com/QSOLKCB/VANILLAJS) retains its own independent engine roadmap. An entry here is a proposal until code, tests and a reviewed completion milestone establish otherwise.
 
@@ -8,8 +8,8 @@ This roadmap governs the games monorepo; [VANILLAJS](https://github.com/QSOLKCB/
 
 | ID | Milestone | Status | Required outcome |
 | --- | --- | --- | --- |
-| G2-DOC-001 | Documentation-first foundation | **Proposed in first PR** | Root agent rules and roadmap; archived source catalogue; pinned engine integration; `strikepixel/` game specification and Codex handoff |
-| SP-001 | Strike Pixel first playable vertical slice | **Not started** | Single original block arena, offline bots, distinct weapons, working match, tests and real browser play |
+| G2-DOC-001 | Documentation-first foundation | **Merged in PR #1** | Root agent rules and roadmap; archived source catalogue; pinned engine integration; `strikepixel/` game specification and Codex handoff |
+| SP-001 | Strike Pixel first playable vertical slice | **Implemented; owner review pending** | Sunrelay Yard, offline bots, three weapons, working match and [verification evidence](strikepixel/docs/VERIFICATION.md) |
 | SP-002 | Strike Pixel gameplay expansion | **Not started** | Original additional arenas/modes and progression only after the vertical slice is proven |
 | SP-003 | Strike Pixel creator/polish pass | **Not started** | Data-only mods, accessibility, gamepad/touch, performance and offline resilience as verified |
 | G2-GAME-002 | Second Games2 game | **Not selected** | One separate game directory, one focused new-game PR and independent release process |
@@ -32,7 +32,7 @@ No release version, PR number or implementation date is promised by this table. 
 
 [Design brief](strikepixel/README.md) · [Per-game roadmap](strikepixel/ROADMAP.md) · [Implementation handoff](strikepixel/CODEX_HANDOFF.md)
 
-The planned first game is an original, offline, blocky 3D FPS inspired by arcade arena shooters. No microtransactions, accounts, premium currency or network requirement. The first code PR should be a playable, tested vertical slice rather than an unfinished collection of several game genres.
+The first implementation is an original, offline, blocky 3D FPS inspired by arcade arena shooters. SP-001 supplies one self-contained arena and match loop using an immutable VANILLAJS module closure. No microtransactions, accounts, premium currency or network multiplayer. See the [per-game roadmap](strikepixel/ROADMAP.md) for deferred expansion, input hardware and creator-tool work. Owner review is still required before this counts toward the three-game upstream milestone.
 
 ## Future game selection
 
