@@ -4,12 +4,21 @@ One game per new-game PR. One cartridge per game. Every deployment contains the
 whole approved collection. A cartridge is a catalogue record, not executable
 code, a remote game URL or a way to bypass game review.
 
+Every new game follows **Implementation → Polish → Release Review** under the
+[mandatory two-pass policy](DEVELOPMENT_PROCESS.md). A playable preview may enter
+the cabinet after its implementation is approved. Initial release requires the
+separate polish PR and owner release gate; infrastructure work is not game polish.
+
 ## 1. Build an independent game
 
 Create one original game's directory, with its own `README.md`, `ROADMAP.md` and
 `AGENTS.md`. Follow the [repository policy](../AGENTS.md), preserve the
 [concept catalogue](GAME_IDEAS.md) and [donor references](DONOR_CATALOGUE.md), and
 pin any engine dependency with licences, notices and source provenance.
+
+Plan both development passes in the game's `ROADMAP.md` before implementation.
+Show each stage's status and evidence, and link that progression and root policy
+from the game's `AGENTS.md` so future agents discover the polish requirement.
 
 The game must work independently of the cabinet. Finish its gameplay loop,
 prescribed Node tests, packaged browser tests and offline verifier first. Do not
@@ -86,8 +95,10 @@ validation recognises it while it remains excluded from `site/`. Arbitrary
 unregistered root directories are rejected rather than discovered or published.
 
 Use `playable` only for an explicitly approved preview that has completed its
-required implementation checks. `released` requires a separately approved game
-release. Merging SP-001 did not turn Strike Pixel into a v1.0.0 product.
+required implementation checks. `released` requires both development PRs merged,
+passing tests/CI, a working deployed preview, documented limitations and explicit
+owner release authorisation after cabinet play-testing. Merging SP-001 or deploying
+a preview did not turn Strike Pixel into a v1.0.0 product.
 
 Create original cartridge art. SVGs must contain local vector artwork, without
 scripts, event handlers, foreign objects, external resources or commercial game
@@ -142,7 +153,7 @@ owner-reviewed policy decision.
 
 ## 5. Review, merge and verify live deployment
 
-Open one reviewed PR with screenshots, actual test results, provenance and known
+Open one focused implementation PR with screenshots, actual test results, provenance and known
 limitations. PR CI has no production deployment permission. Merge only with
 owner approval; the approved `main` workflow then builds and verifies the complete
 collection and uploads only `site/` to GitHub Pages.
@@ -156,3 +167,22 @@ The current repository already uses GitHub Actions as its Pages source and a
 `github-pages` environment limited to `main`. If settings change, the owner must
 restore those restrictions. Do not automatically alter settings or deploy a PR
 to work around a failure.
+
+## 6. Polish the same game, then request release review
+
+After the implementation PR merges, deliver a separate polish PR covering all
+[required polish areas](DEVELOPMENT_PROCESS.md#pass-2--polish), with regression
+tests and actual browser gameplay. Obtain owner review and merge authorisation,
+then verify the updated deployed preview, return navigation and offline package.
+Keep all other approved cartridges and packages intact.
+
+Update the game's roadmap with both merged PRs and verification evidence. The
+owner then tests through the cabinet and decides the initial release. This is an
+approval gate, not automatically a third implementation PR. Failed review returns
+the game for corrections; critical defects can be fixed immediately, and further
+polish may be approved. Later enhancement/bug-fix PRs do not repeat the entire
+two-pass process.
+
+Strike Pixel SP-001 and cabinet infrastructure have merged in PRs #2 and #3.
+SP-002 is the next game PR for dedicated Strike Pixel polish. Start a second game
+after Strike Pixel's initial polish review unless the owner changes priorities.
