@@ -1,6 +1,6 @@
 # Strike Pixel roadmap
 
-**Current state: SP-001 is implemented and awaiting PR review. Unreleased.**
+**Current state: SP-001 merged in PR #2 as a playable preview. Unreleased.**
 
 The first playable slice is Sunrelay Yard: an original arena, three weapons,
 three offline bots and a complete score/time-limited match. Read the
@@ -11,7 +11,7 @@ owner-approved release or a completed game for the upstream review threshold.
 | ID | Status | Deliverable |
 | --- | --- | --- |
 | SP-DOC-001 | Documentation foundation retained | Per-game README, agent rules, roadmap and the historical implementation handoff; this foundation originally contained no game code |
-| SP-001 | Implemented; pending review, unreleased | One original 3D arena, movement and collision, three weapon classes, local bots, score/time limits, deaths/respawns, HUD/restart, settings, procedural sound/music, health/ammo pickups and static/offline packaging |
+| SP-001 | Merged in PR #2; playable preview, unreleased | One original 3D arena, movement and collision, three weapon classes, local bots, score/time limits, deaths/respawns, HUD/restart, settings, procedural sound/music, health/ammo pickups and static/offline packaging |
 | SP-002 | Proposed; not implemented | Additional distinct arenas, survival-wave option, richer bots, expanded pickups, balance work and score challenges, with tests |
 | SP-003 | Proposed; not implemented | Bounded data-only map/weapon/mod packs, improved authoring, creator tools and optional source-bound replay export; version formats and preserve compatibility |
 | SP-004 | Proposed; not implemented | Demoscene-derived original intro, richer materials/effects/sound, accessibility and presentation polish, and cosmetics earned through ordinary play |

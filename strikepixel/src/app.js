@@ -3,6 +3,7 @@ import {StrikeMatch,ARENA,WEAPON_NAMES} from './world.js';
 import {ArenaRenderer} from './render.js';
 import {StrikeAudio} from './audio.js';
 import {registerOffline} from './offline.js';
+import {findCabinet} from './cabinet.js';
 import {SETTINGS_KEY,DEFAULT_SETTINGS,parseSettings,validateSettings} from './settings.js';
 import {Actions,attachKeyboard,attachMouseLook,fpsBindings,FlightGamepad} from '../vendor/vanillajs/modules/input/index.js';
 import {FixedClock} from '../vendor/vanillajs/modules/time/index.js';
@@ -132,6 +133,7 @@ export async function startGame(){
   $('start').addEventListener('click',begin);$('restart').addEventListener('click',begin);
   $('back').addEventListener('click',()=>{cancelInput();match=new StrikeMatch(options());state=match.snapshot();yaw=state.player.yaw;pitch=state.player.pitch;weapon=0;syncPhase();$('boot-message').textContent='Ready for another run.';$('start').focus();});
   $('pause').addEventListener('click',()=>pause());
+  $('cabinet-return').addEventListener('click',()=>pause('Returning to the arcade.'));
   window.addEventListener('blur',()=>pause('Focus lost. Resume when ready.'));
   document.addEventListener('visibilitychange',()=>{if(document.hidden)pause('Tab hidden. Resume when ready.');});
   window.addEventListener('gamepaddisconnected',()=>pause('Controller disconnected. Reconnect or use the keyboard, then resume.'));
@@ -166,5 +168,6 @@ export async function startGame(){
   syncPhase();$('start').disabled=false;$('boot-message').textContent='Ready. Three weapons, one yard, your move.';
   document.documentElement.dataset.ready='true';
   void registerOffline({onStatus:({state:status,message})=>{$('offline-status').dataset.state=status;$('offline-status').textContent=message;}});
+  void findCabinet($('cabinet-return'));
   requestAnimationFrame(frame);
 }

@@ -39,10 +39,18 @@ Read this file before creating, editing or reviewing a game. Also read the targe
 - Do not invoke owner-only personal runners, spend paid API credits, create external services, merge, tag, publish or deploy without owner authorisation.
 - Keep documentation claims accurate. A proposed roadmap milestone, concept directory or engine lab is not a completed Games2 game.
 
-## Current authorised boundary
+## Cabinet and deployment boundary
 
-The initial documentation foundation may alter only Markdown documentation and preserve the existing licence. It must not introduce runtime/gameplay code, workflows, dependencies, generated build products or releases.
+The documentation foundation merged in PR #1 and Strike Pixel's playable SP-001
+slice merged in PR #2. Neither event creates a versioned game release. The
+[original handoff](strikepixel/CODEX_HANDOFF.md) remains historical scope evidence.
 
-The later implementation scope is described by [Strike Pixel's handoff](strikepixel/CODEX_HANDOFF.md). Read it only when that task has been authorised.
+- Root `index.html`, `cabinet/`, `cartridges.json`, `scripts/` and workflows own the arcade infrastructure. Game runtime still belongs in its own directory.
+- The versioned cartridge registry is a curated data-only publication allowlist. Only explicitly registered `playable` or `released` entries may launch or enter `site/`; concepts and development entries cannot publish packages.
+- Reuse each game's existing build/verifier. Assemble the complete approved collection on every build; never discover and publish arbitrary directories or drop unchanged games.
+- Preserve per-game worker scopes and cache namespaces. Do not add a root worker that takes control of game requests.
+- PRs run verification only. Production Pages deployment requires the reviewed `main` ref, successful verification of that exact artifact, minimal job permissions and the `github-pages` environment restricted to `main`.
+- Do not change repository Pages settings, dispatch a production deployment, merge, tag or release without owner authorisation. A workflow committed in a PR does not authorise running PR code in production.
+- Read [Adding a cartridge](docs/ADDING_A_CARTRIDGE.md) and [deployment policy](docs/DEPLOYMENT.md) before changing this infrastructure. No new game is implied by a cabinet change.
 
 **Correctness outranks speed. Build independent games, then upstream reusable systems through review.**

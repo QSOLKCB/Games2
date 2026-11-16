@@ -1,10 +1,21 @@
-# Games2 👾
+# Games2 Arcade 👾
 
 **Original QSOL-IMC browser games. Built with VANILLAJS. Owned by their creators.**
 
 Games2 is an **offline-first games monorepo**. Actual games live in separate root directories such as `/strikepixel/`. VANILLAJS is the independent engine, physics, Game Labs, editor, mods, creator tools and education project. This repository is where game-specific worlds, content, progression, modes and releases belong.
 
-**Status:** **Strike Pixel SP-001** is implemented as a playable vertical slice, pending owner review. No Games2 game has an owner-approved release or completion milestone yet. Other concepts remain proposals.
+**Insert cartridge. Press start. Own the game.**
+
+**Strike Pixel SP-001 merged in PR #2** as a playable preview. The Cartridge
+Cabinet adds an original arcade launcher and a verified collection build for
+GitHub Pages. Concept cartridges are clearly labelled coming soon and cannot
+launch. No versioned game release is implied.
+
+**Expected URLs after this infrastructure PR is reviewed, merged and deployed:**
+[Games2 Arcade](https://qsolkcb.github.io/Games2/) ·
+[Strike Pixel](https://qsolkcb.github.io/Games2/strikepixel/).
+The audit found Pages configured for Actions but the public root returned 404;
+this PR does not deploy feature-branch code. See [deployment status and setup](docs/DEPLOYMENT.md).
 
 > This is not a product. This is INDEPENDENCE.
 >
@@ -12,13 +23,27 @@ Games2 is an **offline-first games monorepo**. Actual games live in separate roo
 
 ## Start here
 
+Build and play the complete approved collection locally, with Node.js 22:
+
+```sh
+node scripts/build-site.mjs
+node scripts/verify-site.mjs
+node scripts/site-server.mjs
+```
+
+Open **http://127.0.0.1:8000/Games2/**. Select a cartridge and choose **Play
+Cartridge**. Each game opens in its own page and owns its controls, audio and
+offline cache. No npm installation is needed to build or play.
+
 | Audience | Read |
 | --- | --- |
-| Player / curious creator | [Play Strike Pixel locally](strikepixel/README.md#play-locally) and [planned games](docs/GAME_IDEAS.md) |
+| Player / curious creator | The arcade above, [Strike Pixel controls](strikepixel/README.md#controls) and [planned games](docs/GAME_IDEAS.md) |
 | Contributor / Codex | [Root agent policy](AGENTS.md), then the game's own `AGENTS.md` |
 | Implementing the first game | [Strike Pixel roadmap](strikepixel/ROADMAP.md) and [Codex handoff](strikepixel/CODEX_HANDOFF.md) |
 | Maintaining the monorepo | [Games2 roadmap](ROADMAP.md), [donor catalogue](docs/DONOR_CATALOGUE.md) |
 | Integrating VANILLAJS | [Engine integration and upstream feedback](docs/ENGINE_INTEGRATION.md) |
+| Adding a cartridge | [Registration, packaging and verification guide](docs/ADDING_A_CARTRIDGE.md) |
+| Reviewing infrastructure | [Deployment policy](docs/DEPLOYMENT.md) and [cabinet verification](docs/CABINET_VERIFICATION.md) |
 
 ## The two-project boundary
 
@@ -47,7 +72,28 @@ Games2 is an **offline-first games monorepo**. Actual games live in separate roo
 
 An original colourful block-built first-person shooter against offline bots, with snappy movement, responsive weapons and replayable arcade matches. No pay-to-win systems or premium currencies.
 
-SP-001 provides **Sunrelay Yard**, three weapons, three offline bots, score/time-limited matches and an independently served static package. Start with the [local play instructions](strikepixel/README.md), [verification record](strikepixel/docs/VERIFICATION.md) and [next milestones](strikepixel/ROADMAP.md). The [original implementation handoff](strikepixel/CODEX_HANDOFF.md) remains available for scope review. This implementation is awaiting owner review; it is not a published release.
+SP-001 provides **Sunrelay Yard**, three weapons, three offline bots, score/time-limited matches and an independently served static package. Start with the [local play instructions](strikepixel/README.md), [original verification record](strikepixel/docs/VERIFICATION.md) and [next milestones](strikepixel/ROADMAP.md). The [original implementation handoff](strikepixel/CODEX_HANDOFF.md) remains available for scope review. Its implementation merged in PR #2; it is not a published release.
+
+## One collection, independent cartridges
+
+[`cartridges.json`](cartridges.json) is the curated publication allowlist. The
+launcher derives local URLs from validated slugs. Only approved `playable` and
+`released` entries are built; `concept` and `development` entries cannot launch.
+Neon Apex and Starward Signal are original cabinet labels for racing and space
+ideas already represented in the preserved catalogue, not implemented games.
+
+`node scripts/build-site.mjs` invokes every approved game's existing build and
+verifier, then copies its complete package into `site/<slug>/`. Every deployment
+contains the whole current approved collection. Adding a game does not remove
+unchanged games. Temporary outputs, tests, browser profiles, development tooling
+and unregistered game directories never enter the artifact.
+
+PRs run Node, source/package, site and browser checks on hosted GitHub runners.
+The production workflow builds and verifies the same artifact before deploying
+from `main`, with a `github-pages` environment restricted to that branch. The
+cabinet has no service worker; Strike Pixel retains its own scoped, digest-verified
+offline installation. The cabinet requires connectivity, while installed games
+can be opened directly offline.
 
 ## Future games
 

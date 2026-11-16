@@ -1,0 +1,65 @@
+{
+  "name": "Publish Games2 cabinet",
+  "on": {
+    "push": {
+      "branches": [
+        "main"
+      ]
+    },
+    "workflow_dispatch": {}
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "concurrency": {
+    "group": "games2-pages",
+    "cancel-in-progress": false
+  },
+  "jobs": {
+    "verify": {
+      "name": "Build and verify the deployment artifact",
+      "if": "${{ github.repository == 'QSOLKCB/Games2' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}",
+      "uses": "./.github/workflows/ci.yml",
+      "permissions": {
+        "contents": "read"
+      },
+      "with": {
+        "pages_artifact": true
+      }
+    },
+    "deploy": {
+      "name": "Deploy the verified main-branch cabinet",
+      "needs": [
+        "verify"
+      ],
+      "if": "${{ github.repository == 'QSOLKCB/Games2' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && needs.verify.result == 'success' }}",
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 10,
+      "permissions": {
+        "pages": "write",
+        "id-token": "write"
+      },
+      "environment": {
+        "name": "github-pages",
+        "url": "${{ steps.deployment.outputs.page_url }}"
+      },
+      "steps": [
+        {
+          "id": "fresh",
+          "name": "Reject a superseded main revision",
+          "run": "test \"$GITHUB_REPOSITORY\" = \"QSOLKCB/Games2\"\ntest \"$GITHUB_REF\" = \"refs/heads/main\"\ncase \"$GITHUB_EVENT_NAME\" in push|workflow_dispatch) ;; *) exit 1 ;; esac\ncabinet_main=\"$(git ls-remote --exit-code https://github.com/QSOLKCB/Games2.git refs/heads/main)\"\ntest \"${cabinet_main%%$'\\t'*}\" = \"$GITHUB_SHA\"",
+          "shell": "bash"
+        },
+        {
+          "id": "deployment",
+          "name": "Deploy this run's verified Pages artifact",
+          "uses": "actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346",
+          "with": {
+            "artifact_name": "github-pages",
+            "preview": false
+          }
+        }
+      ]
+    }
+  }
+}

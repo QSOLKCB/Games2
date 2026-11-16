@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title description">
+  <!-- SPDX-License-Identifier: Apache-2.0; Original Games2 cabinet illustration. -->
+  <title id="title">Sunrelay Yard</title><desc id="description">An original isometric block arena: teal concrete, a golden relay mast, salmon robots and a geometric first-person weapon under a pale mint sky.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#9ed6bf"/><stop offset="1" stop-color="#d2e5bb"/></linearGradient>
+    <linearGradient id="ground" x2="1" y2="1"><stop stop-color="#477e70"/><stop offset="1" stop-color="#234f4b"/></linearGradient>
+    <linearGradient id="gun" x2="0" y2="1"><stop stop-color="#eee5c7"/><stop offset="1" stop-color="#a4b6a0"/></linearGradient>
+    <linearGradient id="shade" x2="0" y2="1"><stop stop-color="#123d40" stop-opacity="0"/><stop offset="1" stop-color="#102d30" stop-opacity=".5"/></linearGradient>
+    <pattern id="grain" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="1" height="1" fill="#fff" opacity=".06"/><rect x="4" y="3" width="1" height="1" fill="#071d1b" opacity=".07"/></pattern>
+    <g id="bot" stroke="#253f3b" stroke-width="2" stroke-linejoin="round">
+      <path d="M-29 25 3 10 37 26 5 43Z" fill="#173c37" opacity=".35" stroke="none"/>
+      <path d="M-13 5-2 0 7 5-4 11V31L-13 26Z" fill="#ba5e56"/><path d="M-4 11 7 5V25L-4 31Z" fill="#743d3c"/>
+      <path d="m9 0 11-5 9 5-11 6v21L9 22Z" fill="#df7b65"/><path d="m18 6 11-6v21l-11 6Z" fill="#8c4945"/>
+      <path d="M-18-30 7-42 33-29 8-17Z" fill="#ffad87"/><path d="M-18-30 8-17V12L-18-2Z" fill="#eb876f"/><path d="M8-17 33-29V0L8 12Z" fill="#ad5951"/>
+      <path d="m-13-51 20-10 21 11-20 10Z" fill="#ffbf8e"/><path d="m-13-51 21 11v20l-21-11Z" fill="#ef9675"/><path d="m8-40 20-10v20L8-20Z" fill="#b66556"/>
+      <path d="m-9-44 13 7v7l-13-7Z" fill="#193d39" stroke="none"/><path d="m-7-42 3 2v3l-3-2Zm7 4 3 1v3l-3-1Z" fill="#d9fa7b" stroke="none"/>
+      <path d="m-24-28 10 5v24l-10-5Z" fill="#c76b5d"/><path d="m32-25 9 5v21L32-3Z" fill="#c77961"/>
+      <path d="m-31-8 12-6 25 14-12 6Z" fill="#769a83"/><path d="m-31-8 25 14v8l-25-14Z" fill="#2a4b42"/><path d="M-6 6 6 0v8l-12 6Z" fill="#122b2a"/>
+    </g>
+    <g id="crate" stroke="#153b38" stroke-width="2" stroke-linejoin="round"><path d="m0 0 55-26 55 26-55 28Z" fill="#78a68e"/><path d="m0 0 55 28v56L0 56Z" fill="#477967"/><path d="m55 28 55-28v56L55 84Z" fill="#28554d"/><path d="m8 10 39 20v40L8 50Zm55 23 39-20v39L63 72Z" fill="none" stroke="#a8c2a0" opacity=".3"/><path d="m12 23 30 15m-30-4 30 15m26-2 28-14m-28 25 28-14" fill="none" opacity=".5"/></g>
+  </defs>
+  <rect width="1200" height="620" fill="url(#sky)"/>
+  <circle cx="921" cy="132" r="84" fill="#ede0a3"/><circle cx="921" cy="132" r="104" fill="none" stroke="#eef3c7" opacity=".3"/>
+  <path d="M0 232 82 194l43 16 91-49 112 52 93-45 79 34 116-51 89 43 81-35 91 46 88-42 135 60v177H0Z" fill="#82ae99"/>
+  <path d="m0 288 151-71 96 45 134-63 119 60 104-49 149 72 83-40 140 69 124-59v194H0Z" fill="#689c8a" opacity=".55"/>
+  <path d="m51 389 570-267 568 276-568 285Z" fill="#163f3b"/><path d="m51 365 570-267 568 276-568 285Z" fill="url(#ground)" stroke="#284e45" stroke-width="3"/>
+  <g fill="none" stroke="#91b19a" opacity=".19"><path d="m146 409 570-266m-475 312 570-267m-475 314 570-268M336 506l570-268M431 553l570-269m-475 316 570-269M146 321l569 278M241 277l569 276M336 232l569 275M431 187l569 274M526 142l569 273"/></g>
+  <g stroke="#173d3a" stroke-width="3" stroke-linejoin="round">
+    <path d="m196 297 289-137 66 32-287 138Z" fill="#79b19a"/><path d="m196 297 68 33v109l-68-34Z" fill="#38665c"/><path d="m264 330 287-138v109L264 439Z" fill="#214b47"/>
+    <path d="m485 160 73-35 308 151-71 35Z" fill="#8cc0a5"/><path d="m485 160 310 151v108L485 269Z" fill="#42786a"/><path d="m795 311 71-35v107l-71 36Z" fill="#26544c"/>
+    <path d="m241 318 32-15v109l-32 15Z" fill="#b4ce9a" stroke="none"/>
+    <path d="m518 192 16 8v55l-16-8Zm27 13 16 8v55l-16-8Zm27 13 16 8v55l-16-8Z" fill="#1b4e48" stroke="none"/>
+    <path d="m477 361 194-93 125 60-194 95Z" fill="#84ac8b"/><path d="m477 361 125 62v72l-125-62Z" fill="#467666"/><path d="m602 423 194-95v72l-194 95Z" fill="#29574c"/>
+    <path d="m812 386 167-80 67 33-167 82Z" fill="#73a38a"/><path d="m812 386 67 35v102l-67-36Z" fill="#457467"/><path d="m879 421 167-82v102l-167 82Z" fill="#1a4541"/>
+  </g>
+  <path d="m294 431 99-48 17 8-100 48ZM686 499l109-53 17 8-109 54Z" fill="#d8cf80"/><path d="m512 500 35-17 12 6-35 17Zm-24-12 35-17 12 6-35 17Zm-24-12 35-17 12 6-35 17Z" fill="#d6cf83"/>
+  <g stroke="#224941" stroke-width="2" stroke-linejoin="round"><path d="m526 451 51-24 25 12-50 25v13l-25-13Z" fill="#91b39b"/><path d="m552 464 50-25v13l-50 25Z" fill="#345e4f"/><path d="m501 466 51-24 25 12-50 25v13l-26-13Z" fill="#a0bba0"/><path d="m527 479 50-25v13l-50 25Z" fill="#3d6956"/><path d="m477 480 50-24 25 12-50 25v13l-25-13Z" fill="#aac2a1"/><path d="m502 493 50-25v13l-50 25Z" fill="#47745e"/></g>
+  <g stroke="#3e5337" stroke-width="3" stroke-linejoin="round">
+    <path d="m666 270 40-20 40 20-40 21Z" fill="#e6c56b"/><path d="m666 270 40 21v91l-40-21Z" fill="#dfaa47"/><path d="m706 291 40-21v91l-40 21Z" fill="#a97b37"/>
+    <path d="m679 121 27-14 27 14-27 14Z" fill="#ffe498"/><path d="m679 121 27 14v170l-27-14Z" fill="#efbc58"/><path d="m706 135 27-14v170l-27 14Z" fill="#c3903c"/>
+    <path d="m664 181 42-21 42 21-42 22Z" fill="#ffe6a1"/><path d="m664 181 42 22v16l-42-22Z" fill="#e6a849"/><path d="m706 203 42-22v16l-42 22Z" fill="#a97435"/>
+    <path d="m689 85 17-8 17 8-17 9Z" fill="#ffeebb"/><path d="m689 85 17 9v33l-17-9Z" fill="#f5cb75"/><path d="m706 94 17-9v33l-17 9Z" fill="#be944c"/>
+    <path d="M706 77V42" fill="none" stroke="#294e3e" stroke-width="5"/>
+  </g>
+  <circle cx="706" cy="40" r="5" fill="#f7f0b2"/><g fill="none" stroke="#e6ebae" opacity=".55"><ellipse cx="706" cy="70" rx="52" ry="19"/><ellipse cx="706" cy="70" rx="72" ry="27"/></g>
+  <g transform="translate(322 351) scale(.62)"><use href="#crate"/></g><g transform="translate(936 355) scale(.62)"><use href="#crate"/></g>
+  <use href="#bot" transform="translate(438 391) scale(1.18)"/><use href="#bot" transform="translate(637 340) scale(.72)"/><use href="#bot" transform="translate(845 472) scale(.92)"/>
+  <g stroke="#d4edb3" stroke-width="2" opacity=".6"><path d="M594 302h13m-6-6v13"/></g>
+  <g transform="translate(100 99)"><path d="M0 0h47v4H0Zm0 12h26v4H0Z" fill="#306955"/><text y="57" fill="#24594d" font-family="Arial, sans-serif" font-weight="900" font-size="42" letter-spacing="-2">SUNRELAY</text><text y="88" fill="#397a63" font-family="monospace" font-size="21" letter-spacing="13">YARD</text><path d="M0 108h137" stroke="#4d9272" stroke-width="2"/><text y="127" fill="#478165" font-family="monospace" font-size="9" letter-spacing="2">STRIKE PIXEL / SP–001</text></g>
+  <rect width="1200" height="620" fill="url(#shade)"/>
+  <g stroke="#153331" stroke-width="4" stroke-linejoin="round">
+    <path d="m935 620-106-105 32-39 86 58 71 86Z" fill="#224e47"/><path d="m869 490 32-23 56 29-20 58-33-6Z" fill="#98ac8e"/>
+    <path d="m817 424 55-31 70 32-54 34Z" fill="#dce0bd"/><path d="m817 424 71 35v72l-71-38Z" fill="#659286"/><path d="m888 459 54-34v70l-54 36Z" fill="#214d49"/>
+    <path d="m855 434 56-34 161 89-54 40Z" fill="url(#gun)"/><path d="m855 434 163 95v50l-163-100Z" fill="#83a999"/><path d="m1018 529 54-40 67 90-70 41-51-41Z" fill="#3b655c"/>
+    <path d="m870 452 127 75v18l-127-77Z" fill="#234d45"/><path d="m881 458 34 20v7l-34-20Z" fill="#d6f485" stroke="none"/>
+    <path d="m929 445 24-14 47 26-23 15Z" fill="#dce9ba"/><path d="m929 445 48 27v14l-48-27Z" fill="#315d51"/><path d="m977 472 23-15v13l-23 16Z" fill="#173d35"/>
+    <path d="m1011 565 44-25 80 80h-75Z" fill="#497e6c"/><path d="m1071 577 38-20 76 63h-78Z" fill="#adc0a4"/>
+  </g>
+  <rect width="1200" height="620" fill="url(#grain)"/>
+</svg>

@@ -1,6 +1,8 @@
 # Games2 development roadmap
 
-**State:** Strike Pixel SP-001 is playable and awaiting owner review. No Games2 game has an owner-approved release or equivalent completion milestone yet.
+**State:** Strike Pixel SP-001 merged in PR #2 as a playable preview. The Cartridge
+Cabinet infrastructure is proposed in its own PR. A merged preview is not a
+versioned game release or an automatic upstream integration milestone.
 
 This roadmap governs the games monorepo; [VANILLAJS](https://github.com/QSOLKCB/VANILLAJS) retains its own independent engine roadmap. An entry here is a proposal until code, tests and a reviewed completion milestone establish otherwise.
 
@@ -9,7 +11,8 @@ This roadmap governs the games monorepo; [VANILLAJS](https://github.com/QSOLKCB/
 | ID | Milestone | Status | Required outcome |
 | --- | --- | --- | --- |
 | G2-DOC-001 | Documentation-first foundation | **Merged in PR #1** | Root agent rules and roadmap; archived source catalogue; pinned engine integration; `strikepixel/` game specification and Codex handoff |
-| SP-001 | Strike Pixel first playable vertical slice | **Implemented; owner review pending** | Sunrelay Yard, offline bots, three weapons, working match and [verification evidence](strikepixel/docs/VERIFICATION.md) |
+| SP-001 | Strike Pixel first playable vertical slice | **Merged in PR #2; playable preview** | Sunrelay Yard, offline bots, three weapons, working match and [verification evidence](strikepixel/docs/VERIFICATION.md) |
+| G2-CABINET-001 | The Cartridge Cabinet | **Implemented; infrastructure PR review pending** | Original arcade, strict cartridge registry, complete verified collection, hosted CI and main-only Pages workflow |
 | SP-002 | Strike Pixel gameplay expansion | **Not started** | Original additional arenas/modes and progression only after the vertical slice is proven |
 | SP-003 | Strike Pixel creator/polish pass | **Not started** | Data-only mods, accessibility, gamepad/touch, performance and offline resilience as verified |
 | G2-GAME-002 | Second Games2 game | **Not selected** | One separate game directory, one focused new-game PR and independent release process |
@@ -33,6 +36,20 @@ No release version, PR number or implementation date is promised by this table. 
 [Design brief](strikepixel/README.md) · [Per-game roadmap](strikepixel/ROADMAP.md) · [Implementation handoff](strikepixel/CODEX_HANDOFF.md)
 
 The first implementation is an original, offline, blocky 3D FPS inspired by arcade arena shooters. SP-001 supplies one self-contained arena and match loop using an immutable VANILLAJS module closure. No microtransactions, accounts, premium currency or network multiplayer. See the [per-game roadmap](strikepixel/ROADMAP.md) for deferred expansion, input hardware and creator-tool work. Owner review is still required before this counts toward the three-game upstream milestone.
+
+## Permanent arcade home
+
+The cabinet launches individual, independently owned game packages. Its registry
+is a publication allowlist, not automatic discovery. Each approved deployment
+must preserve the complete existing collection, stable game URLs and per-game
+offline scopes. New-game PRs still normally introduce only one game.
+
+After G2-CABINET-001 is reviewed and merged, verify the main-branch Pages run and
+the public cabinet/game URLs. Later work can improve accessibility, cabinet
+presentation and collection navigation without changing game ownership. Additional
+cartridges become playable only through reviewed implementations and registration;
+the concept cards do not count as new games. See [adding a cartridge](docs/ADDING_A_CARTRIDGE.md)
+and [deployment policy](docs/DEPLOYMENT.md).
 
 ## Future game selection
 

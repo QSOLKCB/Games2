@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "cartridges": [
+    {
+      "slug": "strikepixel",
+      "title": "Strike Pixel",
+      "subtitle": "Sunrelay Yard",
+      "description": "An original offline arena FPS. Three weapons, a sunlit block-built yard and a crew of local bots. No accounts or purchases.",
+      "genre": "Arena FPS",
+      "status": "playable",
+      "directory": "strikepixel",
+      "artwork": "cabinet/assets/strikepixel.svg",
+      "releaseLabel": "SP-001 · Unreleased",
+      "order": 0
+    },
+    {
+      "slug": "neon-apex",
+      "title": "Neon Apex",
+      "subtitle": "Original racing concept",
+      "description": "A cabinet concept for the catalogue's arcade racing ideas: scenic roads, readable handling and original tracks. No game has been built yet.",
+      "genre": "Arcade racing",
+      "status": "concept",
+      "artwork": "cabinet/assets/neon-apex.svg",
+      "releaseLabel": "Concept · Not playable",
+      "order": 10
+    },
+    {
+      "slug": "starward-signal",
+      "title": "Starward Signal",
+      "subtitle": "Original spaceflight concept",
+      "description": "A cabinet concept for the catalogue's space combat ideas: original ships, flight and distant encounters. No game has been built yet.",
+      "genre": "Space combat",
+      "status": "concept",
+      "artwork": "cabinet/assets/starward-signal.svg",
+      "releaseLabel": "Concept · Not playable",
+      "order": 20
+    }
+  ]
+}

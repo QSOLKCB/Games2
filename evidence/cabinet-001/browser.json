@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "siteVersion": "0cf78de170a54112b493169a35df5d3fea452a9d4822ed8eee0786e8886a6f1b",
+  "games": [
+    "strikepixel"
+  ],
+  "browser": "158.0.8127.18",
+  "prefix": "/Games2/",
+  "checks": [
+    "project-prefix cabinet, original artwork, native keyboard selection and truthful concepts",
+    "PLAY launches the verified package and actual movement/firing at /Games2/strikepixel/",
+    "return and browser history keep game lifecycle usable without a cabinet worker",
+    "direct game URL, complete installation and game-only service-worker scope",
+    "invalid cabinet update fails closed and preserves installed game/unrelated caches",
+    "fresh offline direct load still starts a match and fires after cabinet navigation",
+    "touch, 320px/390px viewports, focus and reduced-motion selection",
+    "missing cartridge art has a readable fallback while the valid game remains launchable"
+  ],
+  "elapsedSeconds": 4.415,
+  "limitations": [
+    "Local hosted-prefix check; no production deployment performed.",
+    "Software-rendered headless Chromium; touch and narrow screens are emulated, not physical device tests.",
+    "Cabinet is online navigation; only the game has an offline worker."
+  ]
+}
