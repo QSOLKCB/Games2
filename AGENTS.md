@@ -6,10 +6,23 @@ Read this file before creating, editing or reviewing a game. Also read the targe
 
 - Games2 owns **actual original games** under one root directory per game, e.g. `strikepixel/`. Do not put new game implementation in the repository root.
 - [VANILLAJS](https://github.com/QSOLKCB/VANILLAJS) owns reusable engine systems, physics, Game Labs, mod tooling and tutorials. A game may consume a **reviewed, immutable engine revision**; it must not make VANILLAJS import code back from Games2.
-- Default to **one new game per PR**. Later PRs polish an existing game. State any justified technical exception explicitly.
+- Default to **one new game per implementation PR**. Follow the mandatory two-pass process below; state any justified technical exception to PR scope explicitly.
 - Every game directory requires `README.md`, `ROADMAP.md` and `AGENTS.md` before implementation.
 - Preserve [all ideas](docs/GAME_IDEAS.md) and the [complete donor catalogue](docs/DONOR_CATALOGUE.md). Do not silently drop or rename proposals.
 - Changes to VANILLAJS require a **separate VANILLAJS PR** and owner review. Never silently modify both repositories.
+
+## Mandatory two-pass development policy
+
+Every new game must plan **Implementation → Polish → Release Review** before its
+initial release. Read [the development process](docs/DEVELOPMENT_PROCESS.md).
+
+1. **Pass 1 — Implementation:** one original game in its own directory, a complete playable vertical slice, automated tests, actual browser verification, documentation and provenance; submit one focused implementation PR.
+2. **Pass 2 — Polish:** after that implementation PR merges, improve the same game in a separate polish PR, followed by owner review. Address gameplay/difficulty, graphics/animation/effects, soundtrack/audio feedback, controls/input, menus/HUD/accessibility, performance/rendering work, bugs/recovery, offline packaging/deployment, regression tests and actual browser gameplay. Avoid unrelated games or excessive unfinished features.
+3. **Pass 3 — Release Review:** an owner approval gate, **not automatically a third implementation PR**. Both PRs must be merged, required tests/CI must pass, the deployed preview must work, limitations must be documented, and the owner must test through the Cartridge Cabinet and explicitly authorise release.
+
+- Every game's `ROADMAP.md` must visibly track all three stages, their status, PR/evidence references and remaining release gates. Its `AGENTS.md` must link to this policy and the local progression. Update both as work advances; never infer release approval from a merge or deployment.
+- Critical defects may be fixed immediately. The owner may approve further polish PRs; failed release review returns the game for corrections. Two passes are a minimum quality process, not a guarantee of release readiness. Later enhancements and bug fixes do not repeat the whole process.
+- **Current priority:** SP-001 merged in PR #2; cabinet infrastructure merged in PR #3. **SP-002 is the next game PR: dedicated Strike Pixel gameplay and presentation polish.** Initial release remains pending polish, verification and owner approval. Start the second game only after Strike Pixel's initial polish review, unless the owner explicitly changes priorities.
 
 ## Engineering
 
@@ -41,8 +54,8 @@ Read this file before creating, editing or reviewing a game. Also read the targe
 
 ## Cabinet and deployment boundary
 
-The documentation foundation merged in PR #1 and Strike Pixel's playable SP-001
-slice merged in PR #2. Neither event creates a versioned game release. The
+The documentation foundation merged in PR #1, Strike Pixel's playable SP-001
+slice in PR #2 and cabinet infrastructure in PR #3. None creates a versioned game release. The
 [original handoff](strikepixel/CODEX_HANDOFF.md) remains historical scope evidence.
 
 - Root `index.html`, `cabinet/`, `cartridges.json`, `scripts/` and workflows own the arcade infrastructure. Game runtime still belongs in its own directory.
@@ -54,3 +67,5 @@ slice merged in PR #2. Neither event creates a versioned game release. The
 - Read [Adding a cartridge](docs/ADDING_A_CARTRIDGE.md) and [deployment policy](docs/DEPLOYMENT.md) before changing this infrastructure. No new game is implied by a cabinet change.
 
 **Correctness outranks speed. Build independent games, then upstream reusable systems through review.**
+
+**Build once. Polish properly. Test the real game. Then move on.**

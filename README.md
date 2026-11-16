@@ -7,15 +7,16 @@ Games2 is an **offline-first games monorepo**. Actual games live in separate roo
 **Insert cartridge. Press start. Own the game.**
 
 **Strike Pixel SP-001 merged in PR #2** as a playable preview. The Cartridge
-Cabinet adds an original arcade launcher and a verified collection build for
+Cabinet **merged in PR #3**, adding an original arcade launcher and a verified collection build for
 GitHub Pages. Concept cartridges are clearly labelled coming soon and cannot
 launch. No versioned game release is implied.
 
-**Expected URLs after this infrastructure PR is reviewed, merged and deployed:**
+**Deployment targets after a successful main-branch Pages deployment:**
 [Games2 Arcade](https://qsolkcb.github.io/Games2/) ·
 [Strike Pixel](https://qsolkcb.github.io/Games2/strikepixel/).
-The audit found Pages configured for Actions but the public root returned 404;
-this PR does not deploy feature-branch code. See [deployment status and setup](docs/DEPLOYMENT.md).
+The original cabinet audit found Pages configured for Actions but the public root
+returned 404. Confirm the current deployment before release review; PR code never
+deploys to production. See [deployment status and setup](docs/DEPLOYMENT.md).
 
 > This is not a product. This is INDEPENDENCE.
 >
@@ -38,8 +39,8 @@ offline cache. No npm installation is needed to build or play.
 | Audience | Read |
 | --- | --- |
 | Player / curious creator | The arcade above, [Strike Pixel controls](strikepixel/README.md#controls) and [planned games](docs/GAME_IDEAS.md) |
-| Contributor / Codex | [Root agent policy](AGENTS.md), then the game's own `AGENTS.md` |
-| Implementing the first game | [Strike Pixel roadmap](strikepixel/ROADMAP.md) and [Codex handoff](strikepixel/CODEX_HANDOFF.md) |
+| Contributor / Codex | [Root agent policy](AGENTS.md), [mandatory development process](docs/DEVELOPMENT_PROCESS.md), then the game's own `AGENTS.md` |
+| Polishing Strike Pixel | [SP-002 and release progression](strikepixel/ROADMAP.md); [original SP-001 handoff](strikepixel/CODEX_HANDOFF.md) is historical scope evidence |
 | Maintaining the monorepo | [Games2 roadmap](ROADMAP.md), [donor catalogue](docs/DONOR_CATALOGUE.md) |
 | Integrating VANILLAJS | [Engine integration and upstream feedback](docs/ENGINE_INTEGRATION.md) |
 | Adding a cartridge | [Registration, packaging and verification guide](docs/ADDING_A_CARTRIDGE.md) |
@@ -58,8 +59,9 @@ offline cache. No npm installation is needed to build or play.
 
 ## Monorepo rules
 
-- **Generally one new game per PR.** Polish, bug fixes and enhancements follow in later PRs. Technical exceptions require a stated reason.
-- **One directory per game.** Each game owns `README.md`, `AGENTS.md` and `ROADMAP.md`, plus its code and assets when implemented.
+- **Generally one new game per implementation PR.** Technical exceptions require a stated reason.
+- **Two planned development passes before initial release review.** Merge the implementation PR, then complete a separate polish PR and owner review. Release review is an approval gate, not automatically a third implementation PR. See the [mandatory process and release conditions](docs/DEVELOPMENT_PROCESS.md).
+- **One directory per game.** Each game owns `README.md`, `AGENTS.md` and `ROADMAP.md`, plus its code and assets. Every game roadmap visibly tracks **Implementation → Polish → Release Review**.
 - **No erased ideas.** Preserve the full [ideas catalogue](docs/GAME_IDEAS.md) and all [donor references](docs/DONOR_CATALOGUE.md). New proposals are additive.
 - **Original works only.** Historic and commercial games are inspiration, not permission to copy copyrighted characters, levels, ROMs, music, art or code.
 - **Offline-first and player-owned.** No accounts, telemetry, ads, microtransactions, loot boxes, battle passes, paid unlocks or entitlement checks by default.
@@ -73,6 +75,12 @@ offline cache. No npm installation is needed to build or play.
 An original colourful block-built first-person shooter against offline bots, with snappy movement, responsive weapons and replayable arcade matches. No pay-to-win systems or premium currencies.
 
 SP-001 provides **Sunrelay Yard**, three weapons, three offline bots, score/time-limited matches and an independently served static package. Start with the [local play instructions](strikepixel/README.md), [original verification record](strikepixel/docs/VERIFICATION.md) and [next milestones](strikepixel/ROADMAP.md). The [original implementation handoff](strikepixel/CODEX_HANDOFF.md) remains available for scope review. Its implementation merged in PR #2; it is not a published release.
+
+**Next game PR: SP-002 — dedicated gameplay and presentation polish.** Initial
+release remains pending polish, passing verification, a working deployed preview
+and owner approval. The second game begins after Strike Pixel's initial polish
+review unless the owner explicitly changes priorities. Two passes are a minimum
+quality process; further corrections may be required.
 
 ## One collection, independent cartridges
 

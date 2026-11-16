@@ -2,6 +2,14 @@
 
 **SP-001: playable preview, merged in PR #2. Unreleased.**
 
+**Implementation → Polish → Release Review:** SP-001 implementation is complete;
+SP-002 is the next dedicated gameplay and presentation polish PR. Initial release
+remains pending merged polish, required tests and CI, a working deployed preview,
+documented limitations and owner approval after playing through the Games2
+Cartridge Cabinet. Release review is an approval gate, not automatically a third
+implementation PR. See the [visible progression and polish scope](ROADMAP.md#implementation--polish--release-review)
+and [repository policy](https://github.com/QSOLKCB/Games2/blob/main/AGENTS.md).
+
 An original offline arena FPS for Games2. Enter **Sunrelay Yard**, a compact
 34-metre block-built arena with teal cover, a warm amber relay tower, flank routes
 and an accessible raised deck. Three weapons, three local opponents, one short
