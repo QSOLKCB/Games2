@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/QSOLKCB/VANILLAJS",
+  "commit": "e9121ea7297b0aeca1da131b695e7c3371a98745",
+  "license": "Apache-2.0",
+  "roots": [
+    "combat2d",
+    "motion2d",
+    "projection25d",
+    "sprite2d",
+    "time",
+    "audio2d"
+  ],
+  "modules": [
+    {
+      "name": "combat2d",
+      "path": "vendor/vanillajs/modules/combat2d/index.js",
+      "gitBlobSha": "d24819bf1d3d7bca65a96625621c282038fae0f8",
+      "depends": []
+    },
+    {
+      "name": "motion2d",
+      "path": "vendor/vanillajs/modules/motion2d/index.js",
+      "gitBlobSha": "56174c2bc135239ff8677bd337665df54f0df4e5",
+      "depends": []
+    },
+    {
+      "name": "projection25d",
+      "path": "vendor/vanillajs/modules/projection25d/index.js",
+      "gitBlobSha": "be6a75a90ab3d4061486442b263457e6b97e16df",
+      "depends": []
+    },
+    {
+      "name": "sprite2d",
+      "path": "vendor/vanillajs/modules/sprite2d/index.js",
+      "gitBlobSha": "30a62b8f07dcd3d71161f8730fae1bd89c08df76",
+      "depends": []
+    },
+    {
+      "name": "time",
+      "path": "vendor/vanillajs/modules/time/index.js",
+      "gitBlobSha": "60c1532aaaac36beceb3e81f1a935c59478976b2",
+      "depends": []
+    },
+    {
+      "name": "audio2d",
+      "path": "vendor/vanillajs/modules/audio2d/index.js",
+      "gitBlobSha": "0070317edcfdc63a314ebab0b29241f9cf315e36",
+      "depends": []
+    }
+  ],
+  "localChanges": []
+}

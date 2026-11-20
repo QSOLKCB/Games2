@@ -1,11 +1,9 @@
 # Games2 Arcade 👾
 
-> **Portfolio update (20 Nov 2026):** Strike Pixel SP-002A CAD visual polish is
-> under review in [PR #5](https://github.com/QSOLKCB/Games2/pull/5).
-> The next selected game is an **original NARC-inspired** 2.5D arcade title,
-> [Circuit Vice](narc/ROADMAP.md), planned after Strike Pixel release review.
-> [36 future game directory plans](docs/FUTURE_GAME_DIRECTORIES.md) are
-> documentation-only; the cabinet still launches only verified cartridges.
+> **NC-001 implementation preview under review:** Strike Pixel visuals PR #5 and
+> portfolio PR #6 are merged. [Circuit Vice](narc/README.md) now has a standalone
+> playable implementation proposed for the cabinet; 35 other concepts remain
+> planning-only. No initial Circuit Vice release or live deployment is claimed.
 
 **Original QSOL-IMC browser games. Built with VANILLAJS. Owned by their creators.**
 

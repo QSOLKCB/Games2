@@ -1,0 +1,13 @@
+Circuit Vice (NC-001) — original QSOL-IMC offline arcade game.
+Copyright 2026 QSOL-IMC / Games2 contributors.
+Licensed under Apache-2.0, see LICENSE. Original scenario, code, artwork palettes and procedural sprite recipes.
+Not affiliated with or derived from commercial NARC assets, ROMs, music or source.
+
+VANILLAJS source included unchanged under Apache-2.0 at commit e9121ea7297b0aeca1da131b695e7c3371a98745:
+  modules/combat2d/index.js
+  modules/motion2d/index.js
+  modules/projection25d/index.js
+  modules/sprite2d/index.js
+  modules/time/index.js
+  modules/audio2d/index.js
+Source Git blob IDs and closure are listed in vendor/vanillajs/ENGINE_PIN.json.

@@ -1,6 +1,6 @@
 # Games2 — preserved game idea catalogue
 
-This is a **catalogue of concepts, not a list of shipped or implemented games**. Commercial titles are used as references for genre/mechanics. Every eventual Games2 title must use original QSOL-IMC design, assets, names and code with rights reviewed.
+This document preserves **original source concepts**; it is not itself evidence of shipped games. Commercial titles are used as references for genre/mechanics. Every eventual Games2 title must use original QSOL-IMC design, assets, names and code with rights reviewed.
 
 **Source:** the [pre-foundation README preserved verbatim](ORIGINAL_README_2026-11-16.md). That source remains available unchanged. Additional earlier proposals are identified separately rather than silently treated as entries in that source.
 
@@ -83,6 +83,6 @@ These proposals were supplied before this documentation PR and are preserved alo
 The [full concept directory register](FUTURE_GAME_DIRECTORIES.md) maps the original
 README ideas and earlier proposals to original working identities. `narc/`
 is the selected **second** project after Strike Pixel's complete polish and
-release review. Its working title is *Circuit Vice*. All 36 added directories
-contain only design docs; they are not games, builds or cartridge entries.
+release review. Its working title is *Circuit Vice*. Of the 36 additional directories, 35 remain docs-only; `narc/` now carries
+an NC-001 implementation candidate, subject to tests and owner review.
 The original README source remains unchanged and retains historical priority.

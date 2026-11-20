@@ -4,8 +4,9 @@ Follow the [Games2 root agent policy](../AGENTS.md), the
 [mandatory development sequence](../docs/DEVELOPMENT_PROCESS.md) and
 [NC-001/002 release gates](ROADMAP.md).
 
-- The `narc/` directory is a **planning-only concept**. No claim of playable
-  preview, engine adoption, packaged asset or release is permitted yet.
+- NC-001 is the **implementation PR**. The game is a playable candidate only
+  after exact-source, static build and real browser verification; it is NOT an
+  owner-approved versioned release.
 - This is an original 2.5D arcade action game. NARC is a historical inspiration
   reference, not a title, brand licence or asset source.
 - Keep authoritative damage, score, actor identity, objectives and collisions
@@ -21,7 +22,8 @@ Follow the [Games2 root agent policy](../AGENTS.md), the
   source integrity and worker isolation; record negative checks.
 - No ripped commercial assets, source, audio, maps, fonts or trademarked
   branding. No runtime cloud dependencies, telemetry, payment or accounts.
-- Do not modify `cartridges.json` to launch this planning scaffold.
-  Owner authorization is needed for merge, deploy, tag or publication.
+- The NC-001 PR proposes a single `playable` preview registry row and one
+  source-pinned package; this is not released until owner authorisation.
+  No other concept is turned into a cartridge.
 
-**Next action:** finish and review Strike Pixel first; then start NC-001.
+**Next action:** Review the NC-001 implementation and regression evidence; finish NC-002 polish in a separate PR after NC-001 merges.

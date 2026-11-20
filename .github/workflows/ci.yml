@@ -55,19 +55,19 @@
         {
           "id": "source",
           "name": "Verify source inventories and provenance",
-          "run": "node scripts/verify-site.mjs --source\nnode strikepixel/scripts/verify.mjs --source",
+          "run": "node scripts/verify-site.mjs --source\nnode strikepixel/scripts/verify.mjs --source\nnode narc/scripts/verify.mjs --source",
           "shell": "bash"
         },
         {
           "id": "tests",
-          "name": "Run cabinet and existing Strike Pixel Node tests",
-          "run": "node --test tests/*.test.mjs\nnode --test strikepixel/tests/*.test.mjs",
+          "name": "Run cabinet, Strike Pixel and Circuit Vice Node regressions",
+          "run": "node --test tests/*.test.mjs\nnode --test strikepixel/tests/*.test.mjs\nnode --test narc/tests/*.test.mjs",
           "shell": "bash"
         },
         {
           "id": "build",
           "name": "Build and verify actual game and site packages",
-          "run": "node strikepixel/scripts/build.mjs\nnode strikepixel/scripts/verify.mjs\nnode scripts/build-site.mjs\nnode scripts/verify-site.mjs",
+          "run": "node narc/scripts/build.mjs\nnode narc/scripts/verify.mjs\nnode strikepixel/scripts/build.mjs\nnode strikepixel/scripts/verify.mjs\nnode scripts/build-site.mjs\nnode scripts/verify-site.mjs",
           "shell": "bash"
         },
         {
@@ -82,8 +82,8 @@
         },
         {
           "id": "browser",
-          "name": "Exercise both packaged browser surfaces",
-          "run": "node strikepixel/scripts/browser.mjs\nnode scripts/browser-site.mjs",
+          "name": "Exercise both game packages and complete cabinet",
+          "run": "node narc/scripts/browser.mjs\nnode strikepixel/scripts/browser.mjs\nnode scripts/browser-site.mjs",
           "shell": "bash",
           "env": {
             "NODE_PATH": "${{ runner.temp }}/games2-browser/node_modules",

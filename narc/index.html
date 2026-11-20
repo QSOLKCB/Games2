@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1525">
+<title>Circuit Vice — District 09 | Games2</title>
+<link rel="stylesheet" href="./style.css"></head><body>
+<header><a id="cabinet-return" href="../">← GAMES2 ARCADE</a><div class="brand">CIRCUIT <strong>VICE</strong><span> / DISTRICT 09</span></div><button id="sound" type="button">SOUND ON</button></header>
+<main>
+<section class="topbar" aria-label="Mission status">
+  <div>HEALTH <b id="health">100 / 100</b></div><div>AMMO <b id="ammo">18 / 90</b></div>
+  <div>SCORE <b id="score">0</b></div><div>TIME <b id="timer">3:00</b></div>
+</section>
+<div class="stage" id="stage"><canvas id="game" tabindex="0" width="960" height="540" aria-label="Circuit Vice 2.5D city mission: use keyboard controls described below"></canvas>
+<section id="panel" class="panel" role="dialog" aria-labelledby="panel-title">
+  <div class="eyebrow">Q S O L  //  RESPONSE DIVISION</div><h1 id="panel-title">CIRCUIT VICE</h1>
+  <p id="panel-message">The grid is live. Rescue the operator, disable the relay and stop the sentinel.</p>
+  <div class="actions"><button type="button" id="start">DEPLOY / PLAY</button><button type="button" id="restart" hidden>RESTART MISSION</button></div>
+  <p class="instructions">WASD / ARROWS MOVE · F / CLICK FIRE · J STUN · E INTERACT / ARREST<br>SHIFT DODGE · R RELOAD · P / ESC PAUSE · M MUTE</p>
+</section></div>
+<section class="objectives" aria-label="Mission objectives"><div>STATUS <b id="mission-status">READY</b></div>
+<div>OPERATOR <b id="rescued">AWAITING</b></div><div>POWER GRID <b id="relay">ACTIVE</b></div>
+<div>SENTINEL <b id="boss">AT LARGE</b></div><div>CAPTURES <b id="captured">0</b></div></section>
+<p id="notice" class="notice" aria-live="polite">RESPOND WITHOUT ENDANGERING CIVILIANS</p>
+<p id="offline" class="offline" role="status">Offline-ready after verified installation. Gameplay requires no network.</p>
+<details><summary>Controls, mission and accessibility</summary><p>Walk up/down/left/right with WASD or arrow keys. Fire with F or left mouse click.
+Use J to stun and E near a stunned opponent to arrest. Use E by the stranded operator to rescue them,
+or by the relay switch to shut down the electrified lane. Shift dodges; R reloads; P or Escape pauses;
+M toggles sound. Once the sentinel is defeated, reach the east evac gate. Survive before the timer expires.
+All mission art and sounds are original local procedural work. No accounts, telemetry or network multiplayer.</p></details>
+</main><footer>NC-001 IMPLEMENTATION PREVIEW · APACHE-2.0 · ORIGINAL GAME / NO COMMERCIAL IP</footer>
+<script type="module" src="./start.js"></script></body></html>

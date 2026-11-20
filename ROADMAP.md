@@ -2,8 +2,8 @@
 
 **Review date:** 20 November 2026. **Priority:** finish Strike Pixel's dedicated
 polish and release review, then build **Circuit Vice** — an original
-NARC-inspired arcade action game in `narc/`. The 36 additional game directories
-are **documentation-only concept scaffolds**, not finished games or cartridges.
+NARC-inspired arcade action game in `narc/`. 35 future game directories remain **documentation-only planning scaffolds**.
+The `narc/` directory now contains the **NC-001 implementation candidate**.
 
 The [original Games2 README dated 16 November 2026](docs/ORIGINAL_README_2026-11-16.md)
 remains preserved verbatim, and [every historical game idea](docs/GAME_IDEAS.md)
@@ -17,17 +17,17 @@ planning state; it does not reinterpret game previews as releases.
 | G2-DOC-001 | Merged PR #1 | Original proposal source, policies and first game planning |
 | SP-001 | Merged PR #2; playable preview | Original Sunrelay Yard, three weapons, local bots, real match loop |
 | G2-CABINET-001 | Merged PR #3; infrastructure | Offline cabinet, registry allowlist, build and main-only Pages deployment gate |
-| SP-002A — CAD visuals | **PR #5 open; not merged or verified here** | Engine-generated rounded bot/weapon/pickup meshes, industrial arena presentation, asset source provenance |
+| SP-002A — CAD visuals | **Merged PR #5; visual baseline** | Engine-generated rounded bot/weapon/pickup meshes, industrial arena presentation, asset source provenance |
 | SP-002B — gameplay and release polish | **Pending** | Balance, weapon feedback, audio, controls, accessibility, menus/HUD, 60-fps hardware check, defects and offline play regression |
 | Strike Pixel release review | **Pending** | Both implementation and polish requirements merged; green CI; real deployed cabinet play; limitations; owner sign-off |
-| NC-001 — Circuit Vice implementation | **Selected next; not started** | Original 2.5D run-and-gun + arrest/rescue mission; fixed-step VANILLAJS, new self-contained game PR |
+| NC-001 — Circuit Vice implementation | **NC-001 implementation PR in review; no release** | Original 2.5D run-and-gun + arrest/rescue mission; fixed-step VANILLAJS, new self-contained game PR |
 | NC-002 — Circuit Vice polish | **Not started** | Separate original-game polish PR and complete gameplay/browser/offline evidence |
 | Circuit Vice release review | **Not eligible** | Owner tests published preview and authorises release |
 | G2-GAME-003 | **Backlog** | Choose third independently playable title, e.g. `cyber-ninja/`, `pinball/`, `immersive-fps/` |
 | G2-UPSTREAM-001 | **Not started** | After three completed games or explicit earlier owner approval, evaluate reusable components in independent VANILLAJS PRs |
 
-The status of PR #5 may change after this document's creation. Check GitHub
-before declaring any phase complete.
+PRs #5 and #6 were merged. NC-001 remains a proposed new-game implementation;
+CI and owner review must precede its merge or deployed preview.
 
 ## Stage gates — all titles
 
@@ -94,7 +94,7 @@ combat/arrest/rescue loop; use `combat2d`, `projection25d`, `sprite2d`,
 `motion2d`, audio and creator tooling after immutable-pin review. Design for
 desktop keyboard/gamepad first, local co-op only if separately tested. Do **not**
 reuse NARC branding in the released title, copyrighted graphics, recognisable
-characters, music or maps. NC-001 gets one implementation PR, NC-002 a separate
+characters, music or maps. NC-001 is in implementation review, NC-002 remains a separate
 polish PR, followed by owner release review. No placeholders registered in cabinet.
 
 ## Games 3+ — preserved backlog and creation order

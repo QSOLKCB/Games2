@@ -1,0 +1,3 @@
+VANILLAJS, copyright QSOL-IMC contributors, Apache-2.0.
+Pinned e9121ea7297b0aeca1da131b695e7c3371a98745; unchanged modules: combat2d, motion2d, projection25d, sprite2d, time, audio2d.
+Modules are copied unchanged from the recorded commit. All six modules declare zero catalogue dependencies.
