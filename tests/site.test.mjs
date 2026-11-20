@@ -65,6 +65,25 @@ test('full site builds retain two complete games and rebuild both after only one
   }
   assert.deepEqual((await verifySite({root})).games,['alpha','beta']);
 });
+
+test('only the three inert Markdown records may inhabit a planning-only game directory',async t=>{
+  const root=await fixture(t),name='narc',directory=join(root,name);
+  await mkdir(directory);
+  const files=['AGENTS.md','README.md','ROADMAP.md'];
+  for(const file of files)await writeFile(join(directory,file),'# Original concept: '+file+'\\n');
+  // Explicitly allowed planning docs must not become a published cartridge.
+  const result=await verifySourceSite(root);
+  assert.equal(result.approved.some(entry=>entry.slug===name),false);
+  await writeFile(join(directory,'index.html'),'<script>alert(1)</script>');
+  await assert.rejects(verifySourceSite(root),/concept directories accept only/);
+  await rm(join(directory,'index.html'));
+  await symlink(join(directory,'README.md'),join(directory,'extra-link'));
+  await assert.rejects(verifySourceSite(root),/concept directories accept only/);
+  await rm(join(directory,'extra-link'));
+  await rm(join(directory,'README.md'));
+  await assert.rejects(verifySourceSite(root),/concept directories accept only/);
+});
+
 test('source validation rejects missing entries, artwork, unknown runtime files and undeclared game directories',async t=>{
   const root=await fixture(t);await verifySourceSite(root);
   const index=await readFile(join(root,'alpha/index.html'));await rm(join(root,'alpha/index.html'));await assert.rejects(verifySourceSite(root));await writeFile(join(root,'alpha/index.html'),index);

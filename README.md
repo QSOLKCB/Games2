@@ -1,5 +1,12 @@
 # Games2 Arcade 👾
 
+> **Portfolio update (20 Nov 2026):** Strike Pixel SP-002A CAD visual polish is
+> under review in [PR #5](https://github.com/QSOLKCB/Games2/pull/5).
+> The next selected game is an **original NARC-inspired** 2.5D arcade title,
+> [Circuit Vice](narc/ROADMAP.md), planned after Strike Pixel release review.
+> [36 future game directory plans](docs/FUTURE_GAME_DIRECTORIES.md) are
+> documentation-only; the cabinet still launches only verified cartridges.
+
 **Original QSOL-IMC browser games. Built with VANILLAJS. Owned by their creators.**
 
 Games2 is an **offline-first games monorepo**. Actual games live in separate root directories such as `/strikepixel/`. VANILLAJS is the independent engine, physics, Game Labs, editor, mods, creator tools and education project. This repository is where game-specific worlds, content, progression, modes and releases belong.

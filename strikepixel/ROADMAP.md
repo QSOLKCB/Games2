@@ -1,7 +1,50 @@
-# Strike Pixel roadmap
+# Strike Pixel roadmap — 20 November 2026 update
 
-**Current state: SP-001 merged in PR #2. SP-002 polish is the next game PR.
-Initial release pending polish, verification and owner approval.**
+**Status:** SP-001 merged in PR #2 and remains the accepted playable baseline.
+SP-002A (CAD graphics, PR #5) is **open and not considered merged**.
+SP-002B (balance, feel, accessibility, sound, menus, offline and performance
+verification) remains to be completed. Initial release awaits the full
+dedicated polish pass, successful CI/packaged browser checks, deployment
+verification and owner review. **Next new game: `narc/` / Circuit Vice,
+only after Strike Pixel's polish and release review.**
+
+## Modern VANILLAJS adoption — compatibility-gated
+
+| Phase | Status | Practical outcome |
+| --- | --- | --- |
+| SP-002A: Original procedural CAD art | Open PR #5; verification/owner review pending | Rounded bot silhouettes, generated weapon pieces, pickup and projectile forms, industrial skyline; separate exact-source pin to VANILLAJS CAD-003 |
+| SP-002B: Complete playable polish | Planned | Fair bot tuning, recoil/hit response, soundtrack, controls/gamepad/cancellation, HUD/accessibility, performance and actual offline/browser gameplay |
+| SP-002C: Optional further polish | Owner decision | Address review defects or justified additional improvements, not a preapproved release |
+| SP-003: Creator data and mods | Deferred | Review Creator-Interop-001, bounded data-only authored maps/weapon packs, safe imports, versioned offline export and provenance |
+| SP-004: Materials/VFX and original earned cosmetics | Deferred | Evaluate Render-Lit and WORLD-VIS-001 only with measurable frame budgets and independently verified collision/presentation separation |
+| SP-UPSTREAM-001 | Deferred | Promote reusable systems only through the documented Games2 ↔ VANILLAJS owner-approved source-pinned review |
+
+**Engine pins must remain truthful.** SP-001 simulation and WebGL module
+closure remain VANILLAJS v2.5.0 at
+`32b4fb1ca80e854297998aa00f87a8f012398b89`.
+SP-002A adds the unmodified CAD generator from newer VANILLAJS main
+`e9121ea7297b0aeca1da131b695e7c3371a98745`
+only for display assets. See [CAD asset source and rights](docs/CAD_ASSETS.md).
+Neither this addition nor a roadmap implies a complete engine upgrade.
+A full reviewed renderer/LOD/creator pipeline update requires dedicated
+compatibility tests, offline packaging checks, frame budget evidence and
+owner approval.
+
+## SP-002B remaining acceptance checklist
+
+- Verify fair AI path, hit probabilities and cover without changing match scoring.
+- Improve weapon animation, sound, readable muzzle and damage feedback.
+- Test settings, keyboard/mouse, gamepad, focus loss, pause, context loss and restart.
+- Improve HUD text legibility, color contrast and reduced sensory load.
+- Measure CPU/GPU frame timing on target hardware and show 60-fps result or report limits.
+- Re-run source pin, Node tests, complete cabinet build, offline reload and actual browser gameplay.
+- Record precisely executed vs unexecuted evidence; no premature release claim.
+
+---
+
+## Historical SP-001 and original proposal register
+
+**Historical baseline: SP-001 merged in PR #2. The SP-002 polish programme is active (PR #5 covers only the first visual slice); initial release still pending verification and owner approval.**
 
 The first playable slice is Sunrelay Yard: an original arena, three weapons,
 three offline bots and a complete score/time-limited match. Read the
@@ -17,7 +60,7 @@ release review. This game follows the [repository policy](https://github.com/QSO
 | Pass | Milestone | Status | Required outcome |
 | --- | --- | --- | --- |
 | 1 — Implementation | SP-001 | **Complete; merged in PR #2; playable preview** | One original 3D arena, movement and collision, three weapon classes, local bots, score/time limits, deaths/respawns, HUD/restart, settings, procedural sound/music, health/ammo pickups, static/offline packaging, tests, browser verification, documentation and provenance |
-| 2 — Polish | SP-002 | **Next game PR; not started** | A separate PR improving the existing game's gameplay and presentation, addressing the checklist below, with regression evidence and owner review |
+| 2 — Polish | SP-002 | **Active (first visual slice in PR #5); remainder pending** | A separate PR improving the existing game's gameplay and presentation, addressing the checklist below, with regression evidence and owner review |
 | 3 — Release Review | Initial release; carries forward SP-005 release QA | **Pending polish, verification and owner approval** | Owner plays the deployed preview through the Games2 Cartridge Cabinet and reviews all six release conditions below; this is an approval gate, not automatically another implementation PR |
 
 The Cabinet infrastructure merged in PR #3. It is not a game polish pass or a
