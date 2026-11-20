@@ -17,6 +17,12 @@ export function streetPropBounds(prop){
   return {minX:prop.x-PROP_MARGIN,maxX:prop.x+prop.w+PROP_MARGIN,
     minY:prop.y-PROP_MARGIN,maxY:prop.y+prop.h+PROP_MARGIN};
 }
+// Attack warning and recovery budgets are fixed tick counts, never wall time.
+export const ENEMY_BALANCE=Object.freeze({
+  striker:Object.freeze({windup:18,recovery:84,range:42,damage:8}),
+  shooter:Object.freeze({windup:24,recovery:108,range:315,damage:9}),
+  boss:Object.freeze({windup:36,recovery:72,range:325,damage:13})
+});
 const enemyDefinitions=Object.freeze([
   {id:1,kind:'striker',x:312,y:340,hp:38},
   {id:2,kind:'shooter',x:485,y:385,hp:38},
@@ -41,6 +47,17 @@ function obstruction(x,y){
     return x>=b.minX&&x<=b.maxX&&y>=b.minY&&y<=b.maxY;
   });
 }
+// Integer sample spacing < 24 world units, narrower than any physical prop.
+// Used only for enemy LOS; player projectile collision remains swept by VANILLAJS.
+export function unobstructedEnemyLane(from,to){
+  const dx=to.x-from.x,dy=to.y-from.y;
+  const steps=Math.max(1,Math.ceil(Math.max(Math.abs(dx),Math.abs(dy))/16));
+  for(let i=1;i<steps;i++){
+    const x=from.x+Math.trunc(dx*i/steps),y=from.y+Math.trunc(dy*i/steps);
+    if(obstruction(x,y))return false;
+  }
+  return true;
+}
 function bounds(x,y,size=11){return {minX:x-size,maxX:x+size,minY:y-28,maxY:y+8};}
 const alive=e=>e.hp>0&&!e.captured;
 export class ViceMission {
@@ -49,7 +66,8 @@ export class ViceMission {
     this.phase='ready';this.tick=0;this.score=0;this.events=[];
     this.player={body:createBody2D({x:75,y:345}),face:1,hp:100,ammo:18,reserve:90,
       cooldown:0,stunCooldown:0,reload:0,dodge:0,dodgeCooldown:0,invulnerable:0,shots:0,hits:0};
-    this.enemies=enemyDefinitions.map(e=>({...e,maxHp:e.hp,stunned:0,cooldown:20+e.id*14,captured:false,face:-1,windup:0}));
+    this.enemies=enemyDefinitions.map(e=>({...e,maxHp:e.hp,stunned:0,
+      cooldown:20+e.id*14,captured:false,face:-1,windup:0,moving:false}));
     this.civilian={x:593,y:295,state:'waiting'};
     this.switch={x:744,y:354,disabled:false};this.bullets=[];
     this.last={stun:false,interact:false,dodge:false,reload:false};
@@ -66,9 +84,9 @@ export class ViceMission {
     p.hp=Math.max(0,p.hp-amount);p.invulnerable=48;this.counters.damageTaken+=amount;
     this.#event('hurt',p.body.x,p.body.y);
   }
-  #spawn(owner,x,y,vx,vy,stun=false){
+  #spawn(owner,x,y,vx,vy,stun=false,damage=0){
     if(this.bullets.length>=96)return false;
-    this.bullets.push({owner,x,y,vx,vy,ttl:95,stun});return true;
+    this.bullets.push({owner,x,y,vx,vy,ttl:95,stun,damage});return true;
   }
   #fire(stun){
     const p=this.player;
@@ -102,30 +120,52 @@ export class ViceMission {
     const p=this.player;
     for(const e of this.enemies){
       if(!alive(e))continue;
-      if(e.stunned>0){e.stunned--;continue;}
-      if(e.cooldown>0)e.cooldown--;
+      e.moving=false;
+      if(e.stunned>0){e.stunned--;e.windup=0;continue;}
       const d=distance(e,p.body);
-      if(d>400)continue;
+      if(d>400){e.windup=0;continue;}
+      if(e.cooldown>0)e.cooldown--;
       const horizontal=p.body.x-e.x,vertical=p.body.y-e.y;
       e.face=horizontal<0?-1:1;
       const desired=e.kind==='shooter'?175:e.kind==='boss'?120:24;
       const mx=Math.abs(horizontal)>desired?Math.sign(horizontal):0;
       const my=Math.abs(vertical)>19?Math.sign(vertical):0;
-      if(e.kind!=='boss'&&this.tick%2===0){
-        const x=clamp(e.x+mx*(e.kind==='shooter'?2:3),25,WIDTH-45);
-        const y=clamp(e.y+my*2,245,423);
-        if(!obstruction(x,e.y))e.x=x;
-        if(!obstruction(e.x,y))e.y=y;
-      } else if(e.kind==='boss'&&this.tick%3===0){
-        e.y=clamp(e.y+my*2,265,415);
+      const x0=e.x,y0=e.y;
+      // Wind-up is a fair, committed attack stance: no pursuing through the
+      // telegraph, but a player who moves out of range can still evade.
+      if(e.windup===0){
+        if(e.kind!=='boss'&&this.tick%2===0){
+          const x=clamp(e.x+mx*(e.kind==='shooter'?2:3),25,WIDTH-45);
+          const y=clamp(e.y+my*2,245,423);
+          if(!obstruction(x,e.y))e.x=x;
+          if(!obstruction(e.x,y))e.y=y;
+        }else if(e.kind==='boss'&&this.tick%3===0){
+          e.y=clamp(e.y+my*2,265,415);
+        }
       }
-      if(e.kind==='striker'&&d<36&&e.cooldown===0){
-        this.#hurt(9);e.cooldown=78;this.#event('strike',e.x,e.y);
-      }else if(e.kind!=='striker'&&d<330&&Math.abs(vertical)<77&&e.cooldown===0){
-        const vy=clamp(Math.trunc(vertical/24),-5,5);
-        this.#spawn('enemy',e.x+e.face*14,e.y-13,e.face*(e.kind==='boss'?12:9),vy);
-        e.cooldown=e.kind==='boss'?48:92;
-        this.#event('enemy-shot',e.x,e.y);
+      e.moving=x0!==e.x||y0!==e.y;
+      const rule=ENEMY_BALANCE[e.kind],
+        close=e.kind==='striker'?distance(e,p.body)<rule.range:
+          distance(e,p.body)<rule.range&&Math.abs(p.body.y-e.y)<72&&
+            unobstructedEnemyLane({x:e.x,y:e.y-13},{x:p.body.x,y:p.body.y-12});
+      if(e.windup>0){
+        e.windup--;
+        if(e.windup>0)continue;
+        if(close){
+          if(e.kind==='striker'){this.#hurt(rule.damage);this.#event('strike',e.x,e.y);}
+          else{
+            const vy=clamp(Math.trunc((p.body.y-e.y)/24),-5,5);
+            this.#spawn('enemy',e.x+e.face*14,e.y-13,
+              e.face*(e.kind==='boss'?12:9),vy,false,rule.damage);
+            this.#event('enemy-shot',e.x,e.y);
+          }
+        }
+        e.cooldown=rule.recovery;
+        continue;
+      }
+      if(e.cooldown===0&&close){
+        e.windup=rule.windup;
+        this.#event('threat',e.x,e.y);
       }
     }
   }
@@ -152,7 +192,7 @@ export class ViceMission {
           this.player.hits++;
           this.#event('impact',hit.x,hit.y);
           if(hit.hp===0){this.counters.eliminations++;this.score+=hit.kind==='boss'?500:45;this.#event('down',hit.x,hit.y);}
-        }else this.#hurt(hit.kind==='boss'?14:10);
+         }else this.#hurt(b.damage??ENEMY_BALANCE.shooter.damage);
         continue;
       }
       b.x+=b.vx;b.y+=b.vy;b.ttl--;
