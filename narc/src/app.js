@@ -60,7 +60,8 @@ export function createViceScore(){
 }
 export class ViceAudio{
   constructor(){this.context=null;this.buffers=new Map();this.muted=false;
-    this.musicOn=true;this.musicSource=null;this.last=-1;this.lastBeat=-1;}
+    this.musicOn=true;this.musicSource=null;this.voices=new Set();
+    this.last=-1;this.lastBeat=-1;}
   // Simulation ticks restart at zero; decoded PCM buffers remain reusable.
   resetCursor(){
     this.last=-1;this.lastBeat=-1;
@@ -70,6 +71,15 @@ export class ViceAudio{
   setMusic(value){
     this.musicOn=Boolean(value);
     if(!this.musicOn){
+      try{this.musicSource?.stop?.();}catch{}
+      this.musicSource=null;
+    }
+  }
+  setMuted(value){
+    this.muted=Boolean(value);
+    if(this.muted){
+      for(const voice of this.voices){try{voice.stop?.();}catch{}}
+      this.voices.clear();
       try{this.musicSource?.stop?.();}catch{}
       this.musicSource=null;
     }
@@ -97,10 +107,12 @@ export class ViceAudio{
     this.last=Math.max(this.last,...events.map(e=>e.tick),0);
     if(!this.context||this.context.state!=='running'||this.muted)return;
     for(const e of fresh){
-      const buffer=this.buffers.get(e.type);if(!buffer)continue;
+      const buffer=this.buffers.get(e.type);if(!buffer||this.voices.size>=12)continue;
       const source=this.context.createBufferSource(),gain=this.context.createGain();
       source.buffer=buffer;gain.gain.value=.23;
-      source.connect(gain).connect(this.context.destination);source.start();
+      source.connect(gain).connect(this.context.destination);
+      source.onended=()=>this.voices.delete(source);
+      this.voices.add(source);source.start();
     }
     // One bounded two-second voice, scheduled from logical ticks, not rAF time.
     if(this.musicOn&&(tick===1||tick%120===0)&&tick!==this.lastBeat){
@@ -116,7 +128,7 @@ export class ViceAudio{
   }
   pause(){void this.context?.suspend().catch(()=>{});}
   dispose(){
-    this.resetCursor();
+    this.resetCursor();this.setMuted(true);
     if(this.context)void this.context.close().catch(()=>{});
     this.context=null;this.buffers.clear();
   }
@@ -182,7 +194,7 @@ export function startGame(){
       e.preventDefault();if(state.phase==='playing')pause();
       else if(state.phase==='paused')begin();return;
     }
-    if(key==='m'&&!e.repeat){audio.muted=!audio.muted;$('sound').textContent=audio.muted?'SOUND OFF':'SOUND ON';}
+    if(key==='m'&&!e.repeat){audio.setMuted(!audio.muted);$('sound').textContent=audio.muted?'SOUND OFF':'SOUND ON';}
     if(key==='n'&&!e.repeat){audio.setMusic(!audio.musicOn);$('music').textContent=audio.musicOn?'MUSIC ON':'MUSIC OFF';}
     // Focus loss clears held state. Ignore repeats, but accept any fresh
     // non-repeat keydown: its preceding keyup might have occurred off-window.
@@ -198,7 +210,7 @@ export function startGame(){
   window.addEventListener('pointerup',()=>keys.delete('mouse'));
   $('start').addEventListener('click',begin);
   $('restart').addEventListener('click',reset);
-  $('sound').addEventListener('click',()=>{audio.muted=!audio.muted;$('sound').textContent=audio.muted?'SOUND OFF':'SOUND ON';});
+  $('sound').addEventListener('click',()=>{audio.setMuted(!audio.muted);$('sound').textContent=audio.muted?'SOUND OFF':'SOUND ON';});
   $('music').addEventListener('click',()=>{audio.setMusic(!audio.musicOn);
     $('music').textContent=audio.musicOn?'MUSIC ON':'MUSIC OFF';});
   let rendering=true,frameGeneration=0;
