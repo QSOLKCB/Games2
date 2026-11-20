@@ -1,13 +1,27 @@
-# Circuit Vice (working title) — agent rules
+# Circuit Vice — NC agent and gameplay contract
 
-Read and follow [Games2/AGENTS.md](../AGENTS.md), [the Games2 development process](../docs/DEVELOPMENT_PROCESS.md), [this game's roadmap](ROADMAP.md) and [the entire preserved ideas catalogue](../docs/GAME_IDEAS.md).
+Follow the [Games2 root agent policy](../AGENTS.md), the
+[mandatory development sequence](../docs/DEVELOPMENT_PROCESS.md) and
+[NC-001/002 release gates](ROADMAP.md).
 
-- This is **documentation-only scaffolding**. Do not claim implementation, testing, packaging, a playable cartridge, release or completed engine integration.
-- Implement only this original game in its first implementation PR. Its polish requires a separate PR and owner review.
-- Do not import trademarked names, ripped sprites, ROMs, maps, music or commercial source. The reference `NARC` is conceptual.
-- Use audited, immutable VANILLAJS source at an explicitly recorded commit. Keep game rules, level art, player state and progression in Games2.
-- No CDN, runtime network dependencies, telemetry, accounts, payments, advertising or pay-to-win.
-- Explicit fixed-step simulation and input/focus cancellation. Test true gameplay, full offline build and real browser start/restart.
-- Avoid modifying the cabinet allowlist until the game has a runnable, verified package. Publishing and merging require owner authorization.
+- The `narc/` directory is a **planning-only concept**. No claim of playable
+  preview, engine adoption, packaged asset or release is permitted yet.
+- This is an original 2.5D arcade action game. NARC is a historical inspiration
+  reference, not a title, brand licence or asset source.
+- Keep authoritative damage, score, actor identity, objectives and collisions
+  in fixed-step simulation. Keep all visual animation and camera operations
+  presentation-only.
+- Track rescue/capture and combat outcomes coherently and test non-hostile
+  targeting. Never rely on invisible physics/visual blockers.
+- Review specific immutable VANILLAJS engine modules and licence notices,
+  including any CAD/Sprite Foundry source and the complete import closure.
+- Implement **NC-001** in one focused game PR, then **NC-002** in a separate
+  gameplay-and-presentation polish PR, then owner release review.
+- Prove real packaged offline gameplay, input cancellation, restart,
+  source integrity and worker isolation; record negative checks.
+- No ripped commercial assets, source, audio, maps, fonts or trademarked
+  branding. No runtime cloud dependencies, telemetry, payment or accounts.
+- Do not modify `cartridges.json` to launch this planning scaffold.
+  Owner authorization is needed for merge, deploy, tag or publication.
 
-**Owner priority:** Next selected new game **after** Strike Pixel's polish/release review.
+**Next action:** finish and review Strike Pixel first; then start NC-001.

@@ -1,21 +1,36 @@
-# Circuit Vice (working title)
+# Circuit Vice (working title) — NC-001
 
-**Status:** planning scaffold only. No game source, playable cartridge, release, network service or owner sign-off is implied.
+**The original NARC-inspired Games2 arcade concept.** Selected as the next new
+game after Strike Pixel's polish and release review; **nothing has shipped**.
 
-Games2's [development process](../docs/DEVELOPMENT_PROCESS.md) requires a focused implementation PR, a **separate** polish PR and an owner release gate. Development cannot bypass that process.
+A retro-future city action game built around fast 2.5D street movement,
+telegraphed enemies, original procedural visuals, and tactical choices:
+shoot, stun, arrest, rescue and finish the mission. Unlike a straightforward
+arcade reproduction, objectives and debrief reward controlling hazards,
+protecting people and completing the investigation.
 
-**Catalogue origin:** NARC — reference to a genre or mechanic **only**, not a licence or authorization to reproduce any commercial game, trademark, story, assets, maps, ROM or soundtrack. This concept will use an original QSOL-IMC identity.
+## Original identity
 
-## Concept
+The directory name `narc/` preserves a genre reference from the original
+16 November 2026 Games2 idea list. The game's working title, characters,
+music, art, weapons, level layout and scoring are **new QSOL-IMC creations**.
+NARC commercial IP, ripped arcade sprites, samples, logos, ROMs and
+copyrighted level maps must not be imported.
 
-A distinctive 2.5D retro-future civic-response run-and-gun with arrest and rescue decisions.
+## Intended first vertical slice
 
-**Candidate VANILLAJS modules to evaluate:** `combat2d, projection25d, sprite2d, motion2d, soundtrack, creator-interop`. Names reflect modules present in VANILLAJS main as inspected on 20 November 2026; they are *not* a tested dependency closure or a source pin for a game. Before implementation select an immutable commit, check `MODULES.json`, audit dependencies, tests and licensing, and make a self-contained offline package.
+One original city district, two hostile enemy archetypes, non-hostile rescue,
+a non-lethal capture option, a readable original boss fight and end-of-mission
+debrief. Solo keyboard/mouse first; gamepad only after verified tests; local
+co-op and more stages are deferred.
 
-## First playable slice
+Candidate VANILLAJS modules: `combat2d`, `motion2d`, `projection25d`,
+`sprite2d`, `sensing`, `weapon-feel`, `audio2d` and the Creator-Interop
+offline pipeline. The exact immutable source revision and minimal dependency
+closure will be selected at NC-001 implementation, not speculatively asserted now.
 
-One complete city block with two opponent types, branching arrest/rescue logic and a boss encounter.
+This folder contains only planning documents. It is **not an executable game**
+and is **not** in the cabinet's playable registry.
 
-**Controls, art, audio, game rules and release details are provisional.** No placeholder game should be registered as playable in `cartridges.json`.
-
-[Project roadmap](ROADMAP.md) · [Agent constraints](AGENTS.md) · [Games2 master roadmap](../ROADMAP.md) · [Original ideas](../docs/GAME_IDEAS.md)
+[Detailed milestone roadmap](ROADMAP.md) · [Game agent policy](AGENTS.md)
+· [Games2 master roadmap](../ROADMAP.md)
