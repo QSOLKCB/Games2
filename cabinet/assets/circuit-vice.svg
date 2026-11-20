@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 432" role="img" aria-labelledby="title desc">
+<title id="title">Circuit Vice — original arcade cover</title><desc id="desc">A neon response agent faces the reactor sentinel in an original dystopian city</desc>
+<defs><linearGradient id="sky" x2="1" y2="1"><stop stop-color="#08172e"/><stop offset="1" stop-color="#294b60"/></linearGradient>
+<linearGradient id="glow"><stop stop-color="#65ffe0"/><stop offset="1" stop-color="#1599bf"/></linearGradient></defs>
+<rect width="768" height="432" fill="url(#sky)"/>
+<path d="M0 244h48V100h49v64h43V88h67v91h48V69h84v128h34V125h62v46h31V66h89v93h40V94h67v104h55V121h60V245z" fill="#102a41"/>
+<g fill="#63c7d1" opacity=".5"><path d="M66 131h8v19h-8zm22 34h7v16h-7zm172-67h12v16h-12zm56 60h11v26h-11zm166-71h8v22h-8zm78 53h12v22h-12zm139-22h8v27h-8z"/></g>
+<path d="M0 280 768 246v186H0z" fill="#172e3e"/><path d="M0 358 768 330" stroke="#67fedf" stroke-width="5" opacity=".65"/>
+<path d="M133 360 143 244 179 202 211 244 230 360z" fill="#1f5265" stroke="#76ffe5" stroke-width="7"/>
+<path d="M144 242h75l-9-53h-57z" fill="#113144" stroke="#76ffe5" stroke-width="7"/>
+<rect x="157" y="223" width="51" height="14" rx="6" fill="#9bf9e1"/>
+<path d="M138 278 108 298 112 339 140 328M224 278l40 7 26-33" stroke="#6df1dd" stroke-width="16" fill="none" stroke-linecap="round"/>
+<path d="M171 359v50m25-50v50" stroke="#133142" stroke-width="23" stroke-linecap="round"/>
+<path d="M612 347 577 267l15-78 54-26 45 37-9 89 34 59-48 16z" fill="#543a64" stroke="#ff80ae" stroke-width="7"/>
+<circle cx="636" cy="212" r="25" fill="#ff7faf" opacity=".85"/><path d="M624 212h25" stroke="#fff2df" stroke-width="7"/>
+<path d="m582 271-55 37m159-39 38 45" stroke="#ffa6be" stroke-width="14" stroke-linecap="round"/>
+<path d="M315 253 519 260" stroke="#fbe8aa" stroke-width="7"/><path d="m516 247 25 13-25 14" fill="none" stroke="#ffe6ac" stroke-width="6"/>
+<rect x="0" y="0" width="768" height="80" fill="#081526" opacity=".82"/>
+<text x="34" y="53" fill="#f6f1dd" font-family="Arial,sans-serif" font-size="52" font-weight="900" letter-spacing="9">CIRCUIT <tspan fill="#76ffe2">VICE</tspan></text>
+<rect x="470" y="88" width="258" height="36" fill="#0c2737" stroke="#68b7c8"/><text x="482" y="113" font-family="Arial" font-size="20" letter-spacing="3" fill="#d6ffef">DISTRICT 09 // NC-001</text>
+<text x="32" y="410" fill="#a3dfe0" font-family="Arial" letter-spacing="3" font-size="20">RESPOND • RESCUE • CONTAIN</text>
+</svg>
