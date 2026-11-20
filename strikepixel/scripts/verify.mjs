@@ -49,7 +49,7 @@ export async function verifySource(root=ROOT){
   // Independent exact-source check for presentation-only CAD module.
   // The frozen v2.5 simulation vendor receipt is intentionally not rewritten.
   const cad=await readFile(join(root,'src/engine/cad-geometry/index.js'));
-  const blob=createHash('sha1').update('blob '+cad.length+'\\0'.replace('\\0','\0')).update(cad).digest('hex');
+  const blob=createHash('sha1').update('blob '+cad.length+String.fromCharCode(0)).update(cad).digest('hex');
   assert.equal(blob,'10b69a5ea58878f5109e5d84a08f1ed9d370e1e9','CAD source must match pinned VANILLAJS Git blob');
   assert.ok(paths.includes('src/forge-art.js'),'procedural asset builder must be packaged');
   await verifyReferences(root,paths);

@@ -19,7 +19,7 @@ test('rounded robot, weapon, projectile and pickup assets stay finite',()=>{
 });
 test('CAD display transforms do not mutate source and reject invalid translations',()=>{
   const src=weaponAccents('lancet'),before=new Float32Array(src),out=place(src,[1,2,3]);
-  assert.deepEqual(src,before);assert.equal(out[0],src[0]+1);
+  assert.deepEqual(src,before);assert.ok(Math.abs(out[0]-(src[0]+1))<1e-6,'Float32 translation rounding stays bounded');
   assert.throws(()=>place(src,[NaN,0,0]),TypeError);
 });
 test('original authoritative arena data remain unchanged',()=>{

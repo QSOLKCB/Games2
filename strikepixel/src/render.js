@@ -106,13 +106,12 @@ export class ArenaRenderer{
       const mesh=robotVisual(bot,tick,(this.hits.get(bot.id)??-1)>=tick),yaw=bot.yaw??0;
       dynamic.push(...transformed(mesh,bot.position,[0,Math.sin(yaw/2),0,Math.cos(yaw/2)]));
     }
-    const boxes=[];
     for(const p of (snapshot.projectiles??[]).slice(0,64)){
       dynamic.push(...projectileVisual(p));
     }
     for(const p of (snapshot.pickups??[]).slice(0,32))if(p.active)
       dynamic.push(...pickupVisual(p,tick));
-    dynamic.push(...boxMeshBatch(boxes));renderer.update(this.dynamicMesh,new Float32Array(dynamic));renderer.draw(this.dynamicMesh);
+    renderer.update(this.dynamicMesh,new Float32Array(dynamic));renderer.draw(this.dynamicMesh);
     const sparks=[],lines=[];
     for(const e of this.effects){
       const age=tick-e.born;if(age<0||age>=e.life)continue;
