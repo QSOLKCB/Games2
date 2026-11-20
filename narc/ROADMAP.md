@@ -1,8 +1,11 @@
 # Circuit Vice — NC roadmap (NARC-inspired original)
 
-**Planning-only concept. No implementation, cartridge, source snapshot or release
-exists.** This is the **second selected Games2 title**, after Strike Pixel
-completes its SP-002 polish and owner release review.
+**NC-001 implementation in review (dedicated PR).** This game now has an original
+fixed-step playable vertical slice, locally generated assets, immutable VANILLAJS
+source, offline package and cabinet registration in the proposed branch. A
+**playable preview is not an initial release**. NC-002 remains a separately
+required polish PR followed by owner release review. Strike Pixel SP-002A PR #5
+and the portfolio PR #6 were merged before this implementation started.
 
 The working directory `narc/` honours the preserved inspiration request.
 **Circuit Vice** is a provisional original title; it is not NARC, not licensed
@@ -28,8 +31,8 @@ slice unless the owner chooses them.
 
 | Stage | Status | Deliverable and evidence |
 | --- | --- | --- |
-| **NC-001 — Implementation PR** | **Selected next; not started** | One bounded playable city level and gameplay loop, exact audited VANILLAJS pin, original art/audio, offline package, tests, actual browser gameplay and import/focus/restart recovery |
-| **NC-002 — Dedicated polish PR** | **Blocked until NC-001 merges** | Rebalance weapons and enemy fairness; improve sprite animation, effects, soundtrack, control feedback, menus/HUD, colour accessibility, pause/resume and stable frame pacing; rerun all regression and real-browser tests |
+| **NC-001 — Implementation PR** | **Implementation PR in review; CI and owner review required** | One bounded playable city level and gameplay loop, exact audited VANILLAJS pin, original art/audio, offline package, tests, actual browser gameplay and import/focus/restart recovery |
+| **NC-002 — Dedicated polish PR** | **Pending NC-001 merge and actual play review** | Rebalance weapons and enemy fairness; improve sprite animation, effects, soundtrack, control feedback, menus/HUD, colour accessibility, pause/resume and stable frame pacing; rerun all regression and real-browser tests |
 | **Release Review** | **Not eligible** | Both PRs merged, all required CI green, deployed Games2 cabinet preview works, limitations documented, owner plays and explicitly authorises release |
 | NC-003 — Extended districts / mode variants | Deferred | Optional second district, score challenge, data-only scenario authoring and cooperative local play with independent acceptance |
 | NC-UPSTREAM-001 | Deferred | Only proven reusable 2.5D combat or authoring features move to VANILLAJS by separate reviewed PR |
@@ -90,7 +93,7 @@ options. No CDN or runtime image/audio generation service.
 
 ### NC-001E — Packaging, tests and playable review
 
-Add game-owned `index.html`, `src/`, `tests/`, game package/verification
+Added (in NC-001 branch): game-owned `index.html`, `src/`, `tests/`, game package/verification
 scripts and a controlled cartridge registration **only after the package
 exists and passes source review**. Do not publish an unimplemented scaffold.
 Test source SHA and licence inventory, fixed-step play, score, boss,
@@ -136,3 +139,17 @@ separate approved VANILLAJS PRs.
 
 [Game readme](README.md) · [Local agent policy](AGENTS.md)
 · [Games2 roadmap](../ROADMAP.md) · [Preserved ideas](../docs/GAME_IDEAS.md)
+
+## NC-001 implementation record (20 November 2026)
+
+- Exact engine source: VANILLAJS `e9121ea7297b0aeca1da131b695e7c3371a98745`.
+- Source-bounded modules: combat2d (swept contacts), motion2d (integer fixed-tick movement),
+  projection25d (visual-only city depth), sprite2d (original seeded sprite art),
+  time (bounded fixed clock) and audio2d (generated PCM cues).
+- Implemented original response district, two regular hostile archetypes, boss,
+  operator rescue, live-grid switch, capture/elimination choice, timer, evacuation,
+  score, restart, pause/focus cancellation, Canvas 2D rendering and local audio.
+- Exact Git blob provenance lives in `vendor/vanillajs/ENGINE_PIN.json`;
+  no remote game asset fetch or runtime package dependency.
+- Tests and verified package browser results are required **before** merging;
+  this description is a submitted implementation scope, not release certification.

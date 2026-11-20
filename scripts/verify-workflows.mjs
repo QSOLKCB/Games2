@@ -22,10 +22,10 @@ const PUBLICATION_BOUNDARY="test \"$GITHUB_REPOSITORY\" = \"QSOLKCB/Games2\"\nte
 const FRESHNESS=PUBLICATION_BOUNDARY+'\n'+"cabinet_main=\"$(git ls-remote --exit-code https://github.com/QSOLKCB/Games2.git refs/heads/main)\"\ntest \"${cabinet_main%%$'\\t'*}\" = \"$GITHUB_SHA\"";
 const COMMANDS={
   "policy": "node scripts/verify-workflows.mjs",
-  "source": "node scripts/verify-site.mjs --source\nnode strikepixel/scripts/verify.mjs --source",
-  "tests": "node --test tests/*.test.mjs\nnode --test strikepixel/tests/*.test.mjs",
-  "build": "node strikepixel/scripts/build.mjs\nnode strikepixel/scripts/verify.mjs\nnode scripts/build-site.mjs\nnode scripts/verify-site.mjs",
-  "browser": "node strikepixel/scripts/browser.mjs\nnode scripts/browser-site.mjs",
+  "source": "node scripts/verify-site.mjs --source\nnode strikepixel/scripts/verify.mjs --source\nnode narc/scripts/verify.mjs --source",
+  "tests": "node --test tests/*.test.mjs\nnode --test strikepixel/tests/*.test.mjs\nnode --test narc/tests/*.test.mjs",
+  "build": "node narc/scripts/build.mjs\nnode narc/scripts/verify.mjs\nnode strikepixel/scripts/build.mjs\nnode strikepixel/scripts/verify.mjs\nnode scripts/build-site.mjs\nnode scripts/verify-site.mjs",
+  "browser": "node narc/scripts/browser.mjs\nnode strikepixel/scripts/browser.mjs\nnode scripts/browser-site.mjs",
   "final": "node scripts/verify-site.mjs\ngit diff --check"
 };
 const expression=value=>'${{ '+value+' }}';

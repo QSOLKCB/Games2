@@ -29,7 +29,7 @@ try{
   const context=await browser.newContext({viewport:{width:1440,height:1100}}),p=await context.newPage(),errors=[];
   p.on('pageerror',e=>errors.push(e.message));
   await check('project-prefix cabinet, original artwork, native keyboard selection and truthful concepts',async()=>{
-    await p.goto(url);await cabinet(p);assert.equal(await p.locator('#cartridge-rack [data-slug]').count(),3);
+    await p.goto(url);await cabinet(p);assert.equal(await p.locator('#cartridge-rack [data-slug]').count(),4);
     assert.match(await p.locator('#selected-title').textContent(),/STRIKE PIXEL/i);
     assert.match(await p.locator('#selected-status').textContent(),/PLAYABLE PREVIEW/i);
     assert.equal(await p.locator('#play-link').getAttribute('href'),'./strikepixel/');
@@ -94,6 +94,27 @@ try{
     await page.waitForFunction(()=>!document.getElementById('art-fallback').hidden&&document.getElementById('fallback-note').textContent.includes('Artwork unavailable'));
     assert.equal(await page.locator('#play-link').getAttribute('href'),'./strikepixel/');assert.match(await page.locator('#selected-title').textContent(),/STRIKE PIXEL/i);
     await page.screenshot({path:join(artifacts,'missing-art.png'),fullPage:true});await c.close();
+  });
+
+  await check('second original cartridge launches its real Circuit Vice offline package',async()=>{
+    const c=await browser.newContext({viewport:{width:1280,height:920}}),page=await c.newPage();
+    const errors=[];page.on('pageerror',e=>errors.push(e.message));
+    await page.goto(url);await cabinet(page);await select(page,'narc');
+    assert.equal(await page.locator('#play-link').getAttribute('href'),'./narc/');
+    assert.match(await page.locator('#selected-title').textContent(),/CIRCUIT VICE/i);
+    await page.locator('#play-link').click();
+    await page.waitForURL(new URL('narc/',url).href);
+    await page.waitForFunction(()=>document.documentElement.dataset.ready==='true');
+    assert.equal(await page.evaluate(()=>circuitVice.inspect().state.phase),'ready');
+    await page.locator('#start').click();
+    await page.waitForFunction(()=>circuitVice.inspect().state.tick>5);
+    const origin=await page.evaluate(()=>circuitVice.inspect().state.player.body.x);
+    await page.keyboard.down('d');
+    await page.waitForFunction(x=>circuitVice.inspect().state.player.body.x>x+35,origin);
+    await page.keyboard.up('d');
+    assert.deepEqual(errors,[]);
+    await page.screenshot({path:join(artifacts,'circuit-vice.png'),fullPage:true});
+    await c.close();
   });
   const report={result:'PASS',siteVersion:verified.version,games:verified.games,browser:browser.version(),prefix:'/Games2/',checks,elapsedSeconds:(Date.now()-started)/1000,
     limitations:['Local hosted-prefix check; no production deployment performed.','Software-rendered headless Chromium; touch and narrow screens are emulated, not physical device tests.','Cabinet is online navigation; only the game has an offline worker.']};

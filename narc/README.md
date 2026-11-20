@@ -1,36 +1,70 @@
-# Circuit Vice (working title) — NC-001
+# Circuit Vice — District 09 (NC-001)
 
-**The original NARC-inspired Games2 arcade concept.** Selected as the next new
-game after Strike Pixel's polish and release review; **nothing has shipped**.
+**Original QSOL-IMC offline arcade action game — implementation preview in review.**
+Not affiliated with commercial NARC; the original idea was a mechanics reference.
+No third-party arcade sprites, source, ROM, samples, characters or commercial maps.
 
-A retro-future city action game built around fast 2.5D street movement,
-telegraphed enemies, original procedural visuals, and tactical choices:
-shoot, stun, arrest, rescue and finish the mission. Unlike a straightforward
-arcade reproduction, objectives and debrief reward controlling hazards,
-protecting people and completing the investigation.
+## Play
 
-## Original identity
+After this implementation PR is reviewed and merged, open Circuit Vice from the
+Games2 Cartridge Cabinet or directly at `/Games2/narc/`.
+From the source checkout, build and verify with:
 
-The directory name `narc/` preserves a genre reference from the original
-16 November 2026 Games2 idea list. The game's working title, characters,
-music, art, weapons, level layout and scoring are **new QSOL-IMC creations**.
-NARC commercial IP, ripped arcade sprites, samples, logos, ROMs and
-copyrighted level maps must not be imported.
+```sh
+node narc/scripts/verify.mjs --source
+node --test narc/tests/*.test.mjs
+node narc/scripts/build.mjs
+node narc/scripts/verify.mjs
+node scripts/build-site.mjs
+node scripts/verify-site.mjs
+node scripts/site-server.mjs
+```
 
-## Intended first vertical slice
+Then visit `http://127.0.0.1:8000/Games2/narc/`. The standalone game is
+packaged to `narc/dist/`. No npm install, CDN or runtime account is needed.
+Browser verification uses a separately provisioned Playwright (CI handles it).
 
-One original city district, two hostile enemy archetypes, non-hostile rescue,
-a non-lethal capture option, a readable original boss fight and end-of-mission
-debrief. Solo keyboard/mouse first; gamepad only after verified tests; local
-co-op and more stages are deferred.
+## Mission
 
-Candidate VANILLAJS modules: `combat2d`, `motion2d`, `projection25d`,
-`sprite2d`, `sensing`, `weapon-feel`, `audio2d` and the Creator-Interop
-offline pipeline. The exact immutable source revision and minimal dependency
-closure will be selected at NC-001 implementation, not speculatively asserted now.
+Enter an original retro-future response district. Find the operator, disable the
+electrified lane switch, disarm or defeat suspects, then neutralize the reactor
+sentinel and reach the east evacuation gate before the timer runs out.
 
-This folder contains only planning documents. It is **not an executable game**
-and is **not** in the cabinet's playable registry.
+Capture stunned suspects for a higher score; defeated enemies count differently.
+Rescue and relay shutdown provide significant bonuses. Losing the civilian after
+the rescue deadline, being incapacitated or missing evacuation has consequences.
+Non-hostile civilians are **not valid projectile damage targets**.
 
-[Detailed milestone roadmap](ROADMAP.md) · [Game agent policy](AGENTS.md)
-· [Games2 master roadmap](../ROADMAP.md)
+## Controls
+
+| Control | Input |
+| --- | --- |
+| Move / change depth lane | WASD or arrows |
+| Fire | F or left click |
+| Non-lethal stun | J |
+| Rescue, disable switch, arrest stunned enemy | E near target |
+| Dodge / brief invulnerability | Shift |
+| Reload | R |
+| Pause / resume | P or Escape |
+| Mute | M or on-page button |
+
+Desktop keyboard/mouse is the tested design target; physical gamepad and touch
+combat are not asserted. Full NC-002 balancing, accessibility, audio and graphics
+polish remain separate.
+
+## Engine and offline provenance
+
+The runtime uses an immutable closure of six selected, **unchanged** VANILLAJS
+modules at commit `e9121ea7297b0aeca1da131b695e7c3371a98745` with
+per-file Git object hashes recorded in `vendor/vanillajs/ENGINE_PIN.json`.
+All original sprites are generated from bounded original VANILLAJS Sprite
+Foundry recipes at startup. The original city geometry uses its independent
+25D projection module; collision/game state are fixed-tick and do not depend
+on presentation.
+
+The static game build emits an exact SHA-256 package manifest, a worker scoped
+to this game's directory, and digest-checked cached files that do not overwrite
+the Strike Pixel cache or the cabinet root. Build tools are never shipped.
+
+[Full NC progression](ROADMAP.md) · [Agent policy](AGENTS.md) ·
+[Games2 roadmap](../ROADMAP.md)

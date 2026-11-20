@@ -14,6 +14,18 @@
       "order": 0
     },
     {
+      "slug": "narc",
+      "title": "Circuit Vice",
+      "subtitle": "District 09 // Night Response",
+      "description": "Original 2.5D offline arcade action. Rescue the operator, shut down the electrical grid, stun or arrest suspects, and stop the reactor sentinel before evacuation.",
+      "genre": "2.5D arcade action",
+      "status": "playable",
+      "directory": "narc",
+      "artwork": "cabinet/assets/circuit-vice.svg",
+      "releaseLabel": "NC-001 · Unreleased preview",
+      "order": 1
+    },
+    {
       "slug": "neon-apex",
       "title": "Neon Apex",
       "subtitle": "Original racing concept",
