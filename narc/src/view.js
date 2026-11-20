@@ -150,9 +150,11 @@ export class ViceView{
     actors.push({...state.player,kind:'agent',x:state.player.body.x,y:state.player.body.y,
       face:state.player.face,id:0});
     actors.sort((a,b)=>a.y-b.y||a.id-b.id);
+    const animationStates=[];
     for(const a of actors){
       const p=anchor(a.x,a.y),pose=vicePose(a,t,{events:state.events,
         reducedMotion:this.reducedMotion});
+      animationStates.push(pose.state);
       if(a.kind==='agent'){
         drawSprite('agent',a.x,a.y,pose,64,a.face);
       }else{
@@ -205,7 +207,7 @@ export class ViceView{
     text(c,directive,32,59,13,'#7af7dc');
     this.lastFrame={camera:cam,actors:actors.length,bullets:state.bullets.length,
       footprintCount:footprints.length,projectorBuilds:this.projectorBuilds,
-      reducedMotion:this.reducedMotion,
+      reducedMotion:this.reducedMotion,animationStates,
       relay:{x:relay.x,y:relay.y,near:relayNear,disabled:relay.disabled}};
     return this.lastFrame;
   }

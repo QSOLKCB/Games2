@@ -161,6 +161,58 @@ try{
     assert.equal((await inspect(p)).state.phase,'playing');
     await p.keyboard.press('Escape');
   });
+  await check('original NC-002 animation, threat text and soundtrack control are visible',async()=>{
+    const trace=await p.evaluate(async()=>{
+      const {ViceView}=await import('./src/view.js');
+      const cv=new ViceView(document.createElement('canvas')),state=circuitVice.inspect().state;
+      const warn=structuredClone(state);
+      warn.enemies[0].windup=12;warn.enemies[0].stunned=0;
+      const labels=[],prototype=CanvasRenderingContext2D.prototype,original=prototype.fillText;
+      try{
+        prototype.fillText=function(value,...args){labels.push(String(value));return original.call(this,value,...args);};
+        cv.draw(warn);const first={...cv.lastFrame};
+        cv.draw(warn);const second={...cv.lastFrame};
+        return {first,second,labels};
+      }finally{prototype.fillText=original;}
+    });
+    assert.ok(trace.labels.includes('ATTACK INCOMING'));
+    assert.ok(trace.first.animationStates.includes('warning'));
+    assert.equal(trace.first.projectorBuilds,trace.second.projectorBuilds,
+      'stationary scene must reuse validated 2.5D projection');
+    await p.locator('#music').click();
+    assert.equal(await p.locator('#music').textContent(),'MUSIC OFF');
+    assert.equal((await inspect(p)).audio.musicOn,false);
+    await p.locator('#music').click();
+    assert.equal((await inspect(p)).audio.musicOn,true);
+  });
+  await check('packaged renderer sample profile records truthful headless CPU timings',async()=>{
+    const measurements=await p.evaluate(async()=>{
+      const {ViceView}=await import('./src/view.js');
+      const source=circuitVice.inspect().state;
+      const profile=structuredClone(source);
+      // Bounded worst-allowed projectile count, presentation only.
+      profile.bullets=Array.from({length:96},(_,i)=>({x:180+i*10,y:270+i%6*23,
+        vx:i%2?9:-12,vy:0,owner:i%3?'player':'enemy',stun:i%4===0}));
+      const render=new ViceView(document.createElement('canvas'));
+      const samples=[],measure=()=>{const start=performance.now();render.draw(profile);
+        samples.push(performance.now()-start);};
+      for(let i=0;i<15;i++)render.draw(profile);
+      for(let i=0;i<100;i++)measure();
+      samples.sort((a,b)=>a-b);
+      const percentile=q=>Number(samples[Math.floor((samples.length-1)*q)].toFixed(3));
+      return {sampleCount:samples.length,p50Ms:percentile(.5),p95Ms:percentile(.95),
+        maxMs:percentile(1),under16_67ms:percentile(.95)<=16.67,
+        projectorBuilds:render.projectorBuilds,
+        bullets:render.lastFrame.bullets,
+        note:'Headless CPU Canvas2D microbenchmark; not monitor FPS or physical GPU evidence'};
+    });
+    assert.equal(measurements.sampleCount,100);
+    assert.equal(measurements.bullets,96);
+    assert.equal(measurements.projectorBuilds,1,'render should reuse stable scene');
+    assert.ok(Number.isFinite(measurements.p50Ms)&&Number.isFinite(measurements.p95Ms));
+    await writeFile(join(artifactDir,'performance.json'),JSON.stringify(measurements,null,2)+'\n');
+    console.log('NC-002 headless renderer profile '+JSON.stringify(measurements));
+  });
   await check('verified per-game offline install and independent cache namespace',async()=>{
     await p.waitForFunction(async()=> (await navigator.serviceWorker.getRegistration())?.active?.state==='activated',null,{timeout:15000});
     await p.reload();await p.waitForFunction(()=>document.documentElement.dataset.ready==='true');

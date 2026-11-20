@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {ViceMission,RATE,TIME_LIMIT,HAZARD_LIMIT,STREET_PROPS,streetPropBounds} from '../src/world.js';
+import {ViceMission,RATE,TIME_LIMIT,HAZARD_LIMIT,STREET_PROPS,streetPropBounds,
+  ENEMY_BALANCE,unobstructedEnemyLane} from '../src/world.js';
+import {vicePose} from '../src/animation.js';
 import {createBody2D} from '../vendor/vanillajs/modules/motion2d/index.js';
 import {generateViceSprites} from '../src/art.js';
 import {createProjection25D,projectScene25D} from '../vendor/vanillajs/modules/projection25d/index.js';
@@ -100,4 +102,58 @@ test('every visible street-prop ground footprint matches authoritative collision
   mission.step({moveY:-1});
   assert.equal(mission.player.body.y,before,
     'ground rectangle contains the formerly invisible blocked northward step');
+});
+
+test('striker telegraphs for every fixed warning tick before first damage',()=>{
+  const game=new ViceMission();game.start();
+  const e=game.enemies[0];e.x=180;e.y=345;e.cooldown=1;
+  game.player.body=createBody2D({x:198,y:345});
+  const first=game.step({});
+  assert.equal(first.player.hp,100);
+  assert.equal(e.windup,ENEMY_BALANCE.striker.windup);
+  assert.ok(first.events.some(ev=>ev.type==='threat'&&ev.x===e.x));
+  for(let i=1;i<ENEMY_BALANCE.striker.windup;i++){
+    const state=game.step({});
+    assert.equal(state.player.hp,100,'warning must never deal early damage');
+  }
+  const hit=game.step({});
+  assert.equal(hit.player.hp,100-ENEMY_BALANCE.striker.damage);
+  assert.equal(e.cooldown,ENEMY_BALANCE.striker.recovery);
+});
+test('enemy ranged line-of-sight respects visible physical street-prop clearance',()=>{
+  assert.equal(unobstructedEnemyLane({x:210,y:355},{x:390,y:355}),false);
+  assert.equal(unobstructedEnemyLane({x:365,y:355},{x:450,y:355}),true);
+  const game=new ViceMission();game.start();
+  game.player.body=createBody2D({x:390,y:367});
+  const e=game.enemies[1];e.x=210;e.y=367;e.cooldown=1;
+  const observed=game.step({});
+  assert.equal(e.windup,0,'shooter cannot telegraph through solid cover');
+  assert.ok(!observed.events.some(event=>event.type==='enemy-shot'&&event.x===e.x));
+  e.x=410;e.y=367;e.cooldown=1;
+  const clear=game.step({});
+  assert.equal(e.windup,ENEMY_BALANCE.shooter.windup,'open line initiates warning');
+  assert.ok(clear.events.some(event=>event.type==='threat'&&event.x===e.x));
+  e.stunned=12;
+  game.step({});
+  assert.equal(e.windup,0,'stunning cancels the committed attack');
+});
+test('enemy difficulty rules preserve distinct deterministic attack delays',()=>{
+  assert.ok(ENEMY_BALANCE.boss.windup>ENEMY_BALANCE.shooter.windup);
+  assert.ok(ENEMY_BALANCE.shooter.windup>ENEMY_BALANCE.striker.windup);
+  assert.ok(ENEMY_BALANCE.striker.recovery>ENEMY_BALANCE.striker.windup);
+  for(const value of Object.values(ENEMY_BALANCE))assert.ok(Object.isFrozen(value));
+});
+test('presentation poses have distinct actions and never alter authoritative actors',()=>{
+  const tick=30,player={kind:'agent',body:{x:75,y:345,vx:0,vy:0},invulnerable:0,dodge:0};
+  const source=structuredClone(player);
+  assert.equal(vicePose(player,tick).state,'idle');
+  assert.equal(vicePose({...player,body:{...player.body,vx:5}},tick).state,'run');
+  assert.equal(vicePose({...player,dodge:6},tick).state,'dodge');
+  assert.equal(vicePose({...player,invulnerable:4},tick).state,'hurt');
+  assert.equal(vicePose(player,tick,{events:[{type:'shot',x:75,y:345,tick:28}]}).state,'attack');
+  assert.equal(vicePose({kind:'boss',x:1156,y:350,windup:12},tick).state,'warning');
+  assert.equal(vicePose({kind:'striker',x:300,y:345,stunned:20},tick).state,'stunned');
+  const calm=vicePose({...player,body:{...player.body,vx:5}},tick,{reducedMotion:true});
+  assert.equal(calm.bob,0);assert.equal(calm.lean,0);
+  assert.deepEqual(player,source,'animation does not write back to simulation');
 });
