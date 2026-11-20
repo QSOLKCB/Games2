@@ -20,14 +20,15 @@ planning state; it does not reinterpret game previews as releases.
 | SP-002A — CAD visuals | **Merged PR #5; visual baseline** | Engine-generated rounded bot/weapon/pickup meshes, industrial arena presentation, asset source provenance |
 | SP-002B — gameplay and release polish | **Pending** | Balance, weapon feedback, audio, controls, accessibility, menus/HUD, 60-fps hardware check, defects and offline play regression |
 | Strike Pixel release review | **Pending** | Both implementation and polish requirements merged; green CI; real deployed cabinet play; limitations; owner sign-off |
-| NC-001 — Circuit Vice implementation | **NC-001 implementation PR in review; no release** | Original 2.5D run-and-gun + arrest/rescue mission; fixed-step VANILLAJS, new self-contained game PR |
-| NC-002 — Circuit Vice polish | **Not started** | Separate original-game polish PR and complete gameplay/browser/offline evidence |
+| NC-001 — Circuit Vice implementation | **Merged PR #7; playable preview, not a release** | Original 2.5D run-and-gun + arrest/rescue mission; fixed-step VANILLAJS, new self-contained game PR |
+| NC-002 — Circuit Vice polish | **Dedicated polish PR in review; release pending** | Separate original-game polish PR and complete gameplay/browser/offline evidence |
 | Circuit Vice release review | **Not eligible** | Owner tests published preview and authorises release |
 | G2-GAME-003 | **Backlog** | Choose third independently playable title, e.g. `cyber-ninja/`, `pinball/`, `immersive-fps/` |
 | G2-UPSTREAM-001 | **Not started** | After three completed games or explicit earlier owner approval, evaluate reusable components in independent VANILLAJS PRs |
 
-PRs #5 and #6 were merged. NC-001 remains a proposed new-game implementation;
-CI and owner review must precede its merge or deployed preview.
+PRs #5, #6 and #7 were merged. NC-002 is the second separate game-polish
+pass; initial release still requires owner playthrough, relevant CI,
+production deployment verification and explicit owner authorisation.
 
 ## Stage gates — all titles
 

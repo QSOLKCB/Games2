@@ -1,9 +1,10 @@
 # Games2 Arcade 👾
 
-> **NC-001 implementation preview under review:** Strike Pixel visuals PR #5 and
-> portfolio PR #6 are merged. [Circuit Vice](narc/README.md) now has a standalone
-> playable implementation proposed for the cabinet; 35 other concepts remain
-> planning-only. No initial Circuit Vice release or live deployment is claimed.
+> **Games2 status:** NC-001 Circuit Vice implementation merged in PR #7.
+> [Circuit Vice's NC-002 Arcade Polish](narc/ROADMAP.md) is now in a
+> separate review PR. The cartridge is an **unreleased playable preview**,
+> not an owner-approved initial release. The other 35 planned games remain
+> documentation-only.
 
 **Original QSOL-IMC browser games. Built with VANILLAJS. Owned by their creators.**
 

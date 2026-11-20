@@ -1,8 +1,8 @@
 # Games2 future game directory register
 
 **Portfolio register.** Of these 36 directories, 35 remain documentation-only
-planning scaffolds. `narc/` contains the NC-001 original-game implementation
-candidate with a proposed playable-preview cartridge, pending owner review.
+planning scaffolds. `narc/` has an NC-001 implementation merged in PR #7 and a separate NC-002
+polish candidate. Its cabinet entry is an **unreleased playable preview**.
 None is an owner-approved initial release.
 All references to existing games denote genre inspiration, never copying rights.
 The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
@@ -11,7 +11,7 @@ The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 | --- | --- | --- | --- | --- |
 | 1 | [`immersive-fps/`](../immersive-fps/README.md) | Immersive cyberpunk FPS | System Shock | Unimplemented concept |
 | 2 | [`cyber-fps/`](../cyber-fps/README.md) | Corporate dystopia FPS | Syndicate (2012) | Unimplemented concept |
-| 3 | [`narc/`](../narc/README.md) | Circuit Vice (working title) | NARC | NC-001 implementation PR in review; unreleased |
+| 3 | [`narc/`](../narc/README.md) | Circuit Vice (working title) | NARC | NC-001 merged, NC-002 polish in review; unreleased |
 | 4 | [`cyber-ninja/`](../cyber-ninja/README.md) | Blade Circuit (working title) | Ninja Warriors | Unimplemented concept |
 | 5 | [`shadow-raiders/`](../shadow-raiders/README.md) | Shadow Raiders (working title) | Shadow Warriors | Unimplemented concept |
 | 6 | [`urban-vigilante/`](../urban-vigilante/README.md) | City Reckoning (working title) | The Punisher | Unimplemented concept |
