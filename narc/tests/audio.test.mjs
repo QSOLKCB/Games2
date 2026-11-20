@@ -34,7 +34,7 @@ test('mute does not replay stale combat cues after unmute',()=>{
   const audio=new ViceAudio();let played=0;
   const destination={};
   audio.context={state:'running',destination,
-    createBufferSource(){return {connect(){return destination;},start(){played++;}};},
+    createBufferSource(){return {connect(){return {connect(){return destination;}};},start(){played++;}};},
     createGain(){return {gain:{value:0},connect(){return destination;}};}
   };
   audio.buffers.set('shot',{});
