@@ -16,6 +16,9 @@ async function fixture(t){
   await mkdir(join(root,'scripts'));await mkdir(join(root,'src'));
   await cp(join(ROOT,'scripts/service-worker.template.js'),join(root,'scripts/service-worker.template.js'));
   await cp(join(ROOT,'src/offline.js'),join(root,'src/offline.js'));
+  // Match the real public asset closure, including new exact-source CAD pin.
+  await cp(join(ROOT,'src/engine'),join(root,'src/engine'),{recursive:true});
+  await cp(join(ROOT,'src/forge-art.js'),join(root,'src/forge-art.js'));
   await cp(join(ROOT,'vendor/vanillajs/LICENSE'),join(root,'LICENSE'));
   await writeFile(join(root,'NOTICE'),'Strike Pixel uses VANILLAJS '+ENGINE_COMMIT+' under Apache-2.0.');
   await writeFile(join(root,'index.html'),'<!doctype html><link rel="stylesheet" href="style.css"><script type="module" src="start.js"></script>');

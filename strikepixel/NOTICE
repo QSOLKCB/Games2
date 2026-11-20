@@ -18,3 +18,15 @@ scripts/service-worker.template.js at the same immutable commit. Adaptation
 adds this game's package scope, digest inventory and generated cache identity;
 see scripts/service-worker.template.js in the source distribution. Original
 VANILLAJS notices remain in vendor/vanillajs/NOTICE. No engine module is changed.
+
+SP-002 presentation addition (separate from the frozen v2.5.0 simulation closure):
+src/engine/cad-geometry/index.js is an unchanged copy of VANILLAJS
+modules/cad-geometry/index.js at commit e9121ea7297b0aeca1da131b695e7c3371a98745
+(Git blob 10b69a5ea58878f5109e5d84a08f1ed9d370e1e9).
+This is the CAD-001 through CAD-003 source used by original Strike Pixel
+procedural geometry; no external geometry, textures, fonts or assets are used.
+VANILLAJS CAD adapts the DabbleCAD radial surface approach.
+DabbleCAD Copyright 2026 DJMcNewgent. DabbleCAD Apache-2.0;
+its original notice records v1.0.0 under MIT. Original revision
+9cfd20b0a973275c7f7411afb6e7c355f8a863cc; source path:
+src/renderer/core/shapes.js. See docs/CAD_ASSETS.md for full provenance.

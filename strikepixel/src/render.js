@@ -4,6 +4,7 @@ import {Renderer} from '../vendor/vanillajs/modules/render-webgl/index.js';
 import {boxMeshBatch} from '../vendor/vanillajs/modules/geometry/index.js';
 import {characterView} from '../vendor/vanillajs/modules/character/index.js';
 import {rotate} from '../vendor/vanillajs/modules/math/index.js';
+import {arenaVisuals,robotVisual,weaponAccents,pickupVisual,projectileVisual} from './forge-art.js';
 
 const NAVY=[.055,.13,.17],TEAL=[.13,.62,.63],CREAM=[.91,.93,.82],GOLD=[1,.66,.17],CORAL=[.98,.43,.36];
 const box=(center,size,color)=>({center,size,color});
@@ -44,24 +45,13 @@ function weaponModels(){
       box([.4,-.25,-.84],[.035,.25,.17],CREAM),box([.25,-.08,-.61],[.06,.06,.18],NAVY)])
   };
 }
-function robotModel(bot,tick,hit){
-  const h=bot.height??1.8,c=hit?CREAM:(bot.color??CORAL),speed=Math.hypot(...(bot.velocity??[0,0,0]));
-  const stride=Math.sin(tick*.23)*Math.min(.12,speed*.025),head=h-.23;
-  return boxMeshBatch([
-    box([-.19,.24,stride],[.22,.48,.29],NAVY),box([.19,.24,-stride],[.22,.48,.29],NAVY),
-    box([0,.83,0],[.59,.68,.46],c),box([0,.95,-.244],[.26,.2,.045],GOLD),
-    box([0,head,0],[.48,.4,.45],c),box([0,head+.025,-.24],[.36,.1,.04],NAVY),
-    box([0,head+.035,-.265],[.25,.035,.02],CREAM),
-    box([-.39,1.04,0],[.19,.42,.33],c),box([.39,.98,-.13],[.18,.42,.3],c),
-    box([.3,1.05,-.39],[.17,.16,.45],NAVY),box([.3,1.05,-.64],[.1,.1,.08],GOLD)
-  ]);
-}
 
 export class ArenaRenderer{
   constructor(canvas,arena,{onContextLost=()=>{},onContextRestored=()=>{}}={}){
     this.canvas=canvas;this.callbacks={onContextLost,onContextRestored};this.disposed=false;this.lost=false;
     this.effects=[];this.hits=new Map();this.lastEventTick=-1;this.shotTick=-100;this.shotWeapon=null;this.playerId='player';
-    this.weaponLocal=weaponModels();this.arena=arena;
+    this.weaponLocal=Object.fromEntries(Object.entries(weaponModels()).map(([name,mesh])=>
+      [name,new Float32Array([...mesh,...weaponAccents(name)])]));this.arena=arena;
     this.onLost=event=>{event.preventDefault();this.lost=true;this.callbacks.onContextLost(new Error('WebGL context lost. Match paused.'));};
     this.onRestored=()=>{
       if(this.disposed)return;
@@ -84,7 +74,7 @@ export class ArenaRenderer{
     if(!arena||!Array.isArray(arena.solids)||!Array.isArray(arena.decor))throw new TypeError('Arena solids and decor required');
     if(arena.solids.length+arena.decor.length>2048)throw new RangeError('Arena presentation budget exceeded');
     this.arena=arena;const boxes=[...arena.solids,...arena.decor].map(mapBox);
-    this.renderer.update(this.staticMesh,boxMeshBatch(boxes));this.renderer.update(this.outlineMesh,edges(boxes));
+    this.renderer.update(this.staticMesh,new Float32Array([...boxMeshBatch(boxes),...arenaVisuals(arena)]));this.renderer.update(this.outlineMesh,edges(boxes));
     this.effects=[];this.hits.clear();this.lastEventTick=-1;this.shotTick=-100;this.shotWeapon=null;
   }
   playEvents(events,tick){
@@ -113,22 +103,15 @@ export class ArenaRenderer{
     renderer.draw(this.staticMesh);renderer.draw(this.outlineMesh);
     const dynamic=[];
     for(const bot of (snapshot.bots??[]).slice(0,16))if(bot.alive){
-      const mesh=robotModel(bot,tick,(this.hits.get(bot.id)??-1)>=tick),yaw=bot.yaw??0;
+      const mesh=robotVisual(bot,tick,(this.hits.get(bot.id)??-1)>=tick),yaw=bot.yaw??0;
       dynamic.push(...transformed(mesh,bot.position,[0,Math.sin(yaw/2),0,Math.cos(yaw/2)]));
     }
-    const boxes=[];
     for(const p of (snapshot.projectiles??[]).slice(0,64)){
-      boxes.push(box(p.position,[.19,.19,.19],GOLD));
-      const v=p.velocity??[0,0,0],length=Math.hypot(...v)||1;
-      boxes.push(box(p.position.map((x,i)=>x-v[i]/length*.22),[.1,.1,.1],CORAL));
+      dynamic.push(...projectileVisual(p));
     }
-    for(const p of (snapshot.pickups??[]).slice(0,32))if(p.active){
-      const center=p.position.map((x,i)=>x+(i===1?.38+Math.sin(tick*.045)*.06:0)),health=p.kind==='health';
-      boxes.push(box(center,[.38,.38,.38],health?TEAL:GOLD));
-      boxes.push(box([center[0],center[1],center[2]-.2],[health?.24:.21,.07,.02],CREAM));
-      if(health)boxes.push(box([center[0],center[1],center[2]-.2],[.07,.24,.02],CREAM));
-    }
-    dynamic.push(...boxMeshBatch(boxes));renderer.update(this.dynamicMesh,new Float32Array(dynamic));renderer.draw(this.dynamicMesh);
+    for(const p of (snapshot.pickups??[]).slice(0,32))if(p.active)
+      dynamic.push(...pickupVisual(p,tick));
+    renderer.update(this.dynamicMesh,new Float32Array(dynamic));renderer.draw(this.dynamicMesh);
     const sparks=[],lines=[];
     for(const e of this.effects){
       const age=tick-e.born;if(age<0||age>=e.life)continue;
