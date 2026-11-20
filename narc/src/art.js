@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Original, locally generated RGBA assets from the pinned VANILLAJS Sprite Foundry.
-import {generateSprite,rgbaFrame} from '../vendor/vanillajs/modules/sprite2d/index.js';
+import {generateSprite,rgbaFrame,paintSpriteStroke} from '../vendor/vanillajs/modules/sprite2d/index.js';
 const swatches=Object.freeze({
   agent:[[0,0,0,0],[29,54,77,255],[52,199,216,255],[242,210,125,255],[255,255,255,255]],
   striker:[[0,0,0,0],[81,35,77,255],[248,76,113,255],[255,174,89,255],[255,235,200,255]],
@@ -11,14 +11,29 @@ const swatches=Object.freeze({
 export function spriteRecipe(kind,seed,palette){
   return {kind,size:16,seed,symmetry:true,frameCount:4,palette};
 }
+// Add authored stance pixels with the immutable native Sprite Foundry paint API;
+// movement/attacks select frames at draw time and never mutate source projects.
+function accentFrames(project,kind){
+  let result=project;
+  for(let frame=0;frame<4;frame++){
+    const shift=[0,1,0,-1][frame],palette=kind==='civilian'?3:kind==='boss'?4:3;
+    const points=[{x:5+shift,y:8},{x:6+shift,y:8},{x:9-shift,y:8},{x:10-shift,y:8}];
+    result=paintSpriteStroke(result,frame,points,palette);
+    // Boot positions vary independently of torso colour, exposing a real gait.
+    result=paintSpriteStroke(result,frame,[{x:5+shift,y:13},{x:10-shift,y:13}],2);
+  }
+  return result;
+}
 export function generateViceSprites(){
-  return Object.freeze({
-    agent:generateSprite(spriteRecipe('character',104,swatches.agent),{name:'Circuit Vice response agent'}),
-    striker:generateSprite(spriteRecipe('enemy',517,swatches.striker),{name:'Circuit Vice close pursuer'}),
-    shooter:generateSprite(spriteRecipe('character',718,swatches.shooter),{name:'Circuit Vice emitter'}),
-    boss:generateSprite(spriteRecipe('enemy',991,swatches.boss),{name:'Circuit Vice reactor sentinel'}),
-    civilian:generateSprite(spriteRecipe('character',203,swatches.civilian),{name:'Circuit Vice stranded operator'})
-  });
+  const defs=[
+    ['agent','character',104,'Circuit Vice response agent'],
+    ['striker','enemy',517,'Circuit Vice close pursuer'],
+    ['shooter','character',718,'Circuit Vice emitter'],
+    ['boss','enemy',991,'Circuit Vice reactor sentinel'],
+    ['civilian','character',203,'Circuit Vice stranded operator']
+  ];
+  return Object.freeze(Object.fromEntries(defs.map(([key,kind,seed,name])=>
+    [key,accentFrames(generateSprite(spriteRecipe(kind,seed,swatches[key]),{name}),key)])));
 }
 export function rasterViceSprites(documentRef=document){
   const result={},projects=generateViceSprites();
