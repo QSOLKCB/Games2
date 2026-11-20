@@ -5,11 +5,11 @@ import {ViceMission} from './world.js';
 import {ViceView} from './view.js';
 import {registerOffline} from './offline.js';
 const $=id=>document.getElementById(id);
-const keys=new Set(),blockedKeys=new Set();
-function cancelHeld(){
-  for(const key of keys)if(key!=='mouse')blockedKeys.add(key);
-  keys.clear();
-}
+const keys=new Set();
+// A lost keyup is possible if the player releases a key in another window.
+// Browser keydown.repeat is the source of truth: only a new non-repeat press
+// can re-arm a canceled control, even after an off-window release.
+function cancelHeld(){keys.clear();}
 const controls={left:['a','arrowleft'],right:['d','arrowright'],up:['w','arrowup'],down:['s','arrowdown'],
   fire:['f',' ','mouse'],stun:['j'],interact:['e'],dodge:['shift'],reload:['r']};
 const pressed=names=>names.some(key=>keys.has(key));
@@ -126,15 +126,12 @@ export function startGame(){
       else if(state.phase==='paused')begin();return;
     }
     if(key==='m'&&!e.repeat){audio.muted=!audio.muted;$('sound').textContent=audio.muted?'SOUND OFF':'SOUND ON';}
-    // A repeated keydown never authorizes a new press, especially after blur.
-    // A canceled held key stays blocked until its keyup is observed.
-    if(state.phase==='playing'&&!e.repeat&&!blockedKeys.has(key)&&
+    // Focus loss clears held state. Ignore repeats, but accept any fresh
+    // non-repeat keydown: its preceding keyup might have occurred off-window.
+    if(state.phase==='playing'&&!e.repeat&&
        !(e.ctrlKey||e.altKey||e.metaKey))keys.add(key);
   };
-  const onKeyUp=e=>{
-    const key=e.key.toLowerCase();
-    keys.delete(key);blockedKeys.delete(key);
-  };
+  const onKeyUp=e=>keys.delete(e.key.toLowerCase());
   window.addEventListener('keydown',onKeyDown);
   window.addEventListener('keyup',onKeyUp);
   window.addEventListener('blur',()=>pause('Focus lost — mission safely paused.'));

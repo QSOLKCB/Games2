@@ -106,6 +106,49 @@ try{
     await p.keyboard.up('d');
     await p.keyboard.press('Escape');
   });
+  await check('off-window key release permits first fresh press after resume or restart',async()=>{
+    await p.locator('#restart').click();
+    await p.locator('#start').click();
+    await p.waitForFunction(()=>circuitVice.inspect().state.tick>=6);
+    const initial=(await inspect(p)).state.player.body.x;
+    await p.keyboard.down('d');
+    await p.waitForFunction(x=>circuitVice.inspect().state.player.body.x>x+12,initial);
+    await p.evaluate(()=>window.dispatchEvent(new Event('blur')));
+    assert.equal((await inspect(p)).state.phase,'paused');
+    // Deliberately deliver no keyup to this window; it occurred elsewhere.
+    await p.locator('#start').click();
+    const stationary=(await inspect(p)).state;
+    await p.evaluate(()=>window.dispatchEvent(new KeyboardEvent('keydown',
+      {key:'d',repeat:true,bubbles:true})));
+    await p.waitForFunction(t=>circuitVice.inspect().state.tick>t+8,stationary.tick);
+    assert.equal((await inspect(p)).state.player.body.x,stationary.player.body.x,
+      'an auto-repeat must not re-arm a canceled key');
+    // The first real new press after the unseen release must work immediately.
+    await p.evaluate(()=>window.dispatchEvent(new KeyboardEvent('keydown',
+      {key:'d',repeat:false,bubbles:true})));
+    await p.waitForFunction(x=>circuitVice.inspect().state.player.body.x>x+12,
+      stationary.player.body.x);
+    await p.keyboard.up('d');
+
+    // The same lost-keyup case must not poison a later mission restart.
+    await p.keyboard.down('d');
+    const moved=(await inspect(p)).state.player.body.x;
+    await p.waitForFunction(x=>circuitVice.inspect().state.player.body.x>x+8,moved);
+    await p.evaluate(()=>window.dispatchEvent(new Event('blur')));
+    await p.locator('#restart').click();
+    await p.locator('#start').click();
+    assert.equal((await inspect(p)).state.player.body.x,75);
+    const resumed=(await inspect(p)).state;
+    await p.evaluate(()=>window.dispatchEvent(new KeyboardEvent('keydown',
+      {key:'d',repeat:true,bubbles:true})));
+    await p.waitForFunction(t=>circuitVice.inspect().state.tick>t+8,resumed.tick);
+    assert.equal((await inspect(p)).state.player.body.x,75);
+    await p.evaluate(()=>window.dispatchEvent(new KeyboardEvent('keydown',
+      {key:'d',repeat:false,bubbles:true})));
+    await p.waitForFunction(()=>circuitVice.inspect().state.player.body.x>87);
+    await p.keyboard.up('d');
+    await p.keyboard.press('Escape');
+  });
   await check('bfcache persisted pagehide/pageshow resumes exactly one render loop',async()=>{
     await p.locator('#start').click();
     await p.waitForFunction(()=>circuitVice.inspect().state.tick>=10);
