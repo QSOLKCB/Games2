@@ -10,6 +10,62 @@ import {parseRegistry,launchPath} from '../cabinet/registry.js';
 export const ROOT=resolve(fileURLToPath(new URL('../',import.meta.url)));
 export const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 export const digestRows=rows=>sha256(JSON.stringify(rows));
+// Documentation-only root concept scaffolds, never runtime game directories.
+// This static list is reviewed code, not a directory auto-discovery mechanism.
+export const PLANNED_GAME_DIRECTORIES=Object.freeze([
+  "arena-fighter",
+  "boomer",
+  "bridge-command",
+  "bubble-rescue",
+  "combined-arms-rts",
+  "coverfire",
+  "cyber-fps",
+  "cyber-ninja",
+  "fantasy-brawler",
+  "future-detective",
+  "futureshock",
+  "immersive-fps",
+  "kart-racer",
+  "mech-rts",
+  "mech-sim",
+  "narc",
+  "need4speed2",
+  "ninja-combat",
+  "pinball",
+  "platformer",
+  "rail-enforcers",
+  "scenario-foundry",
+  "shadow-raiders",
+  "space-arena",
+  "squadcommand",
+  "star-command-rts",
+  "star-rail",
+  "stealth-dancer",
+  "street-duel",
+  "survival-frontier",
+  "tacticalresponse",
+  "tower-defence",
+  "urban-vigilante",
+  "voxel-sandbox",
+  "wing-squadron",
+  "worldconquest"
+]);
+const plannedGameSet=new Set(PLANNED_GAME_DIRECTORIES);
+const plannedFiles=['AGENTS.md','README.md','ROADMAP.md'];
+export async function verifyPlannedGame(root,name){
+  assert.ok(plannedGameSet.has(name),'not an approved concept directory');
+  const path=join(root,name),info=await lstat(path);
+  assert.ok(info.isDirectory()&&!info.isSymbolicLink(),'concept must be real directory: '+name);
+  const members=await readdir(path,{withFileTypes:true});
+  assert.deepEqual(members.map(m=>m.name).sort(),plannedFiles,
+    'concept directories accept only README/AGENTS/ROADMAP Markdown files: '+name);
+  for(const member of members){
+    assert.ok(member.isFile()&&!member.isSymbolicLink(),'concept must contain only real Markdown files: '+name);
+    const file=name+'/'+member.name;await assertPath(root,file);
+    const source=await readFile(join(root,file));
+    assert.ok(source.length>0&&source.length<=64*1024,'concept document exceeds bounded source size: '+file);
+  }
+}
 const requiredCabinet=['index.html','cabinet/app.js','cabinet/style.css','cabinet/registry.js','cartridges.json','LICENSE','docs/GAME_IDEAS.md'];
 const safePath=path=>typeof path==='string'&&/^[A-Za-z0-9._/-]+$/.test(path)&&!path.startsWith('/')&&!path.split('/').some(part=>!part||part==='.'||part==='..'||part.startsWith('.'));
 const sortRows=rows=>rows.sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);
@@ -97,7 +153,12 @@ export async function verifySourceSite(root=ROOT){
   const raw=await readFile(join(root,'cartridges.json'),'utf8'),registry=parseRegistry(raw);
   const approved=registry.cartridges.filter(row=>launchPath(row)!==null).sort((a,b)=>a.slug.localeCompare(b.slug));
   const directories=new Set(['cabinet','docs','scripts','tests','site','evidence','browser-artifacts','.git','.github',...registry.cartridges.filter(row=>row.directory).map(row=>row.directory)]);
-  for(const entry of await readdir(root,{withFileTypes:true}))if((entry.isDirectory()||entry.isSymbolicLink())&&!directories.has(entry.name)&&!entry.name.startsWith('.site-build-'))throw Error('undeclared source directory: '+entry.name);
+  for(const entry of await readdir(root,{withFileTypes:true})){
+    if(!entry.isDirectory()&&!entry.isSymbolicLink())continue;
+    if(directories.has(entry.name)||entry.name.startsWith('.site-build-'))continue;
+    if(plannedGameSet.has(entry.name)){await verifyPlannedGame(root,entry.name);continue;}
+    throw Error('undeclared source directory: '+entry.name);
+  }
   const cabinet=await walk(join(root,'cabinet'));
   const paths=[...requiredCabinet];
   for(const path of cabinet.files){
