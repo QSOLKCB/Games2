@@ -1,11 +1,12 @@
 # Circuit Vice — NC roadmap (NARC-inspired original)
 
-**NC-001 implementation in review (dedicated PR).** This game now has an original
-fixed-step playable vertical slice, locally generated assets, immutable VANILLAJS
-source, offline package and cabinet registration in the proposed branch. A
-**playable preview is not an initial release**. NC-002 remains a separately
-required polish PR followed by owner release review. Strike Pixel SP-002A PR #5
-and the portfolio PR #6 were merged before this implementation started.
+**NC-001 implementation merged in PR #7. NC-002 Arcade Polish is a distinct
+gameplay/presentation PR in review.** This game has an original fixed-step
+playable vertical slice, locally generated assets, pinned immutable VANILLAJS
+source, offline package and cabinet registration. Neither the NC-002 preview
+nor a passing CI run is an owner-approved versioned initial release. Final
+release requires NC-002 review/merge, production cabinet checks, documented
+limitations and explicit owner sign-off.
 
 The working directory `narc/` honours the preserved inspiration request.
 **Circuit Vice** is a provisional original title; it is not NARC, not licensed
@@ -31,8 +32,8 @@ slice unless the owner chooses them.
 
 | Stage | Status | Deliverable and evidence |
 | --- | --- | --- |
-| **NC-001 — Implementation PR** | **Implementation PR in review; CI and owner review required** | One bounded playable city level and gameplay loop, exact audited VANILLAJS pin, original art/audio, offline package, tests, actual browser gameplay and import/focus/restart recovery |
-| **NC-002 — Dedicated polish PR** | **Pending NC-001 merge and actual play review** | Rebalance weapons and enemy fairness; improve sprite animation, effects, soundtrack, control feedback, menus/HUD, colour accessibility, pause/resume and stable frame pacing; rerun all regression and real-browser tests |
+| **NC-001 — Implementation PR** | **Complete — merged PR #7** | One bounded playable city level and gameplay loop, exact audited VANILLAJS pin, original art/audio, offline package, tests, actual browser gameplay and import/focus/restart recovery |
+| **NC-002 — Dedicated polish PR** | **NC-002 PR in review; actual play and owner sign-off pending** | Rebalance weapons and enemy fairness; improve sprite animation, effects, soundtrack, control feedback, menus/HUD, colour accessibility, pause/resume and stable frame pacing; rerun all regression and real-browser tests |
 | **Release Review** | **Not eligible** | Both PRs merged, all required CI green, deployed Games2 cabinet preview works, limitations documented, owner plays and explicitly authorises release |
 | NC-003 — Extended districts / mode variants | Deferred | Optional second district, score challenge, data-only scenario authoring and cooperative local play with independent acceptance |
 | NC-UPSTREAM-001 | Deferred | Only proven reusable 2.5D combat or authoring features move to VANILLAJS by separate reviewed PR |
@@ -153,3 +154,28 @@ separate approved VANILLAJS PRs.
   no remote game asset fetch or runtime package dependency.
 - Tests and verified package browser results are required **before** merging;
   this description is a submitted implementation scope, not release certification.
+
+## NC-002 implementation scope — 21 November 2026
+
+- **Enemy fairness:** fixed integer-tick wind-up/recovery profiles for striker,
+  shooter and boss; close-range and ranged attack telegraphs, obstacle-aware
+  line of sight, testable cancel-on-stun behavior. No wall-time targeting.
+- **Animations:** game-owned pose selection for idle, running, attacking, dodging,
+  injury, stun and incoming attacks; original VANILLAJS Sprite Foundry frames
+  receive additional authored stance accents without copying commercial art.
+- **Combat feedback:** weapon silhouettes, hit/recoil accents, threat rings,
+  visible boss health, stun/reload readouts and fuller end-of-mission debrief.
+- **Audio:** original bounded 2-second, three-lane PCM score built with the
+  pinned VANILLAJS audio2d module; new event cues, independently toggleable
+  soundtrack, bounded voices and immediate master mute.
+- **Presentation efficiency:** game-owned caching of camera-dependent static
+  2.5D world projections when stationary, bounds checks for procedural skyline
+  and road decals, reduced-motion-aware pose selection.
+- **Verification:** new deterministic game rules/animation/audio tests,
+  packaged-Chromium visual/audio control checks and a self-reported headless
+  100-sample rendering profile. This **does not certify physical 60 FPS**.
+
+See [NC-002 performance method](docs/NC_002_PERFORMANCE.md). The authoritative
+engine pin remains `e9121ea7297b0aeca1da131b695e7c3371a98745`.
+Owner review must use the **exact PR head**; NC-002 is not automatically a
+release. Later NC-003 content extensions remain optional.

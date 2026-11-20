@@ -17,12 +17,12 @@
       "slug": "narc",
       "title": "Circuit Vice",
       "subtitle": "District 09 // Night Response",
-      "description": "Original 2.5D offline arcade action. Rescue the operator, shut down the electrical grid, stun or arrest suspects, and stop the reactor sentinel before evacuation.",
+      "description": "Original 2.5D offline arcade action: rescue, arrest, and stop the reactor sentinel. NC-002 preview adds animated poses, fair attack warnings, procedural soundtrack and a polished HUD.",
       "genre": "2.5D arcade action",
       "status": "playable",
       "directory": "narc",
       "artwork": "cabinet/assets/circuit-vice.svg",
-      "releaseLabel": "NC-001 · Unreleased preview",
+      "releaseLabel": "NC-002 · Unreleased preview",
       "order": 1
     },
     {

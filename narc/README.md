@@ -1,13 +1,14 @@
-# Circuit Vice — District 09 (NC-001)
+# Circuit Vice — District 09 (NC-002 Arcade Polish)
 
-**Original QSOL-IMC offline arcade action game — implementation preview in review.**
+**Original QSOL-IMC offline arcade action game. NC-001 merged as PR #7; NC-002 is a separate gameplay and presentation polish PR awaiting review.**
 Not affiliated with commercial NARC; the original idea was a mechanics reference.
 No third-party arcade sprites, source, ROM, samples, characters or commercial maps.
 
 ## Play
 
-After this implementation PR is reviewed and merged, open Circuit Vice from the
-Games2 Cartridge Cabinet or directly at `/Games2/narc/`.
+Open Circuit Vice from the Games2 Cartridge Cabinet or directly at
+`/Games2/narc/` when the verified main-branch Pages deployment is available.
+The NC-002 PR itself is not production-deployed.
 From the source checkout, build and verify with:
 
 ```sh
@@ -46,11 +47,20 @@ Non-hostile civilians are **not valid projectile damage targets**.
 | Dodge / brief invulnerability | Shift |
 | Reload | R |
 | Pause / resume | P or Escape |
-| Mute | M or on-page button |
+| Mute all audio | M or on-page sound button |
+| Toggle original soundtrack independently | N or on-page music button |
 
 Desktop keyboard/mouse is the tested design target; physical gamepad and touch
-combat are not asserted. Full NC-002 balancing, accessibility, audio and graphics
-polish remain separate.
+combat are not asserted. NC-002 adds attack wind-up telegraphs, original pose
+animations, a small multi-layer procedurally scored soundtrack, separate music
+control, more readable weapon/reload status and a scored debrief. Camera and
+static-world projection reuse reduces repeated renderer work. Fixed logical
+ticks remain unchanged. Owner hardware performance and gameplay acceptance
+remain required before an initial release.
+
+[NC-002 performance and verification plan](docs/NC_002_PERFORMANCE.md) is
+explicit about what the packaged browser measures and what requires an actual
+hardware playthrough.
 
 ## Engine and offline provenance
 

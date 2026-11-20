@@ -3,7 +3,8 @@
 import {createProjection25D,projectPoint25D,projectScene25D}
  from '../vendor/vanillajs/modules/projection25d/index.js';
 import {rasterViceSprites} from './art.js';
-import {STREET_PROPS,streetPropBounds} from './world.js';
+import {STREET_PROPS,streetPropBounds,ENEMY_BALANCE} from './world.js';
+import {vicePose} from './animation.js';
 export const SCREEN=Object.freeze({width:960,height:540});
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const stages=[
@@ -38,12 +39,24 @@ export class ViceView{
     this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});
     if(!this.ctx)throw Error('Canvas2D unavailable');this.assets=rasterViceSprites();
     this.canvas.width=960;this.canvas.height=540;this.lastFrame=null;
+    this.reducedMotion=typeof matchMedia==='function'&&
+      matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.sceneCache=null;this.projectorBuilds=0;
   }
   draw(state){
     if(!state?.player)throw TypeError('Circuit Vice snapshot required');
     const c=this.ctx,w=960,h=540,t=state.tick,cam=clamp(state.player.body.x-265,0,360);
-    const projector=createProjection25D({viewport:[960,540],origin:[(cam+480)/32,9.3],
-      pixelsPerUnit:32,heightRise:.85,heightShear:.08,shadowDirection:[.55,.3]});
+    // Reuse immutable VANILLAJS camera and static-geometry projections while
+    // the player/camera are stationary, without caching any authoritative state.
+    if(!this.sceneCache||this.sceneCache.cam!==cam){
+      const projector=createProjection25D({viewport:[960,540],origin:[(cam+480)/32,9.3],
+        pixelsPerUnit:32,heightRise:.85,heightShear:.08,shadowDirection:[.55,.3]});
+      this.sceneCache={cam,projector,
+        buildings:projectScene25D(projector,stages),
+        footprints:projectedStreetFootprints(projector)};
+      this.projectorBuilds++;
+    }
+    const {projector,buildings,footprints}=this.sceneCache;
     const point=(x,y,elevation=0)=>projectPoint25D(projector,[x/32,elevation,y/32]);
     const gradient=c.createLinearGradient(0,0,0,520);
     gradient.addColorStop(0,'#07101c');gradient.addColorStop(.52,'#18304b');gradient.addColorStop(1,'#39616b');
@@ -51,6 +64,7 @@ export class ViceView{
     // Original procedural skyline: visually continuous, modest geometry budget.
     for(let i=0;i<37;i++){
       const x=i*44-(cam*.22)%44,y=80+(i*41%105),height=205-y;
+      if(x<-40||x>960)continue;
       c.fillStyle=i%3===0?'#17314a':'#10283d';c.fillRect(x,y,37,height);
       c.fillStyle='#33536a';
       for(let row=0;row<5;row++)for(let col=0;col<3;col++)
@@ -63,12 +77,12 @@ export class ViceView{
     c.fillStyle='#324450';c.fillRect(0,238,w,13);
     for(let i=0;i<34;i++){
       const x=((i*72-cam)%2400+2400)%2400-72;
+      if(x<-50||x>960)continue;
       c.fillStyle='rgba(147,187,197,.11)';c.fillRect(x,250,34,2);
       c.fillStyle='rgba(236,191,94,.38)';c.fillRect(x+10,415,40,4);
     }
     c.fillStyle='#5ed6dd';c.fillRect(0,249,w,2);
     // Source-bound VANILLAJS 2.5D visual extrusions; never used as blockers.
-    const buildings=projectScene25D(projector,stages);
     for(const shadow of buildings.shadows)polygon(c,shadow.points,'rgba(0,0,0,.27)');
     for(const obj of buildings.solids){
       polygon(c,obj.sideX,'#1b384b');polygon(c,obj.sideZ,'#315164');
@@ -86,7 +100,6 @@ export class ViceView{
     }
     // The cyan-bordered GROUND patch is the exact blocked footprint,
     // including the 12-unit actor clearance. Raised crate detail is decorative.
-    const footprints=projectedStreetFootprints(projector);
     for(const f of footprints){
       c.fillStyle='rgba(30,73,84,.85)';c.fillRect(f.x,f.y,f.width,f.height);
       c.strokeStyle='#68bec8';c.lineWidth=2;c.strokeRect(f.x,f.y,f.width,f.height);
@@ -111,30 +124,50 @@ export class ViceView{
     text(c,relay.disabled?'GRID OFFLINE':relayNear?'[E] DISABLE GRID':'GRID RELAY',
       relayPoint[0],relayPoint[1]-49,13,relay.disabled?'#9cb7bc':'#fff3ae','center');
     const anchor=(x,y)=>point(x,y);
-    const drawSprite=(name,x,y,frame,size=54,face=1,opacity=1)=>{
-      const frames=this.assets[name],asset=frames[frame%frames.length],p=anchor(x,y);
+    const drawSprite=(name,x,y,pose,size=54,face=1,opacity=1)=>{
+      const frames=this.assets[name],asset=frames[pose.frame%frames.length],p=anchor(x,y);
       if(p[0]<-80||p[0]>1040)return;
+      disc(c,p[0],p[1]-1,size*.19,'rgba(5,10,20,.32)');
       c.save();c.globalAlpha=opacity;
-      if(face<0){c.translate(p[0],0);c.scale(-1,1);c.translate(-p[0],0);}
-      c.imageSmoothingEnabled=false;c.drawImage(asset,Math.round(p[0]-size/2),Math.round(p[1]-size*.91),size,size);
+      c.translate(p[0],p[1]+pose.bob);
+      if(face<0)c.scale(-1,1);
+      const height=size*pose.scaleY;
+      c.imageSmoothingEnabled=false;
+      c.drawImage(asset,Math.round(-size/2+pose.lean),Math.round(-height*.91),size,height);
+      if(name==='agent'){
+        // Original procedural weapon silhouette follows facing and attack pose.
+        c.fillStyle=pose.state==='attack'?'#fff1a7':'#66e7de';
+        c.fillRect(11+pose.lean,-size*.51,21,5);
+        c.fillStyle='#183f52';c.fillRect(7,-size*.46,12,7);
+      }
+      if(pose.flash){c.globalAlpha=.35;c.fillStyle='#ff8ca6';
+        c.fillRect(-size/2,-height*.91,size,height);}
       c.restore();
-      disc(c,p[0],p[1]-1,size*.19,'rgba(5,10,20,.35)');
     };
     // Display-only painter ordering by depth; deterministic stable tie-break.
-    const actors=state.enemies.filter(e=>e.hp>0&&!e.captured).map(e=>({kind:e.kind,x:e.x,y:e.y,face:e.face,
-      hp:e.hp,maxHp:e.maxHp,stunned:e.stunned,id:e.id}));
+    const actors=state.enemies.filter(e=>e.hp>0&&!e.captured).map(e=>({...e}));
     if(state.civilian.state==='waiting')actors.push({kind:'civilian',x:state.civilian.x,y:state.civilian.y,face:1,id:99});
-    actors.push({kind:'agent',x:state.player.body.x,y:state.player.body.y,face:state.player.face,id:0});
+    actors.push({...state.player,kind:'agent',x:state.player.body.x,y:state.player.body.y,
+      face:state.player.face,id:0});
     actors.sort((a,b)=>a.y-b.y||a.id-b.id);
+    const animationStates=[];
     for(const a of actors){
-      const p=anchor(a.x,a.y),bob=a.kind==='agent'&&Math.abs(state.player.body.vx)>0?Math.sin(t*.5)*2:0;
-      const frame=Math.floor(t/10)+(a.id%4);
+      const p=anchor(a.x,a.y),pose=vicePose(a,t,{events:state.events,
+        reducedMotion:this.reducedMotion});
+      animationStates.push(pose.state);
       if(a.kind==='agent'){
-        const blink=state.player.invulnerable>0&&t%8<3;
-        if(!blink)drawSprite('agent',a.x,a.y+bob,frame,62,a.face);
+        drawSprite('agent',a.x,a.y,pose,64,a.face);
       }else{
-        drawSprite(a.kind,a.x,a.y,frame,a.kind==='boss'?93:54,a.face,a.stunned>0?.65:1);
+        drawSprite(a.kind,a.x,a.y,pose,a.kind==='boss'?94:56,a.face,a.stunned>0?.68:1);
         if(a.kind!=='civilian'){
+          if(a.windup>0){
+            const ratio=a.windup/ENEMY_BALANCE[a.kind].windup;
+            c.strokeStyle=a.kind==='boss'?'#ff77a9':'#ffdc81';c.lineWidth=3;
+            c.beginPath();c.arc(p[0],p[1]-34,a.kind==='boss'?38:25,
+              -Math.PI/2,-Math.PI/2+2*Math.PI*(1-ratio));c.stroke();
+            text(c,'ATTACK INCOMING',p[0],p[1]-(a.kind==='boss'?117:82),
+              11,a.kind==='boss'?'#ff8fae':'#ffe3a0','center');
+          }
           c.fillStyle='#071321';c.fillRect(p[0]-23,p[1]-(a.kind==='boss'?106:66),46,5);
           c.fillStyle=a.stunned>0?'#59e7d3':a.kind==='boss'?'#ff6a99':'#ffbc83';
           c.fillRect(p[0]-22,p[1]-(a.kind==='boss'?105:65),44*a.hp/a.maxHp,3);
@@ -142,6 +175,7 @@ export class ViceView{
         }else text(c,'RESCUE [E]',p[0],p[1]-67,12,'#97ffc8','center');
       }
     }
+    // Continuous ballistic trails require no particles or GPU uploads.
     for(const b of state.bullets){
       const p=anchor(b.x,b.y-11),color=b.stun?'#6bffdb':b.owner==='player'?'#ffe6a1':'#ff7398';
       stroke(c,p[0]-b.vx*1.3,p[1]-b.vy*1.3,p[0],p[1],color,b.stun?5:3);
@@ -150,9 +184,13 @@ export class ViceView{
     const recent=state.events.filter(e=>t-e.tick<22);
     for(const e of recent){
       const p=anchor(e.x,e.y-26),age=t-e.tick,r=4+age*.8;
-      if(['impact','hurt','rescue','capture','down','victory','switch'].includes(e.type)){
-        c.strokeStyle=['hurt','down'].includes(e.type)?'#ff6b9a':'#79ffdc';
-        c.lineWidth=2;c.beginPath();c.arc(p[0],p[1],r,0,Math.PI*2);c.stroke();
+      if(['impact','hurt','rescue','capture','down','victory','switch',
+        'shot','stun','threat','strike'].includes(e.type)){
+        c.strokeStyle=['hurt','down','threat','strike'].includes(e.type)?'#ff6b9a':
+          e.type==='shot'?'#ffe8a6':'#79ffdc';
+        c.lineWidth=['stun','shot'].includes(e.type)?3:2;
+        c.beginPath();c.arc(p[0],p[1],
+          ['shot','stun'].includes(e.type)?Math.max(3,r*.7):r,0,Math.PI*2);c.stroke();
       }
     }
     const exit=anchor(1260,355);
@@ -168,7 +206,9 @@ export class ViceView{
       !state.exitOpen?'STOP THE REACTOR SENTINEL':'REACH THE EVAC GATE →';
     text(c,directive,32,59,13,'#7af7dc');
     this.lastFrame={camera:cam,actors:actors.length,bullets:state.bullets.length,
-      footprintCount:footprints.length,relay:{x:relay.x,y:relay.y,near:relayNear,disabled:relay.disabled}};
+      footprintCount:footprints.length,projectorBuilds:this.projectorBuilds,
+      reducedMotion:this.reducedMotion,animationStates,
+      relay:{x:relay.x,y:relay.y,near:relayNear,disabled:relay.disabled}};
     return this.lastFrame;
   }
 }
