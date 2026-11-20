@@ -5,7 +5,11 @@ import {ViceMission} from './world.js';
 import {ViceView} from './view.js';
 import {registerOffline} from './offline.js';
 const $=id=>document.getElementById(id);
-const keys=new Set();
+const keys=new Set(),blockedKeys=new Set();
+function cancelHeld(){
+  for(const key of keys)if(key!=='mouse')blockedKeys.add(key);
+  keys.clear();
+}
 const controls={left:['a','arrowleft'],right:['d','arrowright'],up:['w','arrowup'],down:['s','arrowdown'],
   fire:['f',' ','mouse'],stun:['j'],interact:['e'],dodge:['shift'],reload:['r']};
 const pressed=names=>names.some(key=>keys.has(key));
@@ -33,8 +37,10 @@ function wavCue(recipe){
     channel:0,wave:recipe.wave,frequency:recipe.frequency,gain:3500,seed:7}]});
   return sound.wav();
 }
-class ViceAudio{
-  constructor(){this.context=null;this.buffers=new Map();this.muted=false;this.last=-1;}
+export class ViceAudio{
+  constructor(){this.context=null;this.buffers=new Map();this.muted=false;this.last=-1;this.lastBeat=-1;}
+  // Simulation ticks restart at zero; decoded PCM buffers remain reusable.
+  resetCursor(){this.last=-1;this.lastBeat=-1;}
   async unlock(){
     if(this.context){await this.context.resume();return;}
     const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
@@ -101,15 +107,15 @@ export function startGame(){
   }
   function pause(reason='Mission paused.'){
     if(state.phase!=='playing')return;
-    state=world.pause();clock.setPaused(true);keys.clear();lastTime=null;audio.pause();panel(reason);readout();
+    state=world.pause();clock.setPaused(true);cancelHeld();lastTime=null;audio.pause();panel(reason);readout();
   }
   function begin(){
     if(state.phase==='defeat'||state.phase==='victory')return;
-    keys.clear();state=world.start();clock.setPaused(false);lastTime=null;
+    cancelHeld();state=world.start();clock.setPaused(false);lastTime=null;
     panel('',false);void audio.unlock().catch(()=>{});$('game').focus({preventScroll:true});readout();
   }
   function reset(){
-    keys.clear();clock.reset();lastTime=null;audio.pause();
+    cancelHeld();clock.reset();lastTime=null;audio.pause();audio.resetCursor();
     state=world.reset();clock.setPaused(true);panel();readout();$('start').focus();
   }
   const onKeyDown=e=>{
@@ -120,9 +126,15 @@ export function startGame(){
       else if(state.phase==='paused')begin();return;
     }
     if(key==='m'&&!e.repeat){audio.muted=!audio.muted;$('sound').textContent=audio.muted?'SOUND OFF':'SOUND ON';}
-    if(state.phase==='playing'&&!(e.ctrlKey||e.altKey||e.metaKey))keys.add(key);
+    // A repeated keydown never authorizes a new press, especially after blur.
+    // A canceled held key stays blocked until its keyup is observed.
+    if(state.phase==='playing'&&!e.repeat&&!blockedKeys.has(key)&&
+       !(e.ctrlKey||e.altKey||e.metaKey))keys.add(key);
   };
-  const onKeyUp=e=>keys.delete(e.key.toLowerCase());
+  const onKeyUp=e=>{
+    const key=e.key.toLowerCase();
+    keys.delete(key);blockedKeys.delete(key);
+  };
   window.addEventListener('keydown',onKeyDown);
   window.addEventListener('keyup',onKeyUp);
   window.addEventListener('blur',()=>pause('Focus lost — mission safely paused.'));
@@ -132,21 +144,34 @@ export function startGame(){
   $('start').addEventListener('click',begin);
   $('restart').addEventListener('click',reset);
   $('sound').addEventListener('click',()=>{audio.muted=!audio.muted;$('sound').textContent=audio.muted?'SOUND OFF':'SOUND ON';});
-  let rendering=true;
-  window.addEventListener('pagehide',()=>{rendering=false;keys.clear();audio.dispose();});
-  function frame(now){
-    if(!rendering)return;
+  let rendering=true,frameGeneration=0;
+  const scheduleFrame=()=>{const generation=frameGeneration;
+    requestAnimationFrame(now=>frame(now,generation));};
+  window.addEventListener('pagehide',event=>{
+    pause('Page suspended — resume when ready.');
+    cancelHeld();rendering=false;frameGeneration++;lastTime=null;
+    // A bfcache document keeps its decoded sounds and can be resumed.
+    if(!event.persisted)audio.dispose();
+  });
+  window.addEventListener('pageshow',event=>{
+    if(!event.persisted||rendering)return;
+    rendering=true;frameGeneration++;lastTime=null;
+    panel(state.phase==='paused'?'Page restored — press Resume.':'',true);
+    readout();scheduleFrame();
+  });
+  function frame(now,generation){
+    if(!rendering||generation!==frameGeneration)return;
     const elapsed=lastTime===null?0:Math.max(0,(now-lastTime)/1000);lastTime=now;
     if(state.phase==='playing'){
       clock.advance(elapsed,()=>{state=world.step(input());audio.play(state.events,state.tick);});
       if(state.phase!=='playing'){
-        clock.setPaused(true);keys.clear();audio.pause();panel();lastTime=null;
+        clock.setPaused(true);cancelHeld();audio.pause();panel();lastTime=null;
       }
     }
     view.draw(state);if(frameCount++%6===0||state.phase!=='playing')readout();
-    requestAnimationFrame(frame);
+    scheduleFrame();
   }
-  panel();readout();requestAnimationFrame(frame);
+  panel();readout();scheduleFrame();
   const inspector=()=>structuredClone({state,graphics:view.lastFrame,clock:{ticks:clock.ticks},
     audio:{enabled:audio.context!==null,muted:audio.muted}});
   Object.defineProperty(window,'circuitVice',{value:Object.freeze({inspect:inspector}),configurable:false});

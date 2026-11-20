@@ -3,6 +3,7 @@
 import {createProjection25D,projectPoint25D,projectScene25D}
  from '../vendor/vanillajs/modules/projection25d/index.js';
 import {rasterViceSprites} from './art.js';
+import {STREET_PROPS,streetPropBounds} from './world.js';
 export const SCREEN=Object.freeze({width:960,height:540});
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const stages=[
@@ -23,6 +24,15 @@ function text(c,value,x,y,size=16,color='#f7f4e6',align='left'){
   c.fillText(value,x,y);c.textAlign='left';
 }
 function disc(c,x,y,r,color){c.fillStyle=color;c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();}
+/** Ground patches use the exact same padded bounds as movement obstruction. */
+export function projectedStreetFootprints(projection){
+  return STREET_PROPS.map(prop=>{
+    const bounds=streetPropBounds(prop);
+    const min=projectPoint25D(projection,[bounds.minX/32,0,bounds.minY/32]);
+    const max=projectPoint25D(projection,[bounds.maxX/32,0,bounds.maxY/32]);
+    return {prop,bounds,x:min[0],y:min[1],width:max[0]-min[0],height:max[1]-min[1]};
+  });
+}
 export class ViceView{
   constructor(canvas){
     this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});
@@ -74,13 +84,32 @@ export class ViceView{
       c.fillRect(a[0],a[1],b[0]-a[0],b[1]-a[1]);
       for(let i=0;i<3;i++)stroke(c,a[0]+i*19,a[1],a[0]+i*19,b[1],'#fa658d',2);
     }
-    // Route and physical obstruction decals.
-    for(const prop of [{x:275,y:354,w:56,h:32},{x:480,y:270,w:38,h:34},{x:980,y:405,w:52,h:24}]){
-      const p=point(prop.x,prop.y);
-      c.fillStyle='#172739';c.fillRect(p[0],p[1]-prop.h,prop.w,prop.h);
-      c.strokeStyle='#68bec8';c.lineWidth=2;c.strokeRect(p[0],p[1]-prop.h,prop.w,prop.h);
-      stroke(c,p[0],p[1]-prop.h,p[0]+12,p[1]-prop.h-12,'#a2eef3',2);
+    // The cyan-bordered GROUND patch is the exact blocked footprint,
+    // including the 12-unit actor clearance. Raised crate detail is decorative.
+    const footprints=projectedStreetFootprints(projector);
+    for(const f of footprints){
+      c.fillStyle='rgba(30,73,84,.85)';c.fillRect(f.x,f.y,f.width,f.height);
+      c.strokeStyle='#68bec8';c.lineWidth=2;c.strokeRect(f.x,f.y,f.width,f.height);
+      const p=point(f.prop.x,f.prop.y),top=p[1]-27;
+      c.fillStyle='#172739';c.fillRect(p[0],top,f.prop.w,f.prop.h+27);
+      c.strokeStyle='#a2eef3';c.lineWidth=2;c.strokeRect(p[0],top,f.prop.w,f.prop.h+27);
+      stroke(c,p[0],top,p[0]+12,top-12,'#a2eef3',2);
+      stroke(c,p[0]+f.prop.w,top,p[0]+f.prop.w+12,top-12,'#a2eef3',2);
     }
+    // Relay actuator sits at the precise interaction coordinate, not the
+    // electrical hazard's edge. Disabled state remains a visible landmark.
+    const relay=state.switch,relayPoint=point(relay.x,relay.y);
+    const relayNear=!relay.disabled&&
+      Math.hypot(state.player.body.x-relay.x,state.player.body.y-relay.y)<=63;
+    const relayColor=relay.disabled?'#738c92':'#ffe18d';
+    disc(c,relayPoint[0],relayPoint[1],23,'rgba(3,20,31,.8)');
+    c.strokeStyle=relayColor;c.lineWidth=3;
+    c.strokeRect(relayPoint[0]-19,relayPoint[1]-36,38,32);
+    c.fillStyle=relay.disabled?'#35505a':'#ffbb58';
+    c.fillRect(relayPoint[0]-14,relayPoint[1]-31,28,22);
+    disc(c,relayPoint[0],relayPoint[1]-21,6,relay.disabled?'#8badae':'#fff7c2');
+    text(c,relay.disabled?'GRID OFFLINE':relayNear?'[E] DISABLE GRID':'GRID RELAY',
+      relayPoint[0],relayPoint[1]-49,13,relay.disabled?'#9cb7bc':'#fff3ae','center');
     const anchor=(x,y)=>point(x,y);
     const drawSprite=(name,x,y,frame,size=54,face=1,opacity=1)=>{
       const frames=this.assets[name],asset=frames[frame%frames.length],p=anchor(x,y);
@@ -138,7 +167,8 @@ export class ViceView{
       !state.switch.disabled?'DISABLE THE LIVE GRID':
       !state.exitOpen?'STOP THE REACTOR SENTINEL':'REACH THE EVAC GATE →';
     text(c,directive,32,59,13,'#7af7dc');
-    this.lastFrame={camera:cam,actors:actors.length,bullets:state.bullets.length};
+    this.lastFrame={camera:cam,actors:actors.length,bullets:state.bullets.length,
+      footprintCount:footprints.length,relay:{x:relay.x,y:relay.y,near:relayNear,disabled:relay.disabled}};
     return this.lastFrame;
   }
 }

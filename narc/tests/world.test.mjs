@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {ViceMission,RATE,TIME_LIMIT,HAZARD_LIMIT} from '../src/world.js';
+import {ViceMission,RATE,TIME_LIMIT,HAZARD_LIMIT,STREET_PROPS,streetPropBounds} from '../src/world.js';
 import {createBody2D} from '../vendor/vanillajs/modules/motion2d/index.js';
 import {generateViceSprites} from '../src/art.js';
 import {createProjection25D,projectScene25D} from '../vendor/vanillajs/modules/projection25d/index.js';
+import {projectedStreetFootprints} from '../src/view.js';
 import {createSound2D} from '../vendor/vanillajs/modules/audio2d/index.js';
 test('fixed-tick mission starts paused, rejects malformed controls before mutation',()=>{
   const game=new ViceMission(),start=game.snapshot();
@@ -79,4 +80,24 @@ test('game-owned sprite recipes and native oblique scene are bounded original da
   const cue=createSound2D({frames:2400,events:[{id:1,sample:0,duration:2000,channel:0,
     wave:'square',frequency:410,gain:4000,seed:0}]});
   assert.equal(cue.wav().byteLength,44+4800);
+});
+
+// World obstruction and visible floor patches must share the same extents.
+test('every visible street-prop ground footprint matches authoritative collision',()=>{
+  const projection=createProjection25D({viewport:[960,540],origin:[15,9.3],
+    pixelsPerUnit:32,heightRise:.85,heightShear:.08,shadowDirection:[.55,.3]});
+  const drawings=projectedStreetFootprints(projection);
+  assert.equal(drawings.length,STREET_PROPS.length);
+  for(let i=0;i<drawings.length;i++){
+    const bounds=streetPropBounds(STREET_PROPS[i]),drawing=drawings[i];
+    assert.deepEqual(drawing.bounds,bounds);
+    assert.equal(drawing.width,bounds.maxX-bounds.minX);
+    assert.equal(drawing.height,bounds.maxY-bounds.minY);
+  }
+  const mission=new ViceMission();mission.start();
+  mission.player.body=createBody2D({x:300,y:400});
+  const before=mission.player.body.y;
+  mission.step({moveY:-1});
+  assert.equal(mission.player.body.y,before,
+    'ground rectangle contains the formerly invisible blocked northward step');
 });

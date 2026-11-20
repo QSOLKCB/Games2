@@ -60,6 +60,64 @@ try{
     assert.equal((await inspect(p)).state.tick,0);
     assert.equal((await inspect(p)).state.phase,'ready');
   });
+
+  await check('live relay actuator and truthful interaction prompt are rendered at world position',async()=>{
+    const evidence=await p.evaluate(async()=>{
+      const {ViceView}=await import('./src/view.js');
+      const canvas=document.createElement('canvas'),renderer=new ViceView(canvas);
+      const original=circuitVice.inspect().state;
+      const near=structuredClone(original);near.player.body.x=near.switch.x;near.player.body.y=near.switch.y;
+      const far=structuredClone(near);far.player.body.x-=94;
+      const labels=[],prototype=CanvasRenderingContext2D.prototype,draw=prototype.fillText;
+      try{
+        prototype.fillText=function(value,...rest){labels.push(String(value));return draw.call(this,value,...rest);};
+        renderer.draw(far);const farState={...renderer.lastFrame.relay},farLabels=labels.splice(0);
+        renderer.draw(near);const nearState={...renderer.lastFrame.relay},nearLabels=labels.splice(0);
+        near.switch.disabled=true;renderer.draw(near);
+        return {farState,nearState,disabled:renderer.lastFrame.relay,farLabels,nearLabels,
+          disabledLabels:labels};
+      }finally{prototype.fillText=draw;}
+    });
+    assert.deepEqual({x:evidence.nearState.x,y:evidence.nearState.y},{x:744,y:354});
+    assert.equal(evidence.farState.near,false);assert.equal(evidence.nearState.near,true);
+    assert.ok(evidence.farLabels.includes('GRID RELAY'));
+    assert.ok(evidence.nearLabels.includes('[E] DISABLE GRID'));
+    assert.ok(evidence.disabledLabels.includes('GRID OFFLINE'));
+    assert.equal(evidence.disabled.near,false);
+  });
+  await check('blur blocks held-key auto-repeat until actual release and new press',async()=>{
+    await p.locator('#start').click();
+    await p.waitForFunction(()=>circuitVice.inspect().state.tick>=5);
+    await p.keyboard.down('d');
+    await p.waitForFunction(x=>circuitVice.inspect().state.player.body.x>x+12,75);
+    await p.evaluate(()=>window.dispatchEvent(new Event('blur')));
+    assert.equal((await inspect(p)).state.phase,'paused');
+    await p.locator('#start').click();
+    assert.equal((await inspect(p)).state.phase,'playing');
+    const before=(await inspect(p)).state;
+    await p.evaluate(()=>window.dispatchEvent(new KeyboardEvent('keydown',{key:'d',repeat:true,bubbles:true})));
+    await p.waitForFunction(t=>circuitVice.inspect().state.tick>t+12,before.tick);
+    assert.equal((await inspect(p)).state.player.body.x,before.player.body.x,
+      'canceled held D cannot move until keyup');
+    await p.keyboard.up('d');
+    await p.keyboard.down('d');
+    const fresh=(await inspect(p)).state.player.body.x;
+    await p.waitForFunction(x=>circuitVice.inspect().state.player.body.x>x+12,fresh);
+    await p.keyboard.up('d');
+    await p.keyboard.press('Escape');
+  });
+  await check('bfcache persisted pagehide/pageshow resumes exactly one render loop',async()=>{
+    await p.locator('#start').click();
+    await p.waitForFunction(()=>circuitVice.inspect().state.tick>=10);
+    await p.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));
+    assert.equal((await inspect(p)).state.phase,'paused');
+    await p.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true})));
+    await p.locator('#start').click();
+    const start=(await inspect(p)).state.tick;
+    await p.waitForFunction(t=>circuitVice.inspect().state.tick>t+12,start);
+    assert.equal((await inspect(p)).state.phase,'playing');
+    await p.keyboard.press('Escape');
+  });
   await check('verified per-game offline install and independent cache namespace',async()=>{
     await p.waitForFunction(async()=> (await navigator.serviceWorker.getRegistration())?.active?.state==='activated',null,{timeout:15000});
     await p.reload();await p.waitForFunction(()=>document.documentElement.dataset.ready==='true');

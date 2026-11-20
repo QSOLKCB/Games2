@@ -7,10 +7,16 @@ export const RATE=60,WIDTH=1320,TIME_LIMIT=10800,HAZARD_LIMIT=7200;
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const danger={minX:779,maxX:834,minY:280,maxY:390};
-const scenery=Object.freeze([
+// Physical rectangles are +X/+Y ground coordinates; no raised artwork enters collision.
+export const PROP_MARGIN=12;
+export const STREET_PROPS=Object.freeze([
   Object.freeze({x:275,y:354,w:56,h:32}),Object.freeze({x:480,y:270,w:38,h:34}),
   Object.freeze({x:980,y:405,w:52,h:24})
 ]);
+export function streetPropBounds(prop){
+  return {minX:prop.x-PROP_MARGIN,maxX:prop.x+prop.w+PROP_MARGIN,
+    minY:prop.y-PROP_MARGIN,maxY:prop.y+prop.h+PROP_MARGIN};
+}
 const enemyDefinitions=Object.freeze([
   {id:1,kind:'striker',x:312,y:340,hp:38},
   {id:2,kind:'shooter',x:485,y:385,hp:38},
@@ -30,7 +36,10 @@ function commands(c){
   return o;
 }
 function obstruction(x,y){
-  return scenery.some(r=>x>=r.x-12&&x<=r.x+r.w+12&&y>=r.y-12&&y<=r.y+r.h+12);
+  return STREET_PROPS.some(prop=>{
+    const b=streetPropBounds(prop);
+    return x>=b.minX&&x<=b.maxX&&y>=b.minY&&y<=b.maxY;
+  });
 }
 function bounds(x,y,size=11){return {minX:x-size,maxX:x+size,minY:y-28,maxY:y+8};}
 const alive=e=>e.hp>0&&!e.captured;
