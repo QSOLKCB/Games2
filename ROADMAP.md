@@ -1,109 +1,136 @@
-# Games2 development roadmap
+# Games2 — original games portfolio roadmap
 
-**State:** Strike Pixel SP-001 merged in PR #2 as a playable preview; Cartridge
-Cabinet infrastructure merged in PR #3. **SP-002 gameplay and presentation polish
-is the next game PR.** Strike Pixel's initial release awaits polish, verification
-and owner approval. A merged preview is not a versioned release or an automatic
-upstream integration milestone.
+**Review date:** 20 November 2026. **Priority:** finish Strike Pixel's dedicated
+polish and release review, then build **Circuit Vice** — an original
+NARC-inspired arcade action game in `narc/`. The 36 additional game directories
+are **documentation-only concept scaffolds**, not finished games or cartridges.
 
-This roadmap governs the games monorepo; [VANILLAJS](https://github.com/QSOLKCB/VANILLAJS) retains its own independent engine roadmap. An entry here is a proposal until code, tests and a reviewed completion milestone establish otherwise.
+The [original Games2 README dated 16 November 2026](docs/ORIGINAL_README_2026-11-16.md)
+remains preserved verbatim, and [every historical game idea](docs/GAME_IDEAS.md)
+is retained. This roadmap replaces the superseded "second game unselected"
+planning state; it does not reinterpret game previews as releases.
 
-## Monorepo milestones
+## Verified historical baseline and active changes
 
-| ID | Milestone | Status | Required outcome |
-| --- | --- | --- | --- |
-| G2-DOC-001 | Documentation-first foundation | **Merged in PR #1** | Root agent rules and roadmap; archived source catalogue; pinned engine integration; `strikepixel/` game specification and Codex handoff |
-| SP-001 | Strike Pixel first playable vertical slice | **Merged in PR #2; playable preview** | Sunrelay Yard, offline bots, three weapons, working match and [verification evidence](strikepixel/docs/VERIFICATION.md) |
-| G2-CABINET-001 | The Cartridge Cabinet | **Merged in PR #3; infrastructure complete** | Original arcade, strict cartridge registry, complete verified collection, hosted CI and main-only Pages workflow |
-| SP-002 | Strike Pixel dedicated polish pass | **Next game PR; not started** | Improve gameplay feel, balance, presentation, audio, controls, accessibility, performance and recovery; verify regressions, actual play, offline packaging and deployed preview |
-| Strike Pixel initial release review | Owner approval gate | **Pending SP-002 merge and verification** | Owner tests the deployed cabinet preview; all six release conditions below must hold; not automatically a third implementation PR |
-| SP-003 and later proposals | Strike Pixel enhancements | **Deferred; not started** | Preserve additional arenas/modes, progression, data-only mods, creator tools, input improvements and other proposals in the per-game roadmap |
-| G2-GAME-002 | Second Games2 game | **Not selected; after Strike Pixel's initial polish review** | One separate game directory, one focused implementation PR, a separate polish PR and owner release review; owner may explicitly change priorities |
-| G2-GAME-003 | Third Games2 game | **Not selected** | Same rules; independent game deliverable |
-| G2-UPSTREAM-001 | First reusable engine extraction review | **Not started** | Assess three **completed** games or owner-approved earlier cross-game need; propose separately reviewed VANILLAJS changes |
+| Phase | State | Acceptance / reference |
+| --- | --- | --- |
+| G2-DOC-001 | Merged PR #1 | Original proposal source, policies and first game planning |
+| SP-001 | Merged PR #2; playable preview | Original Sunrelay Yard, three weapons, local bots, real match loop |
+| G2-CABINET-001 | Merged PR #3; infrastructure | Offline cabinet, registry allowlist, build and main-only Pages deployment gate |
+| SP-002A — CAD visuals | **PR #5 open; not merged or verified here** | Engine-generated rounded bot/weapon/pickup meshes, industrial arena presentation, asset source provenance |
+| SP-002B — gameplay and release polish | **Pending** | Balance, weapon feedback, audio, controls, accessibility, menus/HUD, 60-fps hardware check, defects and offline play regression |
+| Strike Pixel release review | **Pending** | Both implementation and polish requirements merged; green CI; real deployed cabinet play; limitations; owner sign-off |
+| NC-001 — Circuit Vice implementation | **Selected next; not started** | Original 2.5D run-and-gun + arrest/rescue mission; fixed-step VANILLAJS, new self-contained game PR |
+| NC-002 — Circuit Vice polish | **Not started** | Separate original-game polish PR and complete gameplay/browser/offline evidence |
+| Circuit Vice release review | **Not eligible** | Owner tests published preview and authorises release |
+| G2-GAME-003 | **Backlog** | Choose third independently playable title, e.g. `cyber-ninja/`, `pinball/`, `immersive-fps/` |
+| G2-UPSTREAM-001 | **Not started** | After three completed games or explicit earlier owner approval, evaluate reusable components in independent VANILLAJS PRs |
 
-No future release version, PR number or implementation date is promised by this table. Completed docs or cabinet infrastructure do not count as completed games.
+The status of PR #5 may change after this document's creation. Check GitHub
+before declaring any phase complete.
 
-## Mandatory progression for every game
+## Stage gates — all titles
 
-**Implementation → Polish → Release Review**
+**Implementation → dedicated polish → owner release review**, as required by
+[AGENTS.md](AGENTS.md) and the [development process](docs/DEVELOPMENT_PROCESS.md).
 
-1. **Pass 1 — Implementation:** one new game in its own directory; core mechanics,
-   original content, a complete playable vertical slice, tests, browser checks,
-   documentation and provenance in one focused PR.
-2. **Pass 2 — Polish:** after implementation merges, a separate PR improves the
-   same game's feel/difficulty, visuals, audio, input, menus/HUD/accessibility,
-   performance, bugs/recovery, offline packaging and deployment. Include regression
-   tests and actual browser gameplay, then obtain owner review.
-3. **Pass 3 — Release Review:** an approval gate, not automatically another
-   implementation PR. The owner tests the published preview through the cabinet.
+1. **Implementation:** one game per PR by default; original playable vertical
+   slice; bounded simulation; pinned immutable VANILLAJS dependencies and source
+   notices; tests for rules, errors, browser interaction and offline packaging.
+2. **Polish:** separate PR *after* implementation merge; genuine gameplay and
+   graphics/audio improvement, fair difficulty, clear UX, accessibility, input
+   cancellation, performance and recovery; measured evidence for claims.
+3. **Release Review:** implementation and polish merged, mandatory CI passed,
+   published cabinet preview playable, limitations recorded and explicit owner
+   sign-off. An unmerged PR, scaffold or engine lab is not a completed game.
 
-Initial release requires **both implementation and polish PRs merged**, **required
-tests/CI passed**, **a working deployed preview**, **documented limitations** and
-**explicit owner release authorisation**. Every game's `ROADMAP.md` must visibly
-track the three stages and evidence; its `AGENTS.md` must link that progression.
+Fix critical defects immediately. The owner can require extra polish; two
+passes are minimum practice, not an automatic release guarantee.
 
-Critical defects may be fixed immediately. Additional polish may be approved;
-failed release review returns the game for corrections. Two passes are a minimum,
-not guaranteed readiness. Later enhancement/bug-fix PRs do not repeat the entire
-process. Read the [complete development policy](docs/DEVELOPMENT_PROCESS.md).
+## Engine adoption strategy — 2026 VANILLAJS update
 
-## Development rules
+At the review point, VANILLAJS `main` commit
+`e9121ea7297b0aeca1da131b695e7c3371a98745` includes:
 
-1. **One new game per implementation PR**, generally. Follow with mandatory polish in a separate PR; document any technical exception to PR scope.
-2. Each game gets its own directory and `README.md`, `AGENTS.md`, `ROADMAP.md`, including the visible three-stage progression above.
-3. Do not import another game's story, progression or data into an engine module.
-4. Consume a **pinned** VANILLAJS revision and preserve the selection and attribution.
-5. Complete implementation, polish and owner release review before announcing an initial game release.
-6. Preserve the entire concept and donor catalogues when reprioritising.
-7. Owner authorisation is required for merge, deployment, tag and publication.
+| Engine subsystem | Potential Games2 use | Integration boundary |
+| --- | --- | --- |
+| CAD-003 Geometry Forge, CAD-001/002 profiles | Strike Pixel rounded models, original building/prop meshes, future creator art | Presentation-only meshes; do not change collision authority |
+| Render-Lit, WORLD-VIS-001 | More sophisticated materials, mesh reuse, culling and conservative LOD | Device presentation only; budget and visual checks needed |
+| SENSE-001 and TACTICS-001 | Fair enemies, perception, cover and squad/room orders | Deterministic policy; match source with game fixed ticks |
+| TRAJECTORY-001 / weapon-feel | Flight/combat ballistics, weapon timing and visible impact feedback | Explicit numerical and swept-contact regression |
+| Creator-Interop-001 | Data-only offline maps, original assets, authoring/export | Admission validation, versioned format and isolated ownership |
+| combat2d, projection25d, sprite2d, motion2d | NARC-inspired game, brawlers, platformers and fighting | Original art, fixed-step gameplay, authoritative state separate |
+| flight, road-arcade, vehicle3d, airframe | Racers, arcade warplanes and bridge simulations | Measured time budgets and authored game content |
+| navigation, tactics, terrain, tilemap | RTS, survival, tower defence and squad action | Reused verified mechanics, original game rule sets |
 
-## First game: Strike Pixel
+**Do not equate latest main with a reviewed release pin.** SP-001's source-pinned
+simulation closure remains VANILLAJS v2.5.0 commit
+`32b4fb1ca80e854297998aa00f87a8f012398b89`. SP-002A introduces only
+a presentation-focused CAD module from the newer commit, with a separately
+checked exact Git blob. Future full engine uptake needs a dedicated compatibility
+and package-provenance audit, tests and regression evidence. No CDN, third-party
+runtime packages, server requirement or silently auto-updated dependencies.
 
-[Design brief](strikepixel/README.md) · [Per-game roadmap](strikepixel/ROADMAP.md) · [Implementation handoff](strikepixel/CODEX_HANDOFF.md)
+## Game 1 — Strike Pixel
 
-The first implementation is an original, offline, blocky 3D FPS inspired by arcade arena shooters. SP-001 supplies one self-contained arena and match loop using an immutable VANILLAJS module closure. No microtransactions, accounts, premium currency or network multiplayer. See the [per-game roadmap](strikepixel/ROADMAP.md) for deferred expansion, input hardware and creator-tool work. Owner review is still required before this counts toward the three-game upstream milestone.
+[Game roadmap](strikepixel/ROADMAP.md) · [Architecture](strikepixel/docs/ARCHITECTURE.md)
 
-## Permanent arcade home
+Finish presentation and gameplay **without changing authoritative collision or
+fixed-step matching merely to improve aesthetics**. SP-002A uses generated
+geometry for rounded robots, weapon accents, arena details, pickups and
+projectiles; SP-002B retains fair bot behaviour, HUD/menu, soundtrack, input,
+GPU baseline, packaging, recovery and full actual gameplay verification.
 
-The cabinet launches individual, independently owned game packages. Its registry
-is a publication allowlist, not automatic discovery. Each approved deployment
-must preserve the complete existing collection, stable game URLs and per-game
-offline scopes. New-game PRs still normally introduce only one game.
+Deferred proposals are **not cancelled**: additional arenas, survival waves,
+data-only mods, source-bound replay, visual map authoring, original cosmetics and
+demoscene presentation remain SP-003/SP-004 and later.
 
-G2-CABINET-001 merged in PR #3. A release review still requires verification of
-the relevant main-branch Pages run and public cabinet/game URLs. Later work can improve accessibility, cabinet
-presentation and collection navigation without changing game ownership. Additional
-cartridges become playable only through reviewed implementations and registration;
-the concept cards do not count as new games. See [adding a cartridge](docs/ADDING_A_CARTRIDGE.md)
-and [deployment policy](docs/DEPLOYMENT.md).
+## Game 2 — Circuit Vice (NARC-inspired original)
 
-## Future game selection
+[Detailed NC roadmap](narc/ROADMAP.md) · [Concept](narc/README.md)
 
-See [the full catalogue](docs/GAME_IDEAS.md). It includes all present README ideas (arcade, tactical FPS, RTS, tower defence, racing, space, mech, strategy, survival and more) plus earlier proposals awaiting implementation. The [donor inventory](docs/DONOR_CATALOGUE.md) remains available for source-pinned reviews.
+Original 2.5D arcade city action. Build one coherent district and a meaningful
+combat/arrest/rescue loop; use `combat2d`, `projection25d`, `sprite2d`,
+`motion2d`, audio and creator tooling after immutable-pin review. Design for
+desktop keyboard/gamepad first, local co-op only if separately tested. Do **not**
+reuse NARC branding in the released title, copyrighted graphics, recognisable
+characters, music or maps. NC-001 gets one implementation PR, NC-002 a separate
+polish PR, followed by owner release review. No placeholders registered in cabinet.
 
-Selection should consider: genre diversity, reusable engine gaps, achievable scope, original identity, licensing, testability, and whether a short playable loop can be delivered without mandatory cloud services.
+## Games 3+ — preserved backlog and creation order
 
-## Reusable Games2 → VANILLAJS systems
+All 36 future directories, including the selected second game, are listed in
+[the concept-directory register](docs/FUTURE_GAME_DIRECTORIES.md).
+They cover the complete original catalogue: arcade ninja/brawlers, rail gallery,
+bubble trapping, fighting, pinball, immersive FPS, tactical FPS, platformers,
+racing, voxel/survival, RTS, defence, investigation, mechs and space.
+Earlier Skynet/NFS II/Risk/Cannon Fodder/SWAT/boomer-shooter proposals are
+also retained as their own directory plans.
 
-**Initial suggested review cadence:** after **three completed Games2 games**, counting from the last review. The owner may authorise an earlier review for a substantial reusable mechanic or cross-game fix. No automated promotions.
+**Suggested next decision after Circuit Vice:** one of a ninja brawler
+(`cyber-ninja/`), pinball (`pinball/`), systems-oriented immersive FPS
+(`immersive-fps/`) or the first RTS (`star-command-rts/`).
+This order is indicative, not an unapproved implementation queue.
 
-A completed game requires:
-- Independent runnable package with actual gameplay.
-- Per-game README/AGENTS/ROADMAP and appropriate attribution.
-- Executed prescribed tests, including packaged browser behaviour and offline startup.
-- Owner-approved release or equivalent reviewed completion milestone.
+## Games2 → VANILLAJS promotion review
 
-Potential shared areas include FPS/tactical AI, weapon rules, block-world and procedural geometry, 2D combat, squad movement, road/vehicle physics, RTS navigation, turn-based mechanics, space/mech physics, deterministic audio, visual FX, and data-only creator tools.
+After three independently runnable, tested and owner-approved finished games
+(or an explicit earlier cross-game request), identify genuinely reusable
+mechanics. Each promotion requires a separate VANILLAJS PR, exact upstream
+source and licence audit, robust numerical/replay contracts, comparative
+regression and an independently runnable engine lab. The consuming Games2
+update then goes through a separate game PR. No automatic cross-repo promotion.
 
-Promotion gates: exact immutable source pin, per-file licence and asset audit, numerical/replay contract, tests and reference comparisons, reusable API design, at least one actual VANILLAJS lab/tutorial consumer, and a **separate approved VANILLAJS PR**. Later Games2 upgrades are separate consuming-game PRs.
+## Cabinet and operational boundaries
 
-[Detailed integration policy](docs/ENGINE_INTEGRATION.md)
+Only reviewed playable/released registry entries may be published. Build
+the entire allowlisted collection rather than wiping old games, preserve
+stable URLs and separate service-worker scopes, verify the exact Pages
+artifact and deploy only from reviewed `main`. The new concept directories
+must not enter `cartridges.json` or the site output until a game package
+actually exists. No merge, release, owner runner or production publish without
+explicit permission.
 
-## Review register
-
-| Review | Qualifying games | Reusable candidate | Owner decision | Upstream PR |
-| --- | --- | --- | --- | --- |
-| Not yet conducted | 0 | None assessed | Pending future milestone | None |
-
-Do not retrospectively count VANILLAJS labs, other QSOLKCB games, design documents or donor repos as completed Games2 games.
+[Game ideas](docs/GAME_IDEAS.md) · [Full concept register](docs/FUTURE_GAME_DIRECTORIES.md)
+· [Donor catalogue](docs/DONOR_CATALOGUE.md)
+· [Engine integration policy](docs/ENGINE_INTEGRATION.md)

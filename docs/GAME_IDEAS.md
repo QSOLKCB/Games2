@@ -66,7 +66,7 @@ These proposals were supplied before this documentation PR and are preserved alo
 | SWAT 4-inspired tactical FPS | `tacticalresponse/` (proposed) | Original room interactions and squad AI |
 | Original boomer shooter informed by QwakeTF | `boomer/` (proposed) | Distinct original campaign, weapons and levels |
 
-These directory names are planning suggestions, not created game directories or fixed titles. Only `strikepixel/` is introduced by this documentation PR.
+**Historical note:** these were directory suggestions when this catalogue was created. As of the 20 November 2026 portfolio scaffold, planning-only directories exist for all source concepts; no additional game has been implemented or published.
 
 ## Curation policy
 
@@ -77,3 +77,12 @@ These directory names are planning suggestions, not created game directories or 
 - A future prioritisation or upstream-engine review cannot change this source history silently.
 
 [Games2 roadmap](../ROADMAP.md) · [All donor sources](DONOR_CATALOGUE.md)
+
+## 20 November 2026 planning-only directory update
+
+The [full concept directory register](FUTURE_GAME_DIRECTORIES.md) maps the original
+README ideas and earlier proposals to original working identities. `narc/`
+is the selected **second** project after Strike Pixel's complete polish and
+release review. Its working title is *Circuit Vice*. All 36 added directories
+contain only design docs; they are not games, builds or cartridge entries.
+The original README source remains unchanged and retains historical priority.
