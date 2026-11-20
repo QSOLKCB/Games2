@@ -6,6 +6,8 @@ button:hover,button:focus-visible{outline:2px solid var(--mint);outline-offset:3
 a{color:var(--mint)}header{max-width:1250px;margin:auto;padding:19px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .brand{letter-spacing:.19em;font-size:clamp(1rem,2.4vw,1.6rem);font-weight:900}.brand strong{color:#7ff9de}.brand span{font-size:.6em;color:#f4b5bd}
 main{max-width:1040px;margin:auto;padding:0 14px}.topbar,.objectives{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:8px 0}
+.sound-controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+#weapon-status,#stun-status{color:#85f7d9}
 .topbar>div,.objectives>div{background:#0b2237;border-top:2px solid #265368;padding:7px 12px;color:#78b9c8;font-size:.8rem;letter-spacing:.09em;display:flex;justify-content:space-between;gap:8px}
 b{color:#f7f1dc}.stage{position:relative;overflow:hidden;border:2px solid #478b9c;background:#081b2b;box-shadow:0 15px 55px #0009}
 canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;outline:0}
