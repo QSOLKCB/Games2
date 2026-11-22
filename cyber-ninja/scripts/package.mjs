@@ -8,6 +8,6 @@ export const game = {
   modules: {
     'modules/time/index.js': '60c1532aaaac36beceb3e81f1a935c59478976b2',
     'modules/motion2d/index.js': '56174c2bc135239ff8677bd337665df54f0df4e5'
-},
-  files: ['index.html', 'style.css', 'src/app.js', 'src/world.js', 'src/view.js', 'src/offline.js', 'LICENSE', 'NOTICE'],
+  },
+  files: ['index.html', 'style.css', 'src/app.js', 'src/world.js', 'src/view.js', 'src/synth.js', 'src/offline.js', 'LICENSE', 'NOTICE'],
 };

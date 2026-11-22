@@ -29,12 +29,12 @@
       "slug": "cyber-ninja",
       "title": "Blade Circuit",
       "subtitle": "Glassline Foundry",
-      "description": "Cross a glass foundry guarded by three clockwork wardens. Chain blade cuts, catch a strike on your guard and open the exit lift.",
+      "description": "Chain cuts and timed ripostes through three foundry lines. Slip past clockwork wardens and reach the freight lift.",
       "genre": "Side-scrolling brawler",
       "status": "playable",
       "directory": "cyber-ninja",
       "artwork": "cabinet/assets/cyber-ninja.svg",
-      "releaseLabel": "CYBER-NINJA-001 · Playable preview",
+      "releaseLabel": "CYBER-NINJA-002 · Playable preview",
       "order": 2
     },
     {
