@@ -26,7 +26,8 @@ owner-approved merge. This task does not manually dispatch or deploy anything.
 
 ## One verified path to publication
 
-[ci.yml](../.github/workflows/ci.yml) runs for pull requests targeting `main` and can
+[ci.yml](../.github/workflows/ci.yml) runs for pull requests targeting `main` or an implementation branch matching
+`codex/implement-*` so stacked polish receives read-only verification. It can
 be called as a reusable workflow. [pages.yml](../.github/workflows/pages.yml) calls
 that same verification on a push to `main` or an explicit dispatch **on `main`**.
 Main therefore runs all CI gates through Pages, without a second duplicate main CI run.

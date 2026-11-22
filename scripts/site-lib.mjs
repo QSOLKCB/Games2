@@ -109,7 +109,7 @@ function local(from,reference){
   assert.ok(!/^[a-z][a-z0-9+.-]*:/i.test(reference)&&!/[?#\\]/.test(reference)&&!reference.startsWith('/'),'non-local runtime reference: '+reference);
   const path=posix.normalize(posix.join(posix.dirname(from),reference));assert.ok(safePath(path),'escaping runtime reference: '+reference);return path;
 }
-async function cabinetReferences(root,paths){
+export async function verifyRuntimeReferences(root,paths){
   const inventory=new Set(paths);
   for(const path of paths){
     if(!/\.(?:js|css|html|svg)$/.test(path))continue;
@@ -177,7 +177,7 @@ export async function verifySourceSite(root=ROOT){
     // local scripts. No registry field selects a command or module to execute.
     await walk(join(root,row.directory),{allowPrivate:true});
   }
-  await cabinetReferences(root,paths);
+  await verifyRuntimeReferences(root,paths);
   return {registry,approved,paths:paths.sort(),registrySHA256:sha256(raw)};
 }
 export function runGame(root,slug,command){

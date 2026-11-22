@@ -1,21 +1,32 @@
-# Blade Circuit (working title)
+# Blade Circuit
 
-**Status:** planning scaffold only. No game source, playable cartridge, release, network service or owner sign-off is implied.
+Cross the Glassline Foundry as a repair chassis carrying a glass cutter. The exit lift is beyond three defended gates. Defeat each group, then travel right past its gate. The last warden wears reinforced armor.
 
-Games2's [development process](../docs/DEVELOPMENT_PROCESS.md) requires a focused implementation PR, a **separate** polish PR and an owner release gate. Development cannot bypass that process.
+## Play
 
-**Catalogue origin:** Ninja Warriors — reference to a genre or mechanic **only**, not a licence or authorization to reproduce any commercial game, trademark, story, assets, maps, ROM or soundtrack. This concept will use an original QSOL-IMC identity.
+From the repository root, run:
 
-## Concept
+```sh
+node scripts/build-site.mjs
+node scripts/site-server.mjs
+```
 
-A side-scrolling combat game featuring an original synthetic hero, positioning and defensive timing.
+Open the cabinet at `http://127.0.0.1:8000/Games2/` and choose **Blade Circuit**. The direct path is `/Games2/cyber-ninja/`. After the offline installation completes, the direct game URL works offline.
 
-**Candidate VANILLAJS modules to evaluate:** `combat2d, sprite2d, motion2d, weapon-feel`. Names reflect modules present in VANILLAJS main as inspected on 20 November 2026; they are *not* a tested dependency closure or a source pin for a game. Before implementation select an immutable commit, check `MODULES.json`, audit dependencies, tests and licensing, and make a self-contained offline package.
+Move with A/D or the arrows. Hold J for a repeating three-cut chain. K raises a frontal guard. The third cut breaks armor. A guard raised during the last ten ticks of an incoming wind-up stuns its attacker. A cleared line repairs one hull point. The on-screen buttons also accept touch. P or Escape pauses and resumes. Leaving the page pauses play. Sound is opt-in.
 
-## First playable slice
+## Engine and verification
 
-One level with combos, guarded enemies and clear hit reactions.
+`time` drives the 60 Hz clock and `motion2d` drives bounded integer movement. Each file is an unmodified leaf of the upstream module inventory. The [source receipt](vendor/vanillajs/ENGINE_PIN.json) names the immutable VANILLAJS v3.1.0 revision and Git blobs. The game, artwork and audio are original. The digest-verified static package includes its own scoped service worker.
 
-**Controls, art, audio, game rules and release details are provisional.** No placeholder game should be registered as playable in `cartridges.json`.
+```sh
+node --test cyber-ninja/tests/*.test.mjs
+node cyber-ninja/scripts/build.mjs
+node cyber-ninja/scripts/verify.mjs
+node scripts/build-site.mjs
+node scripts/browser-site.mjs
+```
 
-[Project roadmap](ROADMAP.md) · [Agent constraints](AGENTS.md) · [Games2 master roadmap](../ROADMAP.md) · [Original ideas](../docs/GAME_IDEAS.md)
+The browser suite uses the repository's external Playwright tooling. See the [development checks](../docs/DEPLOYMENT.md) and [milestones](ROADMAP.md).
+
+One authored route. Keyboard and on-screen controls. Physical controllers and sustained hardware frame rates have not been measured.

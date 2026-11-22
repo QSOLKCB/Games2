@@ -29,7 +29,10 @@ try{
   const context=await browser.newContext({viewport:{width:1440,height:1100}}),p=await context.newPage(),errors=[];
   p.on('pageerror',e=>errors.push(e.message));
   await check('project-prefix cabinet, original artwork, native keyboard selection and truthful concepts',async()=>{
-    await p.goto(url);await cabinet(p);assert.equal(await p.locator('#cartridge-rack [data-slug]').count(),4);
+    await p.goto(url);await cabinet(p);
+    const catalog=JSON.parse(await readFile(join(root,'cartridges.json'),'utf8')).cartridges;
+    const displayed=await p.locator('#cartridge-rack [data-slug]').evaluateAll(items=>items.map(item=>item.dataset.slug));
+    assert.deepEqual(displayed.sort(),catalog.map(row=>row.slug).sort());
     assert.match(await p.locator('#selected-title').textContent(),/STRIKE PIXEL/i);
     assert.match(await p.locator('#selected-status').textContent(),/PLAYABLE PREVIEW/i);
     assert.equal(await p.locator('#play-link').getAttribute('href'),'./strikepixel/');
@@ -116,6 +119,10 @@ try{
     await page.screenshot({path:join(artifacts,'circuit-vice.png'),fullPage:true});
     await c.close();
   });
+  for(const slug of verified.games.filter(slug=>!['strikepixel','narc'].includes(slug))){
+    const {play}=await import('../tests/cartridges/'+slug+'.mjs');
+    await check(slug+' cabinet launch, play, recovery and offline restart',()=>play({browser,url,artifacts}));
+  }
   const report={result:'PASS',siteVersion:verified.version,games:verified.games,browser:browser.version(),prefix:'/Games2/',checks,elapsedSeconds:(Date.now()-started)/1000,
     limitations:['Local hosted-prefix check; no production deployment performed.','Software-rendered headless Chromium; touch and narrow screens are emulated, not physical device tests.','Cabinet is online navigation; only the game has an offline worker.']};
   await writeFile(join(artifacts,'browser.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));

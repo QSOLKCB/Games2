@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#131f23"><title>Blade Circuit · Games2 Arcade</title>
+<link rel="stylesheet" href="./style.css"><script type="module" src="./src/app.js"></script></head>
+<body><main>
+<nav><a href="../">← Cartridge cabinet</a><button id="sound" type="button" aria-pressed="false">Sound off</button></nav>
+<header><span class="crest" aria-hidden="true">◩</span><div><p>Glassline Foundry</p><h1>Blade Circuit</h1></div></header>
+<div class="console">
+<section class="screen" aria-label="Playfield"><canvas id="field" width="640" height="320" tabindex="0" aria-label="Blade Circuit playfield. Controls are listed alongside the game."></canvas></section>
+<section class="deck" aria-label="Foundry run"><h2>Foundry run</h2>
+<dl class="stats"><div><dt>Hull</dt><dd id="stat0">8 / 8</dd></div>
+<div><dt>Line</dt><dd id="stat1">1 / 3</dd></div>
+<div><dt>Score</dt><dd id="stat2">000000</dd></div></dl>
+<p id="message" role="status">Ready to play</p>
+<p id="instructions">Break the wardens’ line and reach the freight lift. Hold Cut for a three-strike chain. Raise Guard as a warning expires to stun a warden.</p>
+<div class="actions"><button type="button" id="start">Enter foundry</button><button type="button" id="pause" disabled>Pause</button><button type="button" id="restart" hidden>Restart</button></div>
+<h3>Run controls</h3><div class="controls"><button type="button" data-control="left"><b>◀</b><kbd>A / ←</kbd></button>
+<button type="button" data-control="right"><b>▶</b><kbd>D / →</kbd></button>
+<button type="button" data-control="attack"><b>Cut</b><kbd>J</kbd></button>
+<button type="button" data-control="guard"><b>Guard</b><kbd>K</kbd></button></div>
+<p class="foot">P or Esc to pause</p></section></div><footer id="offline" aria-label="Offline installation">Checking offline installation…</footer>
+</main></body></html>

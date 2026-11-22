@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 432" role="img" aria-labelledby="title desc"><title id="title">Blade Circuit</title><desc id="desc">A jade automaton draws a bright blade across a copper foundry skyline.</desc>
+<rect width="768" height="432" fill="#eca982"/><circle cx="566" cy="118" r="73" fill="#ffdda5"/>
+<path d="M0 284v-91h42v-54h17v92h41v-63h51v-57h16v83h60v-41h31v58h24v-102h19v-38h12v107h66v-42h38v76h47v-96h22v-33h14v154h58v-96h29v-37h18v132h51v-61h41v76h37v-91h18v-38h10v190H0z" fill="#a77668"/>
+<g fill="none" stroke="#5d6560" stroke-width="7"><path d="m-15 244 168-121 38 101m-128-23 100-71m360 120 173-132 20 113m-114-56 96-52"/></g>
+<path d="M0 293h768v139H0z" fill="#293f42"/><path d="m0 373 768-73v14L0 403z" fill="#55716b"/>
+<g stroke="#14272d" stroke-width="8" stroke-linejoin="bevel"><path d="m248 351 32-88 30-11 32 28-17 42 31 48-74-18-49 32-41 1z" fill="#3c7772"/>
+<path d="m269 264 9-59 45-27 62 22-4 25-53 21-5 29z" fill="#295153"/>
+<path d="m306 210 63-9 11 8-65 14z" fill="#bbf3ca"/>
+<path d="m324 259 55 18 70-29 8 14-82 48-62-15z" fill="#4c9081"/></g>
+<path d="m396 277 233-131-143 111-70 25z" fill="#fff2c9"/><path d="m441 255 194-112-161 108z" fill="#8fe4bc"/>
+<g fill="#f8cda0"><path d="M0 10h188v6H0zm584 406h184v8H584z"/></g></svg>
