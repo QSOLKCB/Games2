@@ -40,7 +40,14 @@ try{
     assert.ok(await p.locator('#preview-art').evaluate(image=>image.naturalWidth>0));
     assert.equal(await p.evaluate(()=>navigator.serviceWorker.controller),null);
     assert.equal(await p.locator('iframe,audio[autoplay],video[autoplay]').count(),0);
-    await select(p,'neon-apex');assert.match(await p.locator('#selected-status').textContent(),/COMING SOON/);assert.equal(await p.locator('#play-link').getAttribute('href'),null);
+    // Keep the concept path under browser coverage as real cards become playable.
+    const fixture={...catalog[0],slug:'test-concept',title:'Test concept',status:'concept'};
+    delete fixture.directory;
+    await p.route('**/cartridges.json',route=>route.fulfill({json:{schemaVersion:1,cartridges:[...catalog,fixture]}}));
+    await p.reload();await cabinet(p);await select(p,'test-concept');
+    assert.match(await p.locator('#selected-status').textContent(),/COMING SOON/);
+    assert.equal(await p.locator('#play-link').getAttribute('href'),null);
+    await p.unroute('**/cartridges.json');await p.reload();await cabinet(p);
     await p.locator('[data-slug="strikepixel"]').focus();await p.keyboard.press('Enter');await cabinet(p);
     assert.equal(await p.locator('#play-link').getAttribute('href'),'./strikepixel/');await p.screenshot({path:join(artifacts,'cabinet-desktop.png'),fullPage:true});
   });

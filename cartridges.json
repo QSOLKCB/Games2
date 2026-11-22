@@ -51,13 +51,14 @@
     {
       "slug": "starward-signal",
       "title": "Starward Signal",
-      "subtitle": "Original spaceflight concept",
-      "description": "A cabinet concept for the catalogue's space combat ideas: original ships, flight and distant encounters. No game has been built yet.",
+      "subtitle": "The Pelagic Array",
+      "description": "Pilot the survey cutter Wake through the outer Pelagic Array. Recover two echoes from each of three relays, disperse interference drones and bring all three transmissions back to Port Lumen before the signal fades.",
       "genre": "Space combat",
-      "status": "concept",
+      "status": "playable",
       "artwork": "cabinet/assets/starward-signal.svg",
-      "releaseLabel": "Concept · Not playable",
-      "order": 20
+      "releaseLabel": "SS-001 · Playable preview",
+      "order": 20,
+      "directory": "starward-signal"
     },
     {
       "slug": "pinball",

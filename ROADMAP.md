@@ -120,6 +120,10 @@ source and licence audit, robust numerical/replay contracts, comparative
 regression and an independently runnable engine lab. The consuming Games2
 update then goes through a separate game PR. No automatic cross-repo promotion.
 
+## Starward Signal
+
+Pilot the survey cutter Wake through the outer Pelagic Array. Recover two echoes from each of three relays, disperse interference drones and bring all three transmissions back to Port Lumen before the signal fades. [Implementation and polish milestones](starward-signal/ROADMAP.md).
+
 ## Cabinet and operational boundaries
 
 Only reviewed playable/released registry entries may be published. Build
