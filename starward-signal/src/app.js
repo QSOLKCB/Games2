@@ -101,8 +101,8 @@ function frame(now) {
       for (const action of taps) input[action] = true;
       taps.clear();
       step(state, input);
-      synth.tick(state);
       if (state.phase !== 'playing') changePhase(state.phase);
+      synth.tick(state);
     });
     for (const button of controls) button.classList.toggle('active', [...sources.values()].includes(button.dataset.control));
     dirty = true;

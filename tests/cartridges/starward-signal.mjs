@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import assert from 'node:assert/strict';
 import {fromCabinet} from '../play-cartridge.mjs';
-import {timedPlay,setKeys} from '../timed-play.mjs';
+import {watchSound,timedPlay,setKeys} from '../timed-play.mjs';
 import {position,target} from '../../starward-signal/src/world.js';
 
 export async function play(options){
@@ -14,6 +14,7 @@ export async function play(options){
     await page.locator('#pause').click();await page.waitForFunction(t=>starwardSignal.inspect().tick>t+4,parked);
   });
   await timedPlay(options,'starward-signal',async page=>{
+    await watchSound(page,'ArrayAudio');
     const held=new Set();
     for(let i=0;i<220;i++){
       const s=await page.evaluate(()=>starwardSignal.inspect());if(s.phase!=='playing')break;
@@ -25,6 +26,7 @@ export async function play(options){
     await setKeys(page,held,[]);
     const flight=await page.evaluate(()=>starwardSignal.inspect());
     assert.equal(flight.phase,'won');assert.equal(flight.recovered,3);assert.ok(flight.cleared>0);
+    assert.deepEqual(await page.evaluate(()=>window.lastSounds()),['quiet','dock']);
     await page.locator('#restart').click();await page.setViewportSize({width:320,height:720});
     await page.locator('[data-control="ping"]').tap();await page.clock.runFor(160);
     assert.equal((await page.evaluate(()=>starwardSignal.inspect())).casts,1);

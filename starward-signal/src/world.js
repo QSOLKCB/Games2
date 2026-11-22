@@ -45,7 +45,7 @@ function updateDrones(s,pt){
     }
     if(range(drone,pt)<26 && !s.invulnerable){
       s.hull--;s.invulnerable=90;announce(s,'hurt','Static strike');
-      if(s.hull===0){s.phase='lost';return;}
+      if(s.hull===0){s.phase='lost';announce(s,'loss','Hull offline');return;}
     }
   }
 }
