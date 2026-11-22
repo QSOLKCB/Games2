@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-import {WIDTH, HEIGHT, RADIUS, RAILS, BUMPERS, flipper} from './world.js';
+import {WIDTH, HEIGHT, RADIUS, RAILS, BUMPERS, flipper, skillCharge} from './world.js';
 
 const cream='#f6dba5', gold='#f1b45f', teal='#73cdb7', blue='#568c99';
 function circle(c,x,y,r,color,fill=true,width=1) {
@@ -26,6 +26,13 @@ function table(c){
   c.strokeStyle=gold;c.lineWidth=4;c.stroke();c.restore();
   word(c,'A S T E R I O N',161,299,cream,16);
   word(c,'R E L A Y',161,316,teal,11);
+  for(const [cx,cy,size] of [[60,220,7],[249,163,6],[105,80,4]]){
+    line(c,[cx-size,cy,cx+size,cy],'#8ab5a7',1);line(c,[cx,cy-size,cx,cy+size],'#8ab5a7',1);
+  }
+  for(const [x,y,dir] of [[47,316,1],[270,316,-1]]){
+    for(let i=0;i<3;i++)line(c,[x+dir*4*i,y+4*i,x+dir*(8+4*i),y+4*i+8],gold,2);
+  }
+  word(c,'SURVEY  /  250',242,57,'#b2c6a4',6);
   c.fillStyle='#213b46';c.fillRect(316,117,28,348);
   for(let y=178;y<385;y+=17)line(c,[326,y+6,333,y],blue,2);
   c.lineCap='round';
@@ -37,14 +44,23 @@ function table(c){
   }
 }
 
-export function draw(c,s){
+let playfield;
+function paintedTable(c) {
+  if (!playfield) {
+    playfield=document.createElement('canvas');playfield.width=c.canvas.width;playfield.height=c.canvas.height;
+    const layer=playfield.getContext('2d');layer.scale(playfield.width/WIDTH,playfield.height/HEIGHT);table(layer);
+  }
+  c.drawImage(playfield,0,0,WIDTH,HEIGHT);
+}
+export function draw(c,s,reduced=false){
   c.save();c.scale(c.canvas.width/WIDTH,c.canvas.height/HEIGHT);
-  table(c);
+  paintedTable(c); c.lineCap="round";
   for(let i=0;i<BUMPERS.length;i++){
     const p=BUMPERS[i],lit=Boolean(s.bank & (1<<i)),fresh=s.tick-s.lastHits[i]<15;
     circle(c,p.x,p.y+3,p.r+3,'#0c222d');circle(c,p.x,p.y,p.r+1,cream);
     circle(c,p.x,p.y,p.r-2,fresh?'#f2cd8b':lit?'#7fbda8':'#426d75');
     circle(c,p.x,p.y,p.r-6,'#193c47');circle(c,p.x,p.y,p.r-8,lit?gold:blue,false);
+    if(fresh && !reduced)circle(c,p.x,p.y,p.r+2+(s.tick-s.lastHits[i])*.48,teal,false,1);
     word(c,p.label,p.x,p.y+4,cream,12);
   }
   for (let i=0;i<3;i++) {
@@ -56,11 +72,21 @@ export function draw(c,s){
     line(c,arm,'#071923',15);line(c,arm,gold,12);line(c,arm,'#f8dea3',5);
     circle(c,arm[0],arm[1],7,'#193a45');circle(c,arm[0],arm[1],3,cream);
   }
+  if(s.serving) {
+    const meterHeight=54, charge=s.charge/100;
+    c.fillStyle='#284651';c.fillRect(317,382,5,meterHeight);
+    c.fillStyle=skillCharge(s.charge)?teal:gold;c.fillRect(317,436-meterHeight*charge,5,meterHeight*charge);
+    for(const edge of [.42,.62])line(c,[315,436-meterHeight*edge,324,436-meterHeight*edge],cream,1);
+  }
+  if(s.saveTicks)word(c,'SAVE',170,389,teal,9);
   const spring=s.serving?s.charge*.13:0;
   line(c,[331,483,331,464+spring],cream,3);
   for(let y=0;y<4;y++)line(c,[324,467+spring+y*(3-spring/6),338,468+spring+y*(3-spring/6)],gold,2);
   if(s.phase!=='over'){
     const b=s.ball, y=b.y+(s.serving?spring:0);
+    if(!reduced && !s.serving){
+      line(c,[b.x-b.vx*1.7,y-b.vy*1.7,b.x,y],'#78a49c',3);
+    }
     circle(c,b.x+2,y+3,RADIUS+1,'#0b202c');circle(c,b.x,y,RADIUS,cream);
     circle(c,b.x-1.8,y-2,2.3,'#fff9dc');
   }
