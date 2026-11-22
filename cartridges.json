@@ -58,6 +58,18 @@
       "artwork": "cabinet/assets/starward-signal.svg",
       "releaseLabel": "Concept · Not playable",
       "order": 20
+    },
+    {
+      "slug": "pinball",
+      "title": "Orbital Pinball",
+      "subtitle": "Asterion Relay",
+      "description": "Launch into a deep-space relay table. Work two flippers, complete the three beacon bank and keep all three balls in play.",
+      "genre": "Mechanical pinball",
+      "status": "playable",
+      "directory": "pinball",
+      "artwork": "cabinet/assets/pinball.svg",
+      "releaseLabel": "PINBALL-001 · Playable preview",
+      "order": 3
     }
   ]
 }
