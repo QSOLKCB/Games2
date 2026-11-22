@@ -34,3 +34,11 @@ test('resting contact scores once and both flippers release independently',()=>{
   for(let i=0;i<8;i++)step(s,{left:true});
   assert.equal(s.score,100);assert.equal(s.lifts[0],1);assert.equal(s.lifts[1],0);
 });
+test('every launch strength clears the return guides with both flippers at rest',()=>{
+  for(let ticks=1;ticks<=50;ticks++){
+    const s=newRun();serve(s,ticks);
+    for(let i=0;i<3600 && !s.serving;i++)step(s);
+    assert.equal(s.serving,true,'neutral return at charge '+(ticks*2)+'%');
+    assert.equal(s.inShooter,true);
+  }
+});
