@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import {FixedClock} from '../vendor/vanillajs/modules/time/index.js';
-import {HZ, newRun, step, target} from './world.js';
+import {HZ, newRun, step, target, position, range, SCAN_RANGE, CAPACITY, tunePhase, TUNE_PERIOD, inBand} from './world.js';
 import {ArrayAudio} from './synth.js';
 import {draw} from './view.js';
 import {registerOffline} from './offline.js';
@@ -11,10 +11,24 @@ const restart = document.querySelector('#restart'), sound = document.querySelect
 const message = document.querySelector('#message');
 const stats = [0, 1, 2].map(i => document.querySelector('#stat' + i));
 const controls = [...document.querySelectorAll('[data-control]')];
-const bindings = {KeyA: 'left', ArrowLeft: 'left', KeyD: 'right', ArrowRight: 'right', KeyW: 'up', ArrowUp: 'up', KeyS: 'down', ArrowDown: 'down', Space: 'ping'};
+const bindings = {KeyA: 'left', ArrowLeft: 'left', KeyD: 'right', ArrowRight: 'right', KeyW: 'up', ArrowUp: 'up', KeyS: 'down', ArrowDown: 'down', Space: 'ping', ShiftLeft: 'shield', ShiftRight: 'shield'};
 const clock = new FixedClock({step: 1 / HZ, maxFrame: .1, maxSteps: HZ / 10});
 const sources = new Map(), taps = new Set();
 let state = newRun(), previous = null, dirty = true;
+const motion=document.querySelector('#motion'), preference=matchMedia('(prefers-reduced-motion: reduce)');
+let reduced=preference.matches, customMotion=false;
+function updateMotion() {
+  motion.setAttribute('aria-pressed',String(reduced));
+  motion.textContent=reduced?'Motion reduced':'Reduce motion'; dirty=true;
+}
+motion.addEventListener('click',()=>{
+  customMotion=true;reduced=!reduced;updateMotion();
+  if(state.phase==='playing')field.focus({preventScroll:true});
+});
+preference.addEventListener('change',()=>{if(!customMotion){reduced=preference.matches;updateMotion();}});
+updateMotion();
+const reserve=document.querySelector('#reserve'), power=document.querySelector('#power');
+function show(node,value){if(node.textContent!==value)node.textContent=value;}
 const synth = new ArrayAudio();
 state.phase = 'ready';
 sound.addEventListener('click', async () => {
@@ -85,7 +99,16 @@ for (const button of controls) {
   button.addEventListener('click', e => { if (e.detail === 0 && state.phase === 'playing') taps.add(action); });
 }
 
+const tuning=document.querySelector('#tuning'),bearing=document.querySelector('#bearing'),needle=document.querySelector('#needle');
 function ui() {
+  const relay=target(state),distance=range(position(state),relay),home=state.recovered===3;
+  // The indicator previews the next simulation tick, when a new command will be sampled.
+  const phase=tunePhase(state.tick+1,state.recovered),lock=inBand(phase);
+  reserve.value=state.battery;show(power,Math.round(state.battery*100/CAPACITY)+'%');
+  needle.style.left=(phase/(TUNE_PERIOD-1)*99)+'%';
+  show(bearing,relay.name+' · '+Math.round(distance)+' chart units');
+  show(tuning,home?'Port approach':state.shielding?'Deflector up':state.exhausted?'Release deflector':
+    distance>SCAN_RANGE?'Find relay range':state.cooldown?'Pulse recharging':lock?'LOCK · pulse now':'Tuning · pulse for one echo');
   const values = [state.hull+' / 5', state.recovered+' / 3', Math.ceil(state.time/HZ)+' s'];
   values.forEach((value, i) => { if (stats[i].textContent !== value) stats[i].textContent = value; });
   const info = state.phase === 'lost' ? (state.hull ? 'Carrier signal lost' : 'Hull offline') : PHRASES[state.phase] ?? (state.noticeTime ? state.notice : target(state).name+' · '+(state.recovered===3?'return to port':state.echoes+' / 2 echoes'));
@@ -107,7 +130,7 @@ function frame(now) {
     for (const button of controls) button.classList.toggle('active', [...sources.values()].includes(button.dataset.control));
     dirty = true;
   }
-  if (dirty) { draw(pen, state); ui(); dirty = false; }
+  if (dirty) { draw(pen, state, reduced); ui(); dirty = false; }
   previous = now;
   requestAnimationFrame(frame);
 }

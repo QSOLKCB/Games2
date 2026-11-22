@@ -38,3 +38,27 @@ test('opposed thrusters cancel and the survey cutter stays within its chart',()=
   const s=newRun();step(s,{left:true,right:true,up:true,down:true});assert.deepEqual(position(s),{x:PORT.x,y:PORT.y});
   for(let i=0;i<350;i++)step(s,{left:true,up:true});assert.deepEqual(position(s),{x:0,y:0});
 });
+
+test('harmonic locks sample the emission tick, include the opening edge and exclude the closing edge',()=>{
+  const cast=(relay,tick,dx=0)=>{const s=newRun();s.recovered=relay;s.tick=tick-1;
+    s.ship={...s.ship,x:(RELAYS[relay].x+dx)*SCALE,y:RELAYS[relay].y*SCALE};
+    step(s,{ping:true});return s;};
+  for(const tick of [56,75]){const s=cast(0,tick);assert.equal(s.recovered,1);assert.equal(s.harmonics,1);}
+  for(const tick of [55,76]){const s=cast(0,tick);assert.equal(s.echoes,1);assert.equal(s.harmonics,0);}
+  assert.equal(cast(1,33).recovered,2);assert.equal(cast(0,56,79).harmonics,0);
+  const s=cast(2,10);assert.equal(s.recovered,3);assert.equal(s.phase,'playing');
+});
+test('a powered deflector absorbs contact, blocks emission, and requires release to recharge',()=>{
+  const s=newRun();s.ship={...s.ship,x:444*SCALE,y:338*SCALE};s.battery=2;
+  step(s,{shield:true,ping:true});
+  assert.equal(s.deflections,1);assert.equal(s.hull,5);assert.equal(s.casts,0);
+  step(s,{shield:true,ping:true});assert.equal(s.battery,0);assert.equal(s.shielding,true);
+  for(let i=0;i<10;i++)step(s,{shield:true,ping:true});
+  assert.equal(s.shielding,false);assert.equal(s.battery,0);assert.equal(s.casts,0);
+  step(s,{ping:true});step(s);assert.equal(s.casts,1);assert.equal(s.battery,1);
+  step(s,{shield:true});assert.equal(s.shielding,true);assert.equal(s.battery,0);
+});
+test('array score and harmonic cues release their bounded voices on mute',async()=>{
+  const {checkSynth}=await import('../../tests/synth-check.mjs');
+  const {ArrayAudio}=await import('../src/synth.js');await checkSynth(ArrayAudio,'harmonic');
+});
