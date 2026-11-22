@@ -34,6 +34,14 @@ test('resting contact scores once and both flippers release independently',()=>{
   for(let i=0;i<8;i++)step(s,{left:true});
   assert.equal(s.score,100);assert.equal(s.lifts[0],1);assert.equal(s.lifts[1],0);
 });
+test('every launch strength clears the return guides with both flippers at rest',()=>{
+  for(let ticks=1;ticks<=50;ticks++){
+    const s=newRun();serve(s,ticks);
+    for(let i=0;i<3600 && !s.serving;i++)step(s);
+    assert.equal(s.serving,true,'neutral return at charge '+(ticks*2)+'%');
+    assert.equal(s.inShooter,true);
+  }
+});
 test('a skill shot pays once on physical entry and enforces both charge edges',()=>{
   for(const [ticks,bonus] of [[20,0],[21,1],[31,1],[32,0]]){
     const s=newRun();serve(s,ticks);assert.equal(s.skills,0);
@@ -50,13 +58,12 @@ test('the five-second early drain save pays once per run',()=>{
   const late=newRun();serve(late,1);late.saveTicks=0;late.ball.y=510;step(late);
   assert.equal(late.stock,2);assert.equal(late.saveAvailable,true);
 });
-test('a nudge frees a slow ball near a return guide and requires release after recharge',()=>{
-  const s=newRun();serve(s,24);
-  for(let i=0;i<6000;i++)step(s);
-  assert.equal(s.stock,3);assert.ok(Math.hypot(s.ball.vx,s.ball.vy)<.1);
-  const {x,y}=s.ball;step(s,{nudge:true});
-  for(let i=0;i<30;i++)step(s,{nudge:true});
-  assert.ok(Math.hypot(s.ball.x-x,s.ball.y-y)>8);
+test('a nudge pushes a live ball towards centre once per press and recharge',()=>{
+  const s=newRun();s.serving=false;s.inShooter=false;
+  Object.assign(s.ball,{x:260,y:200,vx:0,vy:0});
+  step(s,{nudge:true});
+  assert.equal(s.nudges,1);assert.ok(s.ball.vx<0 && s.ball.vy<0);
   for(let i=0;i<260;i++)step(s,{nudge:true});
   assert.equal(s.nudges,1);
+  step(s);step(s,{nudge:true});assert.equal(s.nudges,2);
 });

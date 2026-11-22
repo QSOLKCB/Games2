@@ -89,6 +89,11 @@ required polish work automatically. Update status with evidence rather than
 marking all stages complete when implementation lands. Keep deferred features
 separate from initial-release requirements without deleting earlier ideas.
 
+For Blade Circuit and Orbital Pinball, the owner requested one implementation PR
+and one polish PR for each title at the same time. The proposed polish lives in
+stacked drafts. Each roadmap keeps formal Pass 2 planned until its implementation
+merges, when the draft can be retargeted and its checks rerun on the accepted code.
+
 ## Current application
 
 | Work | Status / next action |
