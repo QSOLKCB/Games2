@@ -1,10 +1,8 @@
 # Games2 Arcade 👾
 
-> **Games2 status:** NC-001 Circuit Vice implementation merged in PR #7.
-> [Circuit Vice's NC-002 Arcade Polish](narc/ROADMAP.md) is now in a
-> separate review PR. The cartridge is an **unreleased playable preview**,
-> not an owner-approved initial release. The other 35 planned games remain
-> documentation-only.
+See the [cartridge registry](cartridges.json) for playable previews and the
+[portfolio register](docs/FUTURE_GAME_DIRECTORIES.md) for each game's implementation status.
+The collection's first tag is [v1.0.0](https://github.com/QSOLKCB/Games2/releases/tag/v1.0.0).
 
 **Original QSOL-IMC browser games. Built with VANILLAJS. Owned by their creators.**
 
@@ -82,11 +80,8 @@ An original colourful block-built first-person shooter against offline bots, wit
 
 SP-001 provides **Sunrelay Yard**, three weapons, three offline bots, score/time-limited matches and an independently served static package. Start with the [local play instructions](strikepixel/README.md), [original verification record](strikepixel/docs/VERIFICATION.md) and [next milestones](strikepixel/ROADMAP.md). The [original implementation handoff](strikepixel/CODEX_HANDOFF.md) remains available for scope review. Its implementation merged in PR #2; it is not a published release.
 
-**Next game PR: SP-002 — dedicated gameplay and presentation polish.** Initial
-release remains pending polish, passing verification, a working deployed preview
-and owner approval. The second game begins after Strike Pixel's initial polish
-review unless the owner explicitly changes priorities. Two passes are a minimum
-quality process; further corrections may be required.
+Strike Pixel tracks its remaining gameplay and presentation polish in its own roadmap.
+Each additional cartridge follows its own implementation, polish and owner release review.
 
 ## One collection, independent cartridges
 

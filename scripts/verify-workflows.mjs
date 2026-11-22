@@ -79,9 +79,9 @@ export function evaluateGuard(raw,context){
 
 export function validateWorkflows({ci,pages}){
   keys(ci,['name','on','permissions','jobs'],'CI workflow');
-  equal(ci.on,{pull_request:{branches:['main']},workflow_call:{inputs:{pages_artifact:{
+  equal(ci.on,{pull_request:{branches:['main','codex/implement-*']},workflow_call:{inputs:{pages_artifact:{
     description:'Upload the verified site for the same main-branch Pages run.',type:'boolean',required:false,default:false
-  }}}},'CI accepts PRs to main or the local reusable call only');
+  }}}},'CI accepts main and implementation-stack PRs or the local reusable call only');
   readOnly(ci.permissions,'CI default');keys(ci.jobs,['verify'],'CI jobs');
   const verify=ci.jobs.verify;
   keys(verify,['name','runs-on','timeout-minutes','permissions','steps'],'verification job');

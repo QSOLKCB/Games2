@@ -1,9 +1,7 @@
 # Games2 future game directory register
 
-**Portfolio register.** Of these 36 directories, 35 remain documentation-only
-planning scaffolds. `narc/` has an NC-001 implementation merged in PR #7 and a separate NC-002
-polish candidate. Its cabinet entry is an **unreleased playable preview**.
-None is an owner-approved initial release.
+**Portfolio register.** Each row records the state of its game directory. The
+collection tag v1.0.0 includes Circuit Vice implementation PR #7 and polish PR #8.
 All references to existing games denote genre inspiration, never copying rights.
 The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 
@@ -11,7 +9,7 @@ The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 | --- | --- | --- | --- | --- |
 | 1 | [`immersive-fps/`](../immersive-fps/README.md) | Immersive cyberpunk FPS | System Shock | Unimplemented concept |
 | 2 | [`cyber-fps/`](../cyber-fps/README.md) | Corporate dystopia FPS | Syndicate (2012) | Unimplemented concept |
-| 3 | [`narc/`](../narc/README.md) | Circuit Vice (working title) | NARC | NC-001 merged, NC-002 polish in review; unreleased |
+| 3 | [`narc/`](../narc/README.md) | Circuit Vice (working title) | NARC | NC-001 and NC-002 merged (#7 and #8) |
 | 4 | [`cyber-ninja/`](../cyber-ninja/README.md) | Blade Circuit (working title) | Ninja Warriors | Unimplemented concept |
 | 5 | [`shadow-raiders/`](../shadow-raiders/README.md) | Shadow Raiders (working title) | Shadow Warriors | Unimplemented concept |
 | 6 | [`urban-vigilante/`](../urban-vigilante/README.md) | City Reckoning (working title) | The Punisher | Unimplemented concept |
@@ -23,7 +21,7 @@ The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 | 12 | [`coverfire/`](../coverfire/README.md) | Redoubt (working title) | Cabal | Unimplemented concept |
 | 13 | [`arena-fighter/`](../arena-fighter/README.md) | Friction Arena (working title) | Mortal Kombat | Unimplemented concept |
 | 14 | [`street-duel/`](../street-duel/README.md) | Rival Circuit (working title) | Street Fighter II | Unimplemented concept |
-| 15 | [`pinball/`](../pinball/README.md) | Orbital Pinball (working title) | Retro pinball | Unimplemented concept |
+| 15 | [`pinball/`](../pinball/README.md) | Orbital Pinball (working title) | Retro pinball | [PINBALL-001 playable candidate](../pinball/ROADMAP.md) |
 | 16 | [`voxel-sandbox/`](../voxel-sandbox/README.md) | Forge Frontier (working title) | Minecraft-style sandbox | Unimplemented concept |
 | 17 | [`survival-frontier/`](../survival-frontier/README.md) | Farland (working title) | Survival games | Unimplemented concept |
 | 18 | [`star-command-rts/`](../star-command-rts/README.md) | Stellar Command (working title) | StarCraft RTS | Unimplemented concept |
@@ -58,6 +56,6 @@ The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 5. Assess proven reusable systems with VANILLAJS after three finished Games2
    titles, or earlier with specific owner authorization.
 
-Only `strikepixel/` is currently an implemented game. The cabinet registry
+The cabinet registry
 remains an explicit publication allowlist. New directories are neither auto-built
 nor published. See [the monorepo roadmap](../ROADMAP.md).
