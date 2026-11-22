@@ -1,38 +1,13 @@
-# Blade Circuit (working title) — roadmap
-
-**Status:** planning scaffold only. No game source, playable cartridge, release, network service or owner sign-off is implied.
-
-Games2's [development process](../docs/DEVELOPMENT_PROCESS.md) requires a focused implementation PR, a **separate** polish PR and an owner release gate. Development cannot bypass that process.
-
-**Inspiration reference:** Ninja Warriors. The delivered title, characters, levels, art, soundtrack, code and story must be original.
+# Blade Circuit roadmap
 
 ## Implementation → Polish → Release Review
 
-| Pass | Identifier | Status | Evidence gate |
-| --- | --- | --- | --- |
-| Implementation | CYBER_NINJA-001 | **Proposed backlog; not started** | One level with combos, guarded enemies and clear hit reactions. Pin exact VANILLAJS source and module closure; test gameplay, packaging, offline browser behaviour and failure recovery |
-| Polish | CYBER_NINJA-002 | **Blocked on implementation merge** | Controls, feel, balance, original art, sound, UI/accessibility, frame budget, regression, actual play and a separately reviewed PR |
-| Release Review | Initial release | **Not eligible** | Both implementation and polish merged, green required CI, playable deployed cabinet preview, limitations documented and explicit owner approval |
+| Pass | State | Scope and evidence |
+| --- | --- | --- |
+| CYBER_NINJA-001 implementation | Playable candidate in review | Three scrolling encounters, two guard types and a foreman; chain timing, frontal blocks, armor breaks, repair and a freight-lift finish. [Rules tests](tests/world.test.mjs), [cabinet playthrough](../tests/cartridges/cyber-ninja.mjs) and [engine receipt](vendor/vanillajs/ENGINE_PIN.json). |
+| CYBER_NINJA-002 polish | Separate pass queued for review after implementation | Refine timing, audiovisual feedback, controls and accessibility. Exercise the packaged game and record rendering measurements. |
+| Initial release review | Pending owner decision | Both PRs merged, required CI green, hosted cabinet play and offline verification, then owner sign-off. |
 
-## Design and engineering scope
+One authored route. Keyboard and on-screen controls. Physical controllers and sustained hardware frame rates have not been measured.
 
-A side-scrolling combat game featuring an original synthetic hero, positioning and defensive timing.
-
-Provisional engine candidates: **combat2d, sprite2d, motion2d, weapon-feel**. Confirm public API and numerical
-contracts and snapshot only the reviewed dependency closure at implementation.
-Asset generation may use CAD/Creator-Interop, but independent game worlds must
-remain owned by Games2; there is no runtime server or CDN requirement.
-
-## Acceptance and exclusions
-
-- Original, self-contained offline gameplay with a meaningful win/loss/restart loop.
-- Explicit tests for invalid state/imports, time and input cancellation, sprite/mesh
-  limits and browser reload (as applicable).
-- Fixed simulation ticks and clear presentation/performance budgets. Do not claim
-  cross-device parity without measurement.
-- No commercial game replica, recognisable copyrighted characters/sound, paid
-  mechanics or network multiplayer in initial scope.
-- Preserve the original ideas catalogue even if this concept changes name.
-- Concept status is never silently promoted to playable/released.
-
-[Readme](README.md) · [Monorepo policy](../AGENTS.md) · [Portfolio order](../ROADMAP.md)
+[Play and verify](README.md) · [Original proposal](../docs/GAME_IDEAS.md)

@@ -26,6 +26,18 @@
       "order": 1
     },
     {
+      "slug": "cyber-ninja",
+      "title": "Blade Circuit",
+      "subtitle": "Glassline Foundry",
+      "description": "Cross a glass foundry guarded by three clockwork wardens. Chain blade cuts, catch a strike on your guard and open the exit lift.",
+      "genre": "Side-scrolling brawler",
+      "status": "playable",
+      "directory": "cyber-ninja",
+      "artwork": "cabinet/assets/cyber-ninja.svg",
+      "releaseLabel": "CYBER-NINJA-001 · Playable preview",
+      "order": 2
+    },
+    {
       "slug": "neon-apex",
       "title": "Neon Apex",
       "subtitle": "Original racing concept",

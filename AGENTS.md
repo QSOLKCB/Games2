@@ -22,14 +22,9 @@ initial release. Read [the development process](docs/DEVELOPMENT_PROCESS.md).
 
 - Every game's `ROADMAP.md` must visibly track all three stages, their status, PR/evidence references and remaining release gates. Its `AGENTS.md` must link to this policy and the local progression. Update both as work advances; never infer release approval from a merge or deployment.
 - Critical defects may be fixed immediately. The owner may approve further polish PRs; failed release review returns the game for corrections. Two passes are a minimum quality process, not a guarantee of release readiness. Later enhancements and bug fixes do not repeat the whole process.
-- **Current priority:** Strike Pixel SP-002 polish remains the active game.
-  Visual CAD sub-pass PR #5 is merged; remaining gameplay/audio/accessibility/performance
-  polish and owner release review still apply. The owner explicitly selected an original
-  NARC-inspired **Circuit Vice** in `narc/` as the next implementation game.
-  NC-001 is an implementation candidate pending review; 35 other concept
-  directories remain docs-only and do not count as implemented games.
-  No concept directory may become an allowlisted playable cartridge without
-  its dedicated implementation, polish and release reviews.
+- The owner selected Circuit Vice after Strike Pixel. Later selections have their
+  own implementation and polish PRs. Consult the [portfolio register](docs/FUTURE_GAME_DIRECTORIES.md)
+  and each game's roadmap for current status.
 
 ## Engineering
 

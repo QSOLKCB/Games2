@@ -83,6 +83,6 @@ These proposals were supplied before this documentation PR and are preserved alo
 The [full concept directory register](FUTURE_GAME_DIRECTORIES.md) maps the original
 README ideas and earlier proposals to original working identities. `narc/`
 is the selected **second** project after Strike Pixel's complete polish and
-release review. Its working title is *Circuit Vice*. Of the 36 additional directories, 35 remain docs-only; `narc/` now carries
-an NC-001 implementation candidate, subject to tests and owner review.
+release review. Its working title is *Circuit Vice*. That dated inventory remains the catalogue of ideas. The portfolio register above
+tracks subsequent implementations, polish and review.
 The original README source remains unchanged and retains historical priority.

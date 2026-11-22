@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readFile,readdir} from 'node:fs/promises';
 import {validateRegistry,parseRegistry,launchPath} from '../cabinet/registry.js';
 const cartridge=()=>({slug:'example-game',title:'Example Game',subtitle:'An original game',description:'Offline play.',genre:'Arcade',status:'playable',directory:'example-game',order:0});
 const registry=row=>({schemaVersion:1,cartridges:[row]});
 test('the real registry launches only the implemented cartridge and returns owned frozen data',async()=>{
   const value=JSON.parse(await readFile(new URL('../cartridges.json',import.meta.url),'utf8')),result=validateRegistry(value);
-  assert.deepEqual(result.cartridges.filter(row=>launchPath(row)).map(row=>row.slug),['strikepixel','narc']);
+  const suites=await readdir(new URL('./cartridges/',import.meta.url));
+  const expected=['strikepixel','narc',...suites.map(name=>name.replace(/\.mjs$/,''))].sort();
+  assert.deepEqual(result.cartridges.filter(row=>launchPath(row)).map(row=>row.slug).sort(),expected);
   assert.equal(result.cartridges.filter(row=>row.status==='concept').length,2);
   assert.equal(launchPath(result.cartridges[0]),'./strikepixel/');
   value.cartridges[0].title='Changed';assert.equal(result.cartridges[0].title,'Strike Pixel');

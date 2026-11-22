@@ -1,9 +1,7 @@
 # Games2 future game directory register
 
-**Portfolio register.** Of these 36 directories, 35 remain documentation-only
-planning scaffolds. `narc/` has an NC-001 implementation merged in PR #7 and a separate NC-002
-polish candidate. Its cabinet entry is an **unreleased playable preview**.
-None is an owner-approved initial release.
+**Portfolio register.** Each row records the state of its game directory. The
+collection tag v1.0.0 includes Circuit Vice implementation PR #7 and polish PR #8.
 All references to existing games denote genre inspiration, never copying rights.
 The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 
@@ -11,8 +9,8 @@ The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 | --- | --- | --- | --- | --- |
 | 1 | [`immersive-fps/`](../immersive-fps/README.md) | Immersive cyberpunk FPS | System Shock | Unimplemented concept |
 | 2 | [`cyber-fps/`](../cyber-fps/README.md) | Corporate dystopia FPS | Syndicate (2012) | Unimplemented concept |
-| 3 | [`narc/`](../narc/README.md) | Circuit Vice (working title) | NARC | NC-001 merged, NC-002 polish in review; unreleased |
-| 4 | [`cyber-ninja/`](../cyber-ninja/README.md) | Blade Circuit (working title) | Ninja Warriors | Unimplemented concept |
+| 3 | [`narc/`](../narc/README.md) | Circuit Vice (working title) | NARC | NC-001 and NC-002 merged (#7 and #8) |
+| 4 | [`cyber-ninja/`](../cyber-ninja/README.md) | Blade Circuit (working title) | Ninja Warriors | [Implementation and polish milestones](../cyber-ninja/ROADMAP.md) |
 | 5 | [`shadow-raiders/`](../shadow-raiders/README.md) | Shadow Raiders (working title) | Shadow Warriors | Unimplemented concept |
 | 6 | [`urban-vigilante/`](../urban-vigilante/README.md) | City Reckoning (working title) | The Punisher | Unimplemented concept |
 | 7 | [`rail-enforcers/`](../rail-enforcers/README.md) | Signal Response (working title) | Lethal Enforcers | Unimplemented concept |
@@ -58,6 +56,6 @@ The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 5. Assess proven reusable systems with VANILLAJS after three finished Games2
    titles, or earlier with specific owner authorization.
 
-Only `strikepixel/` is currently an implemented game. The cabinet registry
+The cabinet registry
 remains an explicit publication allowlist. New directories are neither auto-built
 nor published. See [the monorepo roadmap](../ROADMAP.md).
