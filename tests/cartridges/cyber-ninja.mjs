@@ -63,10 +63,12 @@ export async function play(options) {
     await page.setViewportSize({width:320,height:720});
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
     const control = page.locator('[data-control="dash"]');
-    await control.scrollIntoViewIfNeeded();
-    const box = await control.boundingBox();
-    await page.touchscreen.tap(box.x + box.width/2, box.y + box.height/2);
-    await page.clock.runFor(40);
-    assert.ok((await page.evaluate(()=>bladeCircuit.inspect())).cooldown>0);
+    await control.tap();
+    // Restart clears the wall-clock origin. Allow the first frame to establish it
+    // and then advance several actual simulation ticks before sampling a tap.
+    await page.clock.runFor(128);
+    const tapped = await page.evaluate(()=>bladeCircuit.inspect());
+    assert.ok(tapped.tick >= 4, 'simulation advanced after restart');
+    assert.ok(tapped.cooldown > 0 && tapped.body.x > 32, 'touch dash reached the game');
   } finally { await context.close(); }
 }
