@@ -10,7 +10,11 @@ test('the real registry launches only the implemented cartridge and returns owne
   const suites=await readdir(new URL('./cartridges/',import.meta.url));
   const expected=['strikepixel','narc',...suites.map(name=>name.replace(/\.mjs$/,''))].sort();
   assert.deepEqual(result.cartridges.filter(row=>launchPath(row)).map(row=>row.slug).sort(),expected);
-  assert.equal(result.cartridges.filter(row=>row.status==='concept').length,2);
+  for(const slug of ['neon-apex','starward-signal']){
+    const row=result.cartridges.find(row=>row.slug===slug);
+    assert.ok(row,'original cabinet card: '+slug);
+    assert.equal(row.status,expected.includes(slug)?'playable':'concept');
+  }
   assert.equal(launchPath(result.cartridges[0]),'./strikepixel/');
   value.cartridges[0].title='Changed';assert.equal(result.cartridges[0].title,'Strike Pixel');
   assert.ok(Object.isFrozen(result)&&Object.isFrozen(result.cartridges)&&Object.isFrozen(result.cartridges[0]));
