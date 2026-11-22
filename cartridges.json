@@ -41,11 +41,11 @@
       "slug": "neon-apex",
       "title": "Neon Apex",
       "subtitle": "Saffron Coast GP",
-      "description": "Race three independent rivals through the salt flats, the switchbacks and the sunset viaduct. Each checkpoint extends the clock. Crossing the finish locks your place and time.",
+      "description": "Race three rivals down Saffron Coast. Draft their slipstreams for turbo, beat both timing gates and chase your best time on the sunset viaduct.",
       "genre": "Arcade racing",
       "status": "playable",
       "artwork": "cabinet/assets/neon-apex.svg",
-      "releaseLabel": "NA-001 · Playable preview",
+      "releaseLabel": "NA-002 · Playable preview",
       "order": 10,
       "directory": "neon-apex"
     },

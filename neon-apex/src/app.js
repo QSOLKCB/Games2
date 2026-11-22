@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import {FixedClock} from '../vendor/vanillajs/modules/time/index.js';
-import {HZ, newRun, step, SPLITS} from './world.js';
+import {HZ, newRun, step, SPLITS, BOOST_COST} from './world.js';
 import {CoastAudio} from './synth.js';
 import {draw} from './view.js';
 import {registerOffline} from './offline.js';
@@ -11,10 +11,24 @@ const restart = document.querySelector('#restart'), sound = document.querySelect
 const message = document.querySelector('#message');
 const stats = [0, 1, 2].map(i => document.querySelector('#stat' + i));
 const controls = [...document.querySelectorAll('[data-control]')];
-const bindings = {KeyA: 'left', ArrowLeft: 'left', KeyD: 'right', ArrowRight: 'right', KeyW: 'throttle', ArrowUp: 'throttle', KeyS: 'brake', ArrowDown: 'brake'};
+const bindings = {KeyA: 'left', ArrowLeft: 'left', KeyD: 'right', ArrowRight: 'right', KeyW: 'throttle', ArrowUp: 'throttle', KeyS: 'brake', ArrowDown: 'brake', Space: 'boost'};
 const clock = new FixedClock({step: 1 / HZ, maxFrame: .1, maxSteps: HZ / 10});
 const sources = new Map(), taps = new Set();
 let state = newRun(), previous = null, dirty = true;
+const motion=document.querySelector('#motion'), preference=matchMedia('(prefers-reduced-motion: reduce)');
+let reduced=preference.matches, customMotion=false;
+function updateMotion() {
+  motion.setAttribute('aria-pressed',String(reduced));
+  motion.textContent=reduced?'Motion reduced':'Reduce motion'; dirty=true;
+}
+motion.addEventListener('click',()=>{
+  customMotion=true;reduced=!reduced;updateMotion();
+  if(state.phase==='playing')field.focus({preventScroll:true});
+});
+preference.addEventListener('change',()=>{if(!customMotion){reduced=preference.matches;updateMotion();}});
+updateMotion();
+const reserve=document.querySelector('#reserve'), power=document.querySelector('#power');
+function show(node,value){if(node.textContent!==value)node.textContent=value;}
 const synth = new CoastAudio();
 state.phase = 'ready';
 sound.addEventListener('click', async () => {
@@ -38,6 +52,7 @@ function press(id, action) {
 }
 function changePhase(phase) {
   state.phase = phase;
+  if(phase==='won')record(state.tick);
   if (phase !== 'playing') synth.quiet();
   clearControls(); previous = null; clock.setPaused(phase !== 'playing'); dirty = true;
   start.hidden = phase !== 'ready'; restart.hidden = phase === 'ready';
@@ -85,7 +100,28 @@ for (const button of controls) {
   button.addEventListener('click', e => { if (e.detail === 0 && state.phase === 'playing') taps.add(action); });
 }
 
+const tow=document.querySelector('#tow'), bestNode=document.querySelector('#best');
+const splitNodes=[...document.querySelectorAll('#splits li span')];
+const recordKey='games2.neon-apex.coast.best-ticks.v1';
+function readBest(){
+  try{
+    const n=Number(localStorage.getItem(recordKey));
+    return Number.isSafeInteger(n) && n>0 && n<=47*HZ ? n : null;
+  }catch{return null;}
+}
+let best=readBest();
+const elapsed=ticks=>(ticks/HZ).toFixed(2)+' s';
+function record(ticks){
+  const previous=readBest();
+  best=Math.min(ticks,previous??Infinity,best??Infinity);
+  try{localStorage.setItem(recordKey,String(best));}catch{}
+}
 function ui() {
+  reserve.value=state.charge;show(power,state.charge+' / 100');
+  show(tow,state.burst?'Turbo active':state.drafting?'Slipstream · '+state.drafting:
+    state.charge>=BOOST_COST?'Ready to boost':'Draft a rival to recharge');
+  splitNodes.forEach((node,i)=>show(node,state.splits.length>i?elapsed(state.splits[i]-(state.splits[i-1]??0)):'—'));
+  show(bestNode,best===null?'—':elapsed(best));
   const values = [Math.round(state.car.speed*3.6) + ' km/h', (state.time/HZ).toFixed(1)+' s', state.place+' / 4'];
   values.forEach((value, i) => { if (stats[i].textContent !== value) stats[i].textContent = value; });
   const info = state.phase === 'won' ? 'Finish · place '+state.place+' of 4 · '+(state.tick/HZ).toFixed(2)+' s' : PHRASES[state.phase] ?? (state.noticeTime ? state.notice : 'Next gate · '+SPLITS[state.sector]+' m');
@@ -107,7 +143,7 @@ function frame(now) {
     for (const button of controls) button.classList.toggle('active', [...sources.values()].includes(button.dataset.control));
     dirty = true;
   }
-  if (dirty) { draw(pen, state); ui(); dirty = false; }
+  if (dirty) { draw(pen, state, reduced); ui(); dirty = false; }
   previous = now;
   requestAnimationFrame(frame);
 }

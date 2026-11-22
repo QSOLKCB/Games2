@@ -68,9 +68,22 @@ function project(rows,z){
   const a=rows[i-1],b=rows[i],t=(z-a.z)/(b.z-a.z);
   return {x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,scale:a.scale+(b.scale-a.scale)*t};
 }
-function coupe(c,x,y,size,body,steering=0){
+const sectorSkies=[];
+function backdrop(c,sector){
+  if(!sectorSkies[sector]){
+    const layer=document.createElement('canvas');layer.width=W;layer.height=H;
+    sky(layer.getContext('2d'),sector);sectorSkies[sector]=layer;
+  }
+  c.drawImage(sectorSkies[sector],0,0);
+}
+function coupe(c,x,y,size,body,steering=0,power=false,braking=false){
   c.save();c.translate(x,y);c.scale(size,size);c.transform(1,0,-steering*.075,1,0,0);
   c.fillStyle='#282539';c.beginPath();c.ellipse(0,1,49,7,0,0,2*Math.PI);c.fill();
+  if(power)for(const side of [-1,1]){
+    const x=25*side;
+    shape(c,'#56c6c7',x-5,-7,x+5,-7,x+2,16,x-2,21);
+    shape(c,'#ffdc9c',x-3,-6,x+3,-6,x,11);
+  }
   c.fillStyle='#211f30';c.fillRect(-44,-13,12,13);c.fillRect(32,-13,12,13);
   shape(c,'#25283e',-43,-9,-42,-24,-29,-31,-17,-47,19,-47,31,-31,43,-25,45,-9,38,-4,-36,-4);
   shape(c,body,-41,-13,-39,-24,-27,-29,-16,-44,18,-44,30,-29,40,-23,42,-12,35,-8,-34,-8);
@@ -78,7 +91,7 @@ function coupe(c,x,y,size,body,steering=0){
   shape(c,'#b1bad1',-15,-40,-11,-40,-19,-31,-22,-31);
   shape(c,'#ece0b6',-34,-26,32,-26,29,-23,-35,-23);
   shape(c,'#5a3d54',-40,-17,-31,-15,32,-15,40,-18,39,-9,-38,-9);
-  c.fillStyle='#ff766b';c.fillRect(-36,-17,17,4);c.fillRect(20,-17,17,4);
+  c.fillStyle=braking?'#fff4b9':'#ff766b';c.fillRect(-36,-17,17,4);c.fillRect(20,-17,17,4);
   c.fillStyle='#f5d6a3';c.fillRect(-7,-13,14,4);
   line(c,'#241f30',3,-36,-28,38,-28);
   c.restore();
@@ -94,20 +107,46 @@ function gantry(c,p,name){
   c.fillStyle='#322b42';c.fillRect(p.x-half,p.y-h,half*2,p.scale*.64);
   if(p.scale>3)label(c,name,p.x,p.y-h+p.scale*.46,Math.max(5,p.scale*.4),'#ffdfa7','center');
 }
-export function draw(c,s) {
-  c.save();c.scale(c.canvas.width/W,c.canvas.height/H);sky(c,s.sector);
+function landmark(c,p,d,t){
+  const x=p.x+(d%160?-1:1)*9*p.scale,y=p.y,k=p.scale;
+  if(d<600){
+    line(c,'#56465b',Math.max(1,k*.19),x,y,x,y-4.4*k);
+    for(let i=0;i<3;i++){
+      const a=t+i*Math.PI*2/3;
+      line(c,'#ffe4b0',Math.max(1,k*.16),x,y-4.4*k,x+Math.cos(a)*2*k,y-4.4*k+Math.sin(a)*2*k);
+    }
+  }else if(d<1200){
+    shape(c,'#84525d',x-2*k,y,x-1.6*k,y-2.5*k,x-.4*k,y-3.2*k,x+1.6*k,y-3*k,x+2.5*k,y);
+    line(c,'#d4967a',Math.max(1,k*.19),x-1.55*k,y-2.5*k,x+1.7*k,y-2.3*k);
+  }else{
+    for(const side of [-1,1]){
+      const u=p.x+side*6.45*k;
+      line(c,'#51475d',Math.max(1,k*.2),u,y,u,y-5.2*k);
+      line(c,'#dfab8a',Math.max(1,k*.12),u,y-5.2*k,p.x+side*4.1*k,y-7*k);
+    }
+    line(c,'#67536a',Math.max(1,k*.2),p.x-4.1*k,y-7*k,p.x+4.1*k,y-7*k);
+  }
+}
+export function draw(c,s,reduced=false) {
+  c.save();c.scale(c.canvas.width/W,c.canvas.height/H);backdrop(c,s.sector);
   const rows=roadway(s);
   for(let i=rows.length-2;i>=0;i--)section(c,rows[i],rows[i+1],s);
   const objects=[];
   for(let d=Math.ceil((s.distance-1)/20)*20;d<s.distance+265;d+=20){
     const z=d-s.distance+4.6;
-    objects.push({z,paint:p=>{marker(c,p,-1);marker(c,p,1);}});
+    objects.push({z,paint:p=>{marker(c,p,-1);marker(c,p,1);if(d%80===0)landmark(c,p,d,reduced?0:s.tick*.018);}});
   }
   for(const [i,d] of SPLITS.entries())objects.push({z:d-s.distance+4.6,paint:p=>gantry(c,p,i===2?'FINISH':'CHECKPOINT')});
   for(const r of s.rivals)objects.push({z:r.distance-s.distance+4.6,
     paint:p=>coupe(c,p.x+r.offset*p.scale,p.y,p.scale*.021,r.color)});
-  objects.push({z:4.6,paint:p=>coupe(c,p.x+s.car.offset*p.scale,p.y,p.scale*.026,s.flash?'#ffe0a0':'#ffad65',s.car.steering)});
+  objects.push({z:4.6,paint:p=>coupe(c,p.x+s.car.offset*p.scale,p.y,p.scale*.026,s.flash?'#ffe0a0':'#ffad65',s.car.steering,s.burst>0,s.braking)});
   for(const obj of objects.sort((a,b)=>b.z-a.z)){const p=project(rows,obj.z);if(p)obj.paint(p);}
+  if(!reduced && (s.burst||s.drafting)){
+    for(let i=0;i<5;i++)for(const side of [-1,1]){
+      const n=(s.tick*3+i*37)%160,y=SKY+42+n,x=W/2+side*(135+n*.97+i*8);
+      line(c,s.burst?'#ffcf96':'#9edbd5',1.5,x,y,x+side*(8+n*.03),y+7);
+    }
+  }
   c.fillStyle='#29273b';c.fillRect(14,14,172,25);
   label(c,'0'+(s.sector+1)+'  /  '+SECTORS[s.sector].toUpperCase(),24,31,12,'#ffdeaa');
   c.restore();
