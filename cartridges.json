@@ -52,11 +52,11 @@
       "slug": "starward-signal",
       "title": "Starward Signal",
       "subtitle": "The Pelagic Array",
-      "description": "Pilot the survey cutter Wake through the outer Pelagic Array. Recover two echoes from each of three relays, disperse interference drones and bring all three transmissions back to Port Lumen before the signal fades.",
+      "description": "Fly the Pelagic Array, tune the receiver to capture lost transmissions and raise the cutter’s deflector against interference. Deliver all three signals to Port Lumen.",
       "genre": "Space combat",
       "status": "playable",
       "artwork": "cabinet/assets/starward-signal.svg",
-      "releaseLabel": "SS-001 · Playable preview",
+      "releaseLabel": "SS-002 · Playable preview",
       "order": 20,
       "directory": "starward-signal"
     },

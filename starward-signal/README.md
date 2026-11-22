@@ -6,7 +6,13 @@
 
 Build the complete cabinet with `node scripts/build-site.mjs` and start `node scripts/site-server.mjs` from the repository root. Select **Starward Signal** at `http://127.0.0.1:8000/Games2/`. The installed cartridge can also launch directly at `/Games2/starward-signal/` offline after the status reports completion.
 
-Use WASD or the arrows to fly. Tap or hold Space to emit a resonance pulse. In range of the marked relay, two pulses recover its transmission. The plot at the top of the playfield shows your bearing. P or Escape pauses. Moving focus to another window pauses the run and clears held inputs. Sound is opt-in.
+Use WASD or the arrows to fly. Tap or hold Space to emit a resonance pulse. In range of the marked relay, two ordinary pulses recover its transmission. The plot at the top of the playfield shows your bearing. P or Escape pauses. Moving focus to another window pauses the run and clears held inputs. Sound is opt-in.
+
+## The receiver and deflector
+
+The receiver dial marks the harmonic band in gold. In range, pulse when **LOCK** appears to capture a complete transmission in a single cast. Ordinary pulses still collect one echo. The bearing gives the distance to the next relay and the chart traces the route back to port.
+
+Hold either Shift key or **Deflect** to raise the cutter's field. It turns away nearby interference for two seconds on a full battery. Release it to recharge and send pulses again. Each station has its own musical root in the opt-in score. **Reduce motion** simplifies parallax, expanding scan rings and shield animation.
 
 ## Verification
 
