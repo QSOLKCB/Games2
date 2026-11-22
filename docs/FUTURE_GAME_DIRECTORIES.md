@@ -21,7 +21,7 @@ The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 | 12 | [`coverfire/`](../coverfire/README.md) | Redoubt (working title) | Cabal | Unimplemented concept |
 | 13 | [`arena-fighter/`](../arena-fighter/README.md) | Friction Arena (working title) | Mortal Kombat | Unimplemented concept |
 | 14 | [`street-duel/`](../street-duel/README.md) | Rival Circuit (working title) | Street Fighter II | Unimplemented concept |
-| 15 | [`pinball/`](../pinball/README.md) | Orbital Pinball (working title) | Retro pinball | Unimplemented concept |
+| 15 | [`pinball/`](../pinball/README.md) | Orbital Pinball (working title) | Retro pinball | [PINBALL-001 playable candidate](../pinball/ROADMAP.md) |
 | 16 | [`voxel-sandbox/`](../voxel-sandbox/README.md) | Forge Frontier (working title) | Minecraft-style sandbox | Unimplemented concept |
 | 17 | [`survival-frontier/`](../survival-frontier/README.md) | Farland (working title) | Survival games | Unimplemented concept |
 | 18 | [`star-command-rts/`](../star-command-rts/README.md) | Stellar Command (working title) | StarCraft RTS | Unimplemented concept |

@@ -1,0 +1,14 @@
+{
+  "repository": "QSOLKCB/VANILLAJS",
+  "release": "v3.1.0",
+  "commit": "d6da91b91374d28bdd7c201d214f5618b247904c",
+  "license": "Apache-2.0",
+  "modules": [
+    {
+      "path": "modules/time/index.js",
+      "depends": [],
+      "blob": "60c1532aaaac36beceb3e81f1a935c59478976b2"
+    }
+  ],
+  "localChanges": []
+}

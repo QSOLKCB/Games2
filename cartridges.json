@@ -40,24 +40,38 @@
     {
       "slug": "neon-apex",
       "title": "Neon Apex",
-      "subtitle": "Original racing concept",
-      "description": "A cabinet concept for the catalogue's arcade racing ideas: scenic roads, readable handling and original tracks. No game has been built yet.",
+      "subtitle": "Saffron Coast GP",
+      "description": "Race three rivals down Saffron Coast. Draft their slipstreams for turbo, beat both timing gates and chase your best time on the sunset viaduct.",
       "genre": "Arcade racing",
-      "status": "concept",
+      "status": "playable",
       "artwork": "cabinet/assets/neon-apex.svg",
-      "releaseLabel": "Concept · Not playable",
-      "order": 10
+      "releaseLabel": "NA-002 · Playable preview",
+      "order": 10,
+      "directory": "neon-apex"
     },
     {
       "slug": "starward-signal",
       "title": "Starward Signal",
-      "subtitle": "Original spaceflight concept",
-      "description": "A cabinet concept for the catalogue's space combat ideas: original ships, flight and distant encounters. No game has been built yet.",
+      "subtitle": "The Pelagic Array",
+      "description": "Fly the Pelagic Array, tune the receiver to capture lost transmissions and raise the cutter’s deflector against interference. Deliver all three signals to Port Lumen.",
       "genre": "Space combat",
-      "status": "concept",
+      "status": "playable",
       "artwork": "cabinet/assets/starward-signal.svg",
-      "releaseLabel": "Concept · Not playable",
-      "order": 20
+      "releaseLabel": "SS-002 · Playable preview",
+      "order": 20,
+      "directory": "starward-signal"
+    },
+    {
+      "slug": "pinball",
+      "title": "Orbital Pinball",
+      "subtitle": "Asterion Relay",
+      "description": "Send three balls through the Asterion Relay. Charge a skill shot, complete beacon banks and nudge a trapped ball back into play.",
+      "genre": "Mechanical pinball",
+      "status": "playable",
+      "directory": "pinball",
+      "artwork": "cabinet/assets/pinball.svg",
+      "releaseLabel": "PINBALL-002 · Playable preview",
+      "order": 3
     }
   ]
 }

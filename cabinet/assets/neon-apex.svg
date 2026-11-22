@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title description">
-  <!-- SPDX-License-Identifier: Apache-2.0; Original Games2 concept illustration. -->
-  <title id="title">Neon Apex — concept cartridge</title><desc id="description">Two original angular racing cars chase an orange sunset around a violet elevated circuit. A concept illustration, not a playable game.</desc>
+  <!-- SPDX-License-Identifier: Apache-2.0; Original Games2 cartridge illustration. -->
+  <title id="title">Neon Apex — arcade cartridge</title><desc id="description">Two original angular racing cars chase an orange sunset around a violet elevated circuit. A cartridge illustration, not a playable game.</desc>
   <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#2e3e4d"/><stop offset=".6" stop-color="#a76a69"/><stop offset="1" stop-color="#efb78a"/></linearGradient><linearGradient id="road" x2=".4" y2="1"><stop stop-color="#4d485c"/><stop offset="1" stop-color="#1c303c"/></linearGradient><linearGradient id="car" x2=".5" y2="1"><stop stop-color="#f7c787"/><stop offset="1" stop-color="#d97955"/></linearGradient><pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="1" height="1" fill="#fff" opacity=".08"/></pattern></defs>
   <rect width="1200" height="620" fill="url(#sky)"/><circle cx="823" cy="192" r="135" fill="#efa985"/><path d="M670 200h302M668 220h308M674 242h298M689 265h272M713 288h223M755 310h140" stroke="#b67771" stroke-width="8"/>
   <path d="M0 280 107 222l111 43 147-95 114 66 88-35 127 74 74-27 139 43 96-45 197 90v180H0Z" fill="#6b6572"/><path d="m0 365 110-61 141 51 165-91 157 88 122-55 163 58 129-34 213 68v231H0Z" fill="#434b60"/>

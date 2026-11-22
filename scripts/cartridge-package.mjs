@@ -18,7 +18,7 @@ export async function verifySources(game) {
   const receipt = JSON.parse(await readFile(join(root, vendor, 'ENGINE_PIN.json'), 'utf8'));
   assert.deepEqual(receipt, {
     repository: 'QSOLKCB/VANILLAJS', release: 'v3.1.0', commit: game.engineCommit,
-    license: 'Apache-2.0', modules: Object.entries(modules).map(([path, blob]) => ({path, depends: [], blob})),
+    license: 'Apache-2.0', modules: Object.entries(modules).map(([path, blob]) => ({path, depends: game.dependencies?.[path] ?? [], blob})),
     localChanges: [],
   });
   for (const [path, blob] of Object.entries(modules)) {

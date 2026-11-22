@@ -111,6 +111,10 @@ also retained as their own directory plans.
 (`immersive-fps/`) or the first RTS (`star-command-rts/`).
 This order is indicative, not an unapproved implementation queue.
 
+## Neon Apex
+
+Race three independent rivals through the salt flats, the switchbacks and the sunset viaduct. Each checkpoint extends the clock. Crossing the finish locks your place and time. [Implementation and polish milestones](neon-apex/ROADMAP.md).
+
 ## Games2 → VANILLAJS promotion review
 
 After three independently runnable, tested and owner-approved finished games
@@ -119,6 +123,10 @@ mechanics. Each promotion requires a separate VANILLAJS PR, exact upstream
 source and licence audit, robust numerical/replay contracts, comparative
 regression and an independently runnable engine lab. The consuming Games2
 update then goes through a separate game PR. No automatic cross-repo promotion.
+
+## Starward Signal
+
+Pilot the survey cutter Wake through the outer Pelagic Array. Recover two echoes from each of three relays, disperse interference drones and bring all three transmissions back to Port Lumen before the signal fades. [Implementation and polish milestones](starward-signal/ROADMAP.md).
 
 ## Cabinet and operational boundaries
 

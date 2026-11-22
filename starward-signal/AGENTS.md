@@ -1,0 +1,3 @@
+# Starward Signal contributors
+
+Follow the [repository policy](../AGENTS.md), [development process](../docs/DEVELOPMENT_PROCESS.md) and [local roadmap](ROADMAP.md). Keep integer ship motion, relay decoding and pulse contacts inside the fixed 60 Hz simulation. Test all three recoveries, the return flight, hull loss and signal timeout. The renderer and audio read simulation state. Preserve the original art, verified offline package, scoped worker and immutable engine receipt. Review gameplay through the cabinet and direct URL. The owner requested an implementation PR and a separate prepared polish draft. Formal polish follows the implementation merge.

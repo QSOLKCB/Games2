@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 432" role="img" aria-labelledby="title desc"><title id="title">Orbital Pinball</title><desc id="desc">A polished ball arcs past three beacon bumpers on the Asterion Relay table.</desc>
+<rect width="768" height="432" fill="#122c38"/><path d="M0 360 231 0h72L50 432H0z" fill="#214653"/><path d="M768 53 568 432h-61L740 0h28z" fill="#2f535b"/>
+<g fill="none" stroke="#648a87" stroke-width="2" transform="rotate(-24 390 215)"><ellipse cx="390" cy="215" rx="300" ry="97"/><ellipse cx="390" cy="215" rx="252" ry="70"/><ellipse cx="390" cy="215" rx="230" ry="128"/></g>
+<g fill="#f6d59b"><circle cx="90" cy="76" r="3"/><circle cx="571" cy="46" r="3"/><circle cx="360" cy="357" r="2"/><circle cx="702" cy="301" r="2"/><circle cx="330" cy="62" r="2"/></g>
+<g fill="#2d535b" stroke="#efb266" stroke-width="8"><circle cx="236" cy="182" r="61"/><circle cx="437" cy="96" r="45"/><circle cx="447" cy="282" r="69"/></g>
+<g fill="none" stroke="#7dbdac" stroke-width="4"><circle cx="236" cy="182" r="49"/><circle cx="437" cy="96" r="34"/><circle cx="447" cy="282" r="55"/></g>
+<g fill="#f7daa6"><path d="M232 161h8v41h-8zm197-79h5v28h-5zm11 0h5v28h-5zm-11 177h6v45h-6zm15 0h6v45h-6zm15 0h6v45h-6z"/></g>
+<path d="m245 360 345-186-263 181z" fill="#619d97"/><path d="m353 304 223-133-179 122z" fill="#efbe76"/>
+<circle cx="592" cy="159" r="47" fill="#d9c39a"/><circle cx="589" cy="150" r="39" fill="#f8deb0"/><circle cx="578" cy="139" r="12" fill="#fffae5"/>
+</svg>

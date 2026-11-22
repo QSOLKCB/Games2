@@ -1,21 +1,38 @@
-# Orbital Pinball (working title)
+# Orbital Pinball
 
-**Status:** planning scaffold only. No game source, playable cartridge, release, network service or owner sign-off is implied.
+Power up the Asterion Relay table. Each ball can light three numbered bumpers. A full bank awards 750 extra points and relights the targets. The run ends after its third drain.
 
-Games2's [development process](../docs/DEVELOPMENT_PROCESS.md) requires a focused implementation PR, a **separate** polish PR and an owner release gate. Development cannot bypass that process.
+## Play
 
-**Catalogue origin:** Retro pinball — reference to a genre or mechanic **only**, not a licence or authorization to reproduce any commercial game, trademark, story, assets, maps, ROM or soundtrack. This concept will use an original QSOL-IMC identity.
+From the repository root, run:
 
-## Concept
+```sh
+node scripts/build-site.mjs
+node scripts/site-server.mjs
+```
 
-An original mechanical physics pinball table with deterministic scoring and responsive flippers.
+Open the cabinet at `http://127.0.0.1:8000/Games2/` and choose **Orbital Pinball**. The direct path is `/Games2/pinball/`. After the offline installation completes, the direct game URL works offline.
 
-**Candidate VANILLAJS modules to evaluate:** `collision, motion2d, chip-audio, soundtrack`. Names reflect modules present in VANILLAJS main as inspected on 20 November 2026; they are *not* a tested dependency closure or a source pin for a game. Before implementation select an immutable commit, check `MODULES.json`, audit dependencies, tests and licensing, and make a self-contained offline package.
+A/D or the arrows operate the left and right flippers. Hold Space to charge the plunger and release it to launch. Each numbered bumper scores 100. Try different launch strengths and flipper timings. The on-screen buttons also accept touch. P or Escape pauses and resumes. Leaving the page pauses play. Sound is opt-in.
 
-## First playable slice
+### Skill shots, saves and nudges
 
-One complete table with launcher, drain, flippers, score and restart.
+Release the plunger in the marked 42–62% band and carry the ball out of the shooter lane for a 250-point skill shot. One early drain per run can be saved during the first five seconds of a launch. Tap N to nudge a ball back towards the middle. The nudge recharges in two seconds.
 
-**Controls, art, audio, game rules and release details are provisional.** No placeholder game should be registered as playable in `cartridges.json`.
+The table stores the best completed score on this browser when local storage is available. Sound enables an original orbital bell sequence and mechanical cues. Reduced motion removes the ball trail and expanding bumper rings while keeping the numbered lamps visible.
 
-[Project roadmap](ROADMAP.md) · [Agent constraints](AGENTS.md) · [Games2 master roadmap](../ROADMAP.md) · [Original ideas](../docs/GAME_IDEAS.md)
+## Engine and verification
+
+`time` drives the bounded 120 Hz clock. The table owns its three-substep circle/capsule contacts, moving-surface response, geometry and scoring. The [source receipt](vendor/vanillajs/ENGINE_PIN.json) names the immutable VANILLAJS v3.1.0 revision and Git blobs. The game, artwork and audio are original. The digest-verified static package includes its own scoped service worker.
+
+```sh
+node --test pinball/tests/*.test.mjs
+node pinball/scripts/build.mjs
+node pinball/scripts/verify.mjs
+node scripts/build-site.mjs
+node scripts/browser-site.mjs
+```
+
+The browser suite uses the repository's external Playwright tooling. See the [development checks](../docs/DEPLOYMENT.md) and [milestones](ROADMAP.md).
+
+One table with a local personal best. Same-runtime replay is covered by tests. Physical controllers, cross-browser numerical identity and sustained hardware frame rates have not been measured.

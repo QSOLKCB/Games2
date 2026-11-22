@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0c2028"><title>Starward Signal · Games2 Arcade</title>
+<link rel="stylesheet" href="./style.css"><script type="module" src="./src/app.js"></script></head>
+<body><main><nav><a href="../">← Cartridge cabinet</a><div class="options"><button type="button" id="motion" aria-pressed="false">Reduce motion</button><button type="button" id="sound" aria-pressed="false">Sound off</button></div></nav>
+<header><div><p>The Pelagic Array</p><h1>Starward Signal</h1></div><span class="crest" aria-hidden="true">✧</span></header>
+<div class="console"><section class="display" aria-label="Playfield">
+<dl class="instruments"><div><dt>Hull</dt><dd id="stat0">5 / 5</dd></div>
+<div><dt>Archive</dt><dd id="stat1">0 / 3</dd></div>
+<div><dt>Signal</dt><dd id="stat2">100 s</dd></div></dl>
+<canvas id="field" width="936" height="520" tabindex="0" aria-label="Starward Signal playfield. Controls are listed in the control panel."></canvas>
+<div class="ticker"><span aria-hidden="true">◆</span><p id="message" role="status">Ready</p></div>
+</section><section class="deck" aria-label="Flight controls">
+<h2>Flight controls</h2><p class="intro">Pulse twice inside a relay circle, or once as the tuner enters LOCK. Hold Deflect to screen out drones. Release it to recharge and transmit. Bring all three signals home.</p>
+<div class="actions"><button id="start" type="button">Launch cutter</button><button id="pause" disabled type="button">Pause</button><button id="restart" hidden type="button">Restart</button></div>
+<div class="controls" aria-label="On-screen controls"><button type="button" data-control="left"><b>Port</b><kbd>A / ←</kbd></button>
+<button type="button" data-control="up"><b>Up</b><kbd>W / ↑</kbd></button>
+<button type="button" data-control="down"><b>Down</b><kbd>S / ↓</kbd></button>
+<button type="button" data-control="right"><b>Starboard</b><kbd>D / →</kbd></button>
+<button type="button" data-control="ping"><b>Pulse</b><kbd>Space</kbd></button>
+<button type="button" data-control="shield"><b>Deflect</b><kbd>Shift</kbd></button></div>
+<section class="readout" aria-label="Receiver"><h2>Receiver</h2><label for="reserve">Deflector <span id="power">100%</span></label><meter id="reserve" min="0" max="120" value="120">120</meter><p id="tuning">Kite · out of range</p><div class="dial" aria-hidden="true"><i id="needle"></i></div><p id="bearing">Range to Kite</p></section>
+<p class="foot">P or Esc to pause</p></section></div>
+<footer id="offline" aria-label="Offline installation">Checking offline installation…</footer></main></body></html>

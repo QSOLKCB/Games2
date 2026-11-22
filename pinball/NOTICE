@@ -1,0 +1,5 @@
+Orbital Pinball
+Copyright 2026 QSOL-IMC and contributors. Apache-2.0.
+Original QSOL-IMC game rules, level design, procedural graphics and sound.
+Unmodified VANILLAJS v3.1.0 modules and upstream notices are in vendor/vanillajs/.
+The package worker derives from the Games2 Circuit Vice adapter and VANILLAJS.

@@ -4,8 +4,8 @@ import {writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 
 // Measure the packaged Canvas draw call separately from refresh scheduling.
-export async function measureDraw(page, slug, artifacts) {
-  const metrics = await page.evaluate(async () => {
+export async function measureDraw(page, slug, artifacts, controls = {}) {
+  const metrics = await page.evaluate(async controls => {
     const {draw} = await import('./src/view.js');
     const {newRun,step} = await import('./src/world.js');
     const source=document.querySelector('canvas'), target=document.createElement('canvas');
@@ -14,7 +14,7 @@ export async function measureDraw(page, slug, artifacts) {
     for(let batch=0;batch<26;batch++){
       const start=performance.now();
       for(let i=0;i<12;i++){
-        step(state,{right:batch%4<2,left:batch%4>=2,attack:true,launch:batch===0});
+        step(state,{right:batch%4<2,left:batch%4>=2,attack:true,launch:batch===0,...controls});
         draw(c,state,false);
       }
       // Include a readback per batch to flush the Canvas command queue.
@@ -23,7 +23,7 @@ export async function measureDraw(page, slug, artifacts) {
     }
     batches.sort((a,b)=>a-b);
     return {frames:288,canvas:[target.width,target.height],medianMs:batches[11],p95Ms:batches[22]};
-  });
+  }, controls);
   assert.ok(Number.isFinite(metrics.p95Ms) && metrics.p95Ms>=metrics.medianMs);
   await writeFile(join(artifacts, slug + '-canvas.json'),JSON.stringify(metrics,null,2)+'\n');
   console.log(slug+' packaged Canvas '+JSON.stringify(metrics));
