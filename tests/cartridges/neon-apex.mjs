@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import assert from 'node:assert/strict';
 import {fromCabinet} from '../play-cartridge.mjs';
-import {timedPlay} from '../timed-play.mjs';
+import {watchSound,timedPlay} from '../timed-play.mjs';
 
 export async function play(options){
   await fromCabinet(options,'neon-apex','Neon Apex',async page=>{
@@ -15,13 +15,16 @@ export async function play(options){
     await page.waitForFunction(t=>neonApex.inspect().tick>t+4,parked);
   });
   await timedPlay(options,'neon-apex',async page=>{
+    await watchSound(page,'CoastAudio');
     await page.keyboard.down('KeyW');await page.clock.runFor(33000);await page.keyboard.up('KeyW');
     const race=await page.evaluate(()=>neonApex.inspect());
     assert.equal(race.phase,'won');assert.equal(race.splits.length,3);
+    assert.deepEqual(await page.evaluate(()=>window.lastSounds()),['quiet','finish']);
     await page.locator('#restart').click();await page.setViewportSize({width:320,height:720});
     await page.locator('[data-control="right"]').tap();await page.clock.runFor(160);
     assert.ok((await page.evaluate(()=>neonApex.inspect())).car.offset>0);
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
     await page.clock.runFor(22500);assert.equal((await page.evaluate(()=>neonApex.inspect())).phase,'lost');
+    assert.deepEqual(await page.evaluate(()=>window.lastSounds()),['quiet','loss']);
   });
 }
