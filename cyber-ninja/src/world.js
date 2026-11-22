@@ -8,6 +8,7 @@ export const ROUTE = [
 ];
 export const EXIT = 1240;
 export const HZ = 60;
+export const DASH_RECHARGE = 62;
 const bounds = {minX: 0, maxX: EXIT, minY: -1, maxY: 1};
 
 function patrol(sector) {
@@ -21,6 +22,7 @@ function patrol(sector) {
 export function newRun() {
   return {phase: 'playing', tick: 0, body: createBody2D({x: 32}), face: 1,
     hp: 8, sector: 0, foes: patrol(0), score: 0, combo: 0, comboTime: 0,
+    dash: 0, dashFace: 1, dashHeld: false, cooldown: 0, riposte: 0, impact: null,
     cut: 0, recovery: 0, guardAge: 0, invulnerable: 0, notice: '', noticeTime: 0, event: ''};
 }
 
@@ -36,18 +38,21 @@ function slash(s) {
   s.recovery = 16;
   s.comboTime = 39;
   s.event = 'cut';
+  const counter = s.riposte > 0;
   for (const foe of s.foes) {
     const ahead = (foe.x - s.body.x) * s.face;
     if (!foe.hp || ahead < -6 || ahead > 55) continue;
-    if (foe.guard && !foe.stun && !foe.wind && s.combo < 3) {
+    if (!counter && foe.guard && !foe.stun && !foe.wind && s.combo < 3) {
       signal(s, 'block', 'Armor held');
       continue;
     }
-    foe.hp = Math.max(0, foe.hp - (s.combo === 3 ? 2 : 1));
+    foe.hp = Math.max(0, foe.hp - (counter ? 3 : s.combo === 3 ? 2 : 1));
     foe.flash = 9;
     if (s.combo === 3) { foe.stun = 18; foe.wind = 0; }
-    s.score += foe.hp ? 20 : 120;
-    signal(s, 'hit', s.combo === 3 ? 'Guard break' : 'Contact');
+    s.impact = {x: foe.x, tick: s.tick, face: s.face};
+    s.score += (foe.hp ? 20 : 120) + (counter ? 60 : 0);
+    if (counter) s.riposte = 0;
+    signal(s, counter ? 'riposte' : 'hit', counter ? 'Riposte · +60' : s.combo === 3 ? 'Guard break' : 'Contact');
   }
 }
 
@@ -63,6 +68,8 @@ function updateFoe(s, foe) {
     if (s.guardAge && (foe.x - s.body.x) * s.face >= -5) {
       if (s.guardAge <= 10) {
         foe.stun = 37;
+        s.riposte = 34;
+        s.recovery = 0;
         s.score += 45;
         signal(s, 'parry', 'Perfect guard');
       } else signal(s, 'block', 'Guard held');
@@ -80,17 +87,28 @@ function updateFoe(s, foe) {
   if (distance <= 46 && !foe.rest) foe.wind = foe.boss ? 19 : 26;
 }
 
-export function step(s, {left = false, right = false, attack = false, guard = false} = {}) {
+export function step(s, {left = false, right = false, attack = false, guard = false, dash = false} = {}) {
   if (s.phase !== 'playing') return;
   s.tick++;
   s.event = '';
-  for (const key of ['cut', 'recovery', 'comboTime', 'invulnerable', 'noticeTime']) if (s[key]) s[key]--;
+  for (const key of ['cut', 'recovery', 'comboTime', 'invulnerable', 'noticeTime', 'cooldown', 'riposte']) if (s[key]) s[key]--;
   const axis = Number(Boolean(right)) - Number(Boolean(left));
-  s.guardAge = guard ? Math.min(99, s.guardAge + 1) : 0;
-  if (axis) s.face = axis;
+  if (axis && !s.dash) s.face = axis;
+  if (dash && !s.dashHeld && !s.cooldown) {
+    s.dash = 7;
+    s.dashFace = s.face;
+    s.cooldown = DASH_RECHARGE;
+    s.invulnerable = Math.max(s.invulnerable, 5);
+    signal(s, 'dash', 'Slip drive');
+  }
+  s.dashHeld = Boolean(dash);
+  s.guardAge = guard && !s.dash ? Math.min(99, s.guardAge + 1) : 0;
   const gate = s.foes.some(foe => foe.hp) ? ROUTE[s.sector].gate : EXIT;
-  s.body = stepBody2D(s.body, {x: axis}, {profile: 'shmup', bounds: {...bounds, maxX: gate}, motor: {speed: guard ? 1 : 3}});
-  if (attack && !guard && !s.recovery) slash(s);
+  const speed = s.dash ? 9 : guard ? 1 : 3;
+  s.body = stepBody2D(s.body, {x: s.dash ? s.dashFace : axis},
+    {profile: 'shmup', bounds: {...bounds, maxX: gate}, motor: {speed}});
+  if (attack && !guard && !s.recovery && !s.dash) slash(s);
+  if (s.dash) s.dash--;
   for (const foe of s.foes) {
     updateFoe(s, foe);
     if (s.phase === 'lost') return;

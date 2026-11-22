@@ -36,3 +36,21 @@ test('opposed movement cancels; pausing freezes a pending wind-up', () => {
   s.phase='paused'; const saved=structuredClone(s);
   step(s,{right:true,attack:true}); assert.deepEqual(s,saved);
 });
+test('slip dash locks direction, respects the active gate and requires a fresh press',()=>{
+  const s=newRun(); step(s,{right:true,dash:true});
+  assert.equal(s.body.x,41); assert.ok(s.invulnerable>0);
+  for(let i=0;i<6;i++)step(s,{left:true,dash:true});
+  assert.equal(s.body.x,95);
+  for(let i=0;i<70;i++)step(s,{dash:true});
+  assert.equal(s.body.x,95); assert.equal(s.cooldown,0);
+  step(s);step(s,{dash:true,right:true}); assert.ok(s.cooldown>0);
+  const g=newRun();g.body={...g.body,x:ROUTE[0].gate-2};step(g,{right:true,dash:true});
+  assert.equal(g.body.x,ROUTE[0].gate);
+});
+test('a just-in-time guard creates one boosted counter against armor',()=>{
+  const s=newRun(),f=s.foes[1];
+  f.x=s.body.x+29;f.wind=1;f.face=-1;step(s,{guard:true});
+  assert.ok(s.riposte>0);assert.equal(f.hp,4);
+  step(s,{attack:true});assert.equal(f.hp,1);assert.equal(s.riposte,0);assert.equal(s.event,'riposte');
+  assert.ok(s.impact);assert.equal(s.score,125);
+});

@@ -20,6 +20,10 @@ initial release. Read [the development process](docs/DEVELOPMENT_PROCESS.md).
 2. **Pass 2 — Polish:** after that implementation PR merges, improve the same game in a separate polish PR, followed by owner review. Address gameplay/difficulty, graphics/animation/effects, soundtrack/audio feedback, controls/input, menus/HUD/accessibility, performance/rendering work, bugs/recovery, offline packaging/deployment, regression tests and actual browser gameplay. Avoid unrelated games or excessive unfinished features.
 3. **Pass 3 — Release Review:** an owner approval gate, **not automatically a third implementation PR**. Both PRs must be merged, required tests/CI must pass, the deployed preview must work, limitations must be documented, and the owner must test through the Cartridge Cabinet and explicitly authorise release.
 
+- For the owner's paired Blade Circuit and Orbital Pinball PRs, proposed polish
+  may be prepared in a draft stacked on each implementation. Pass 2 stays
+  planned until its implementation merges. Revalidate the draft against the
+  accepted implementation before formal polish review.
 - Every game's `ROADMAP.md` must visibly track all three stages, their status, PR/evidence references and remaining release gates. Its `AGENTS.md` must link to this policy and the local progression. Update both as work advances; never infer release approval from a merge or deployment.
 - Critical defects may be fixed immediately. The owner may approve further polish PRs; failed release review returns the game for corrections. Two passes are a minimum quality process, not a guarantee of release readiness. Later enhancements and bug fixes do not repeat the whole process.
 - The owner selected Circuit Vice after Strike Pixel. Later selections have their
