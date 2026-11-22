@@ -10,7 +10,7 @@ The [historical source README](ORIGINAL_README_2026-11-16.md) is unchanged.
 | 1 | [`immersive-fps/`](../immersive-fps/README.md) | Immersive cyberpunk FPS | System Shock | Unimplemented concept |
 | 2 | [`cyber-fps/`](../cyber-fps/README.md) | Corporate dystopia FPS | Syndicate (2012) | Unimplemented concept |
 | 3 | [`narc/`](../narc/README.md) | Circuit Vice (working title) | NARC | NC-001 and NC-002 merged (#7 and #8) |
-| 4 | [`cyber-ninja/`](../cyber-ninja/README.md) | Blade Circuit (working title) | Ninja Warriors | [CYBER_NINJA-001 playable candidate](../cyber-ninja/ROADMAP.md) |
+| 4 | [`cyber-ninja/`](../cyber-ninja/README.md) | Blade Circuit (working title) | Ninja Warriors | [Implementation and polish milestones](../cyber-ninja/ROADMAP.md) |
 | 5 | [`shadow-raiders/`](../shadow-raiders/README.md) | Shadow Raiders (working title) | Shadow Warriors | Unimplemented concept |
 | 6 | [`urban-vigilante/`](../urban-vigilante/README.md) | City Reckoning (working title) | The Punisher | Unimplemented concept |
 | 7 | [`rail-enforcers/`](../rail-enforcers/README.md) | Signal Response (working title) | Lethal Enforcers | Unimplemented concept |
