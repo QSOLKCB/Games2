@@ -42,3 +42,31 @@ test('opposing steering cancels; roadside movement respects the motor bounds',()
   assert.ok(Math.abs(s.car.offset)<=7.601);assert.ok(Number.isFinite(s.car.speed));
   s.phase='paused';const p=structuredClone(s);step(s);assert.deepEqual(s,p);
 });
+
+test('a charged burst increases speed, spends once per press and cancels under braking',()=>{
+  const s=newRun(),normal=newRun();
+  step(s,{boost:true,throttle:true});step(normal,{throttle:true});
+  assert.equal(s.boosts,1);assert.equal(s.charge,0);assert.ok(s.car.speed>normal.car.speed);
+  s.charge=100;
+  for(let i=0;i<61;i++)step(s,{throttle:true,boost:true});
+  assert.equal(s.burst,0);assert.equal(s.boosts,1);
+  step(s,{throttle:true});step(s,{throttle:true,boost:true});
+  assert.equal(s.boosts,2);assert.ok(s.burst>0);step(s,{throttle:true,brake:true});
+  assert.equal(s.burst,0);
+});
+test('drafting requires throttle and a nearby rival ahead in the same lane and caps charge',()=>{
+  const fixture=(gap,lane)=>{const s=newRun();s.tick=1;s.rivals=s.rivals.slice(0,1);
+    Object.assign(s.rivals[0],{distance:gap,offset:lane,lane});return s;};
+  const s=fixture(24,0);s.charge=99;step(s,{throttle:true});assert.equal(s.charge,100);
+  assert.equal(s.drafting,'Kite');for(let i=0;i<4;i++)step(s,{throttle:true});assert.equal(s.charge,100);
+  for(const [gap,lane] of [[-20,0],[39,0],[15,3],[6,0]]){
+    const v=fixture(gap,lane);step(v,{throttle:true});assert.equal(v.charge,35);assert.equal(v.drafting,'');
+  }
+  const shore=fixture(20,5.6);shore.car.offset=5.6;step(shore,{throttle:true,boost:true});
+  assert.equal(shore.boosts,0);assert.equal(shore.charge,35);
+  const idle=fixture(20,0);step(idle,{boost:true});assert.equal(idle.charge,35);
+});
+test('coast score caps simultaneous voices and quiets the complete mix',async()=>{
+  const {checkSynth}=await import('../../tests/synth-check.mjs');
+  const {CoastAudio}=await import('../src/synth.js');await checkSynth(CoastAudio,'boost');
+});

@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#211d30"><title>Neon Apex · Games2 Arcade</title>
 <link rel="stylesheet" href="./style.css"><script type="module" src="./src/app.js"></script></head>
-<body><main><nav><a href="../">← Cartridge cabinet</a><div class="options"><button type="button" id="sound" aria-pressed="false">Sound off</button></div></nav>
+<body><main><nav><a href="../">← Cartridge cabinet</a><div class="options"><button type="button" id="motion" aria-pressed="false">Reduce motion</button><button type="button" id="sound" aria-pressed="false">Sound off</button></div></nav>
 <header><div><p>Saffron Coast GP</p><h1>Neon Apex</h1></div><span class="crest" aria-hidden="true">◢</span></header>
 <div class="console"><section class="display" aria-label="Playfield">
 <dl class="instruments"><div><dt>Speed</dt><dd id="stat0">101 km/h</dd></div>
@@ -11,11 +11,13 @@
 <canvas id="field" width="936" height="520" tabindex="0" aria-label="Neon Apex playfield. Controls are listed in the control panel."></canvas>
 <div class="ticker"><span aria-hidden="true">◆</span><p id="message" role="status">Ready</p></div>
 </section><section class="deck" aria-label="Race controls">
-<h2>Race controls</h2><p class="intro">Beat the clock to each timing gate. Stay inside the kerbs and pass three rivals on the run to the viaduct.</p>
+<h2>Race controls</h2><p class="intro">Beat the clock to each timing gate. Tuck in behind a rival to fill the turbo. Hold throttle and tap Boost to spend 35 charge.</p>
 <div class="actions"><button id="start" type="button">Start race</button><button id="pause" disabled type="button">Pause</button><button id="restart" hidden type="button">Restart</button></div>
 <div class="controls" aria-label="On-screen controls"><button type="button" data-control="left"><b>Left</b><kbd>A / ←</kbd></button>
 <button type="button" data-control="right"><b>Right</b><kbd>D / →</kbd></button>
 <button type="button" data-control="throttle"><b>Throttle</b><kbd>W / ↑</kbd></button>
-<button type="button" data-control="brake"><b>Brake</b><kbd>S / ↓</kbd></button></div>
+<button type="button" data-control="brake"><b>Brake</b><kbd>S / ↓</kbd></button>
+<button type="button" data-control="boost"><b>Boost</b><kbd>Space</kbd></button></div>
+<section class="readout" aria-label="Pit board"><h2>Pit board</h2><label for="reserve">Turbo <span id="power">35 / 100</span></label><meter id="reserve" min="0" max="100" value="35">35</meter><p id="tow">Ready to boost</p><ol id="splits" aria-label="Sector times"><li>Salt flats <span>—</span></li><li>Copper cut <span>—</span></li><li>Sunset viaduct <span>—</span></li></ol><p>Course best <strong id="best">—</strong></p></section>
 <p class="foot">P or Esc to pause</p></section></div>
 <footer id="offline" aria-label="Offline installation">Checking offline installation…</footer></main></body></html>

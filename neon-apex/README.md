@@ -8,6 +8,12 @@ Build the complete cabinet with `node scripts/build-site.mjs` and start `node sc
 
 W / Up accelerates, S / Down brakes and A / D or Left / Right steers. Touch controls support steering and throttle together. P or Escape pauses. Moving focus to another window pauses the run and clears held inputs. Sound is opt-in.
 
+## Slipstream and split times
+
+The car starts with one 35-charge boost. Accelerate in a rival's lane from 7–38 m behind to charge the turbo. Hold throttle and press Space or **Boost** for a 0.9-second burst. Braking, shoulder entry or contact cuts the burst. The pit board identifies the car giving you a tow and shows the time for each completed sector. Your fastest finish stays on this browser when local storage is available.
+
+Each sector has a landmark you can read as you drive. Salt-flat turbines give way to copper mesas and the steel arches of the viaduct. **Reduce motion** controls speed streaks and turbine rotation. **Sound** enables the original sector score and pace-dependent accompaniment.
+
 ## Verification
 
 ```sh
