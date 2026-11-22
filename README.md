@@ -106,6 +106,8 @@ cabinet has no service worker; Strike Pixel retains its own scoped, digest-verif
 offline installation. The cabinet requires connectivity, while installed games
 can be opened directly offline.
 
+[Fly Starward Signal](starward-signal/README.md) for controls and the Pelagic Array mission.
+
 ## Future games
 
 The broader idea catalogue covers arcade run-and-gun, beat-'em-ups, fighting games, pinball, FPS, tactical shooters, racing, RTS, tower defence, strategy, investigations, survival, mech combat and spaceflight.
