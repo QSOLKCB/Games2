@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 export const HZ = 120;
+export const SAVE_TICKS = HZ * 5, NUDGE_TICKS = HZ * 2;
+export const skillCharge = value => value >= 42 && value <= 62;
 export const WIDTH = 360, HEIGHT = 494, RADIUS = 6;
 export const BUMPERS = [
   {x: 102, y: 133, r: 23, label: 'I'},
@@ -29,7 +31,8 @@ export function newRun() {
   return {phase: 'playing', tick: 0, ball: {x: 331, y: 455, vx: 0, vy: 0},
     serving: true, charge: 0, charging: false, inShooter: true,
     stock: 3, score: 0, bank: 0, banks: 0, lifts: [0, 0], lastHits: [-100, -100, -100],
-    launches: 0, flips: 0, event: '', notice: 'Hold launch, then release', noticeTime: 240};
+    saveAvailable: true, saveTicks: 0, armedShot: false, skills: 0,
+    nudgeWait: 0, nudgeHeld: false, nudges: 0, launches: 0, flips: 0, event: '', notice: 'Hold launch, then release', noticeTime: 240};
 }
 
 function signal(s, name, message) {
@@ -83,25 +86,42 @@ function bumper(s, post, i) {
 }
 
 function drain(s) {
-  s.stock--;
+  const saved = s.saveAvailable && s.saveTicks > 0;
+  if (saved) s.saveAvailable = false;
+  else s.stock--;
+  s.saveTicks = 0;
+  s.armedShot = false;
   s.phase = s.stock ? 'playing' : 'over';
   s.serving = Boolean(s.stock);
   s.inShooter = true;
   s.charging = false;
   s.charge = 0;
   s.ball = {x: 331, y: 455, vx: 0, vy: 0};
-  signal(s, 'drain', s.stock ? 'Ball drained · serve again' : 'Out of balls');
+  if (saved) signal(s, 'save', 'Ball save · relaunch');
+  else signal(s, 'drain', s.stock ? 'Ball drained · serve again' : 'Out of balls');
 }
 
-export function step(s, {left = false, right = false, launch = false} = {}) {
+export function step(s, {left = false, right = false, launch = false, nudge = false} = {}) {
   if (s.phase !== 'playing') return;
   s.tick++;
   s.event = '';
   if (s.noticeTime) s.noticeTime--;
+  if (s.saveTicks) s.saveTicks--;
+  if (s.nudgeWait) s.nudgeWait--;
+  if (nudge && !s.nudgeHeld && !s.nudgeWait && !s.serving && !s.inShooter) {
+    s.ball.vx += s.ball.x < WIDTH / 2 ? 1.9 : -1.9;
+    s.ball.vy -= 2.5;
+    s.nudgeWait = NUDGE_TICKS;
+    s.nudges++;
+    signal(s, 'nudge', 'Table nudged');
+  }
+  s.nudgeHeld = Boolean(nudge);
   if (s.serving) {
     if (launch) { s.charge = Math.min(100, s.charge + 2); s.charging = true; }
     else if (s.charging) {
       s.ball.vy = -6.6 - .035*s.charge;
+      s.armedShot = skillCharge(s.charge);
+      s.saveTicks = s.saveAvailable ? SAVE_TICKS : 0;
       s.serving = false;
       s.charging = false;
       s.charge = 0;
@@ -116,7 +136,15 @@ export function step(s, {left = false, right = false, launch = false} = {}) {
       b.x += b.vx * DT;
       b.y += b.vy * DT;
       for (const rail of RAILS) capsule(b, rail, 2);
-      if (s.inShooter && b.x < 299) s.inShooter = false;
+      if (s.inShooter && b.x < 299) {
+        s.inShooter = false;
+        if (s.armedShot) {
+          s.skills++;
+          s.score += 250;
+          signal(s, 'skill', 'Skill shot · +250');
+        }
+        s.armedShot = false;
+      }
       if (!s.inShooter) capsule(b, [309, 29, 309, 112], 1);
       for (let i = 0; i < BUMPERS.length; i++) bumper(s, BUMPERS[i], i);
     }

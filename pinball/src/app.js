@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 import {FixedClock} from '../vendor/vanillajs/modules/time/index.js';
-import {HZ, newRun, step} from './world.js';
+import {HZ, skillCharge, newRun, step} from './world.js';
+import {RelayAudio} from './synth.js';
+import {loadBest, recordBest} from './record.js';
 import {draw} from './view.js';
 import {registerOffline} from './offline.js';
 
@@ -10,42 +12,42 @@ const restart = document.querySelector('#restart'), sound = document.querySelect
 const message = document.querySelector('#message');
 const stats = [0, 1, 2].map(i => document.querySelector('#stat' + i));
 const controls = [...document.querySelectorAll('[data-control]')];
-const bindings = {KeyA: 'left', ArrowLeft: 'left', KeyD: 'right', ArrowRight: 'right', Space: 'launch'};
+const bindings = {KeyA: 'left', ArrowLeft: 'left', KeyD: 'right', ArrowRight: 'right', Space: 'launch', KeyN: 'nudge'};
 const clock = new FixedClock({step: 1 / HZ, maxFrame: .1, maxSteps: HZ / 10});
 const sources = new Map(), taps = new Set();
 let state = newRun(), previous = null, dirty = true;
-let audio, voice, enabled = false;
-state.phase = 'ready';
-
-function tone(event) {
-  if (!enabled || audio?.state !== 'running') return;
-  const pitch = TONES[event];
-  if (!pitch) return;
-  if (voice) { try { voice.stop(); } catch {} }
-  const osc = audio.createOscillator(), gain = audio.createGain(), now = audio.currentTime;
-  osc.type = 'triangle'; osc.frequency.setValueAtTime(pitch, now);
-  osc.frequency.exponentialRampToValueAtTime(pitch * .65, now + .11);
-  gain.gain.setValueAtTime(.07, now); gain.gain.exponentialRampToValueAtTime(.0001, now + .12);
-  osc.connect(gain).connect(audio.destination); osc.start(); osc.stop(now + .13);
-  osc.onended = () => { osc.disconnect(); gain.disconnect(); if (voice === osc) voice = null; };
-  voice = osc;
+const synth = new RelayAudio();
+const motion = document.querySelector('#motion');
+const preference = matchMedia('(prefers-reduced-motion: reduce)');
+let reduced = preference.matches;
+let motionChosen = false;
+function showMotion() {
+  motion.setAttribute('aria-pressed', String(reduced));
+  motion.textContent = reduced ? 'Motion reduced' : 'Motion full';
+  dirty = true;
 }
-const TONES = {start: 440, bumper: 680, bank: 980, drain: 135, launch: 350};
+preference.addEventListener('change', () => { if (!motionChosen) { reduced = preference.matches; showMotion(); } });
+motion.addEventListener('click', () => {
+  motionChosen = true; reduced = !reduced; showMotion();
+  if (state.phase === 'playing') field.focus({preventScroll:true});
+});
+showMotion();
+state.phase = 'ready';
 sound.addEventListener('click', async () => {
+  sound.disabled = true;
   try {
-    enabled = !enabled;
-    if (enabled) { audio ??= new AudioContext(); await audio.resume(); }
-    else if (voice) voice.stop();
-    sound.setAttribute('aria-pressed', String(enabled));
-    sound.textContent = enabled ? 'Sound on' : 'Sound off';
-    if (enabled) tone('start');
-  } catch { enabled = false; sound.textContent = 'Audio unavailable'; sound.setAttribute('aria-pressed', 'false'); }
+    await synth.toggle();
+    sound.setAttribute('aria-pressed', String(synth.enabled));
+    sound.textContent = synth.enabled ? 'Sound on' : 'Sound off';
+  } catch { sound.textContent = 'Audio unavailable'; }
+  finally { sound.disabled = false; }
+  if (state.phase === 'playing') field.focus({preventScroll:true});
 });
 
 function clearControls() {
   sources.clear(); taps.clear();
   controls.forEach(button => button.classList.remove('active'));
-  state.charging = false; state.charge = 0;
+  state.charging = false; state.charge = 0; state.nudgeHeld = false;
 }
 function press(id, action) {
   if (state.phase !== 'playing' || sources.has(id)) return;
@@ -53,6 +55,8 @@ function press(id, action) {
 }
 function changePhase(phase) {
   state.phase = phase;
+  if (phase !== 'playing') synth.quiet();
+  if (phase === 'over') best = recordBest(best, state.score);
   clearControls(); previous = null; clock.setPaused(phase !== 'playing'); dirty = true;
   start.hidden = phase !== 'ready'; restart.hidden = phase === 'ready';
   pause.disabled = !['playing', 'paused'].includes(phase);
@@ -61,7 +65,7 @@ function changePhase(phase) {
   if (phase === 'playing') field.focus({preventScroll: true});
 }
 function begin() {
-  state = newRun(); clock.reset(); changePhase('playing'); tone('start');
+  synth.quiet(); state = newRun(); clock.reset(); changePhase('playing'); synth.cue('start');
 }
 function togglePause() {
   if (state.phase === 'playing') changePhase('paused');
@@ -100,7 +104,16 @@ for (const button of controls) {
   button.addEventListener('click', e => { if (e.detail === 0 && state.phase === 'playing') taps.add(action); });
 }
 
+const meter = document.querySelector('#meter'), instrument = document.querySelector('#instrument-value');
+const bestNode = document.querySelector('#best');
+let best = loadBest();
 function ui() {
+  if (meter.value !== state.charge) meter.value = state.charge;
+  const status = state.serving ? state.charge + '%' + (skillCharge(state.charge) ? ' · skill shot' : '') :
+    state.saveTicks ? 'Save ' + Math.ceil(state.saveTicks / HZ) + 's' : 'Ball in play';
+  if (instrument.textContent !== status) instrument.textContent = status;
+  const bestText = String(best).padStart(6, '0');
+  if (bestNode.textContent !== bestText) bestNode.textContent = bestText;
   const values = [String(state.score).padStart(6, '0'), Math.min(3, 4 - state.stock) + ' / 3', String(state.banks)];
   values.forEach((value, i) => { if (stats[i].textContent !== value) stats[i].textContent = value; });
   const info = PHRASES[state.phase] ?? (state.noticeTime ? state.notice : state.serving ? 'Hold launch, then release' : 'Light the three beacons');
@@ -116,13 +129,16 @@ function frame(now) {
       for (const action of taps) input[action] = true;
       taps.clear();
       step(state, input);
-      if (state.event) tone(state.event);
+      synth.tick(state);
       if (state.phase !== 'playing') changePhase(state.phase);
     });
-    for (const button of controls) button.classList.toggle('active', [...sources.values()].includes(button.dataset.control));
+    for (const button of controls) {
+      const held = [...sources.values()].includes(button.dataset.control);
+      if (button.classList.contains('active') !== held) button.classList.toggle('active', held);
+    }
     dirty = true;
   }
-  if (dirty) { draw(pen, state); ui(); dirty = false; }
+  if (dirty) { draw(pen, state, reduced); ui(); dirty = false; }
   previous = now;
   requestAnimationFrame(frame);
 }

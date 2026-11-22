@@ -7,6 +7,6 @@ export const game = {
   engineCommit: 'd6da91b91374d28bdd7c201d214f5618b247904c',
   modules: {
     'modules/time/index.js': '60c1532aaaac36beceb3e81f1a935c59478976b2'
-},
-  files: ['index.html', 'style.css', 'src/app.js', 'src/world.js', 'src/view.js', 'src/offline.js', 'LICENSE', 'NOTICE'],
+  },
+  files: ['index.html', 'style.css', 'src/app.js', 'src/world.js', 'src/view.js', 'src/synth.js', 'src/record.js', 'src/offline.js', 'LICENSE', 'NOTICE'],
 };
