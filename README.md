@@ -88,14 +88,16 @@ Each additional cartridge follows its own implementation, polish and owner relea
 [`cartridges.json`](cartridges.json) is the curated publication allowlist. The
 launcher derives local URLs from validated slugs. Only approved `playable` and
 `released` entries are built; `concept` and `development` entries cannot launch.
-Neon Apex and Starward Signal are original cabinet labels for racing and space
-ideas already represented in the preserved catalogue, not implemented games.
+The racing and spaceflight cards retain the original Neon Apex and Starward Signal
+names, artwork and cabinet URLs. Select a card for its current play status.
 
 `node scripts/build-site.mjs` invokes every approved game's existing build and
 verifier, then copies its complete package into `site/<slug>/`. Every deployment
 contains the whole current approved collection. Adding a game does not remove
 unchanged games. Temporary outputs, tests, browser profiles, development tooling
 and unregistered game directories never enter the artifact.
+
+[Drive Neon Apex](neon-apex/README.md) for controls and the Saffron Coast course.
 
 PRs run Node, source/package, site and browser checks on hosted GitHub runners.
 The production workflow builds and verifies the same artifact before deploying
